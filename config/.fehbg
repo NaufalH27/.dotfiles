@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/nopal/wallpaper/103088819_p0_master1200.jpg' 
