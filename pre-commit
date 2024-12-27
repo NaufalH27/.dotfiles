@@ -1,6 +1,7 @@
 # this is for hook before pushing to github
 
-git add pre-commit
+git add ./pre-commit
+
 
 # derefrence soft link and add it to staging
 for f in ./symlink/*
@@ -8,9 +9,8 @@ do
     if [ -L "$f" ] 
     then
 	config_file=$(readlink -f "$f")
-	fname=$(basename config_file)	
-	git_path="./config/$fname"
-	cp "$config_file" "$git_path"
-	git add "$config_file"
+	cp -r "$config_file" ./config/
+	folder_name=$(basename "$config_file")
+	git add "./config/$folder_name"
     fi
 done
