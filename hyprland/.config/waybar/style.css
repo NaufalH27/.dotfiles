@@ -1,0 +1,115 @@
+* {
+    /* `otf-font-awesome` and SpaceMono Nerd Font are required to be installed for icons */
+    font-family: "Fira Code Nerd Font", monospace, 'Symbols Nerd Font';
+    font-size: 16px;
+    transition: background-color .5s ease-out;
+    transition-property: min-width;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+#waybar {
+    background: transparent;
+    color: #cdd6f4;
+    transition: background-color .5s;
+}
+
+.modules-left,
+.modules-right
+{
+    margin: 8px 16px 0px 16px;
+}
+
+
+#clock,
+#workspaces,
+#window,
+#hardware {
+    padding: 0px 12px;
+    background: #1e1e2e;
+    border-radius: 24px;
+}
+
+
+#window,
+#tray,
+#clock,
+#mpd {
+    font-weight: 600;
+    padding: 0px 8px;
+    border-radius: 24px;
+}
+
+#window,
+#battery,
+#network,
+#pulseaudio,
+#backlight {
+    font-weight: 600;
+    padding: 0px 14px;
+}
+
+
+#workspaces {
+    padding: 10px 12px;
+}
+
+#workspaces button {
+    min-width: 12px; 
+    background: #ffffff;
+    margin: 0px 6px;
+    border:none;
+    border-radius: 50%;
+    font-size: 0pt;
+}
+
+#clock {
+    font-size: 18px;
+    font-weight: 900;
+    padding: 0px 14px;
+}
+
+#window {
+    padding: 0px 12px;
+    border: #cdd6f4 solid 4px;
+    font-size: 15px;
+    
+}
+
+#battery button {
+    margin: 0px 10px;
+}
+
+#workspaces button.active {
+    border-radius: 48px;
+    min-width: 30px; 
+    background: #cdd6f4;;
+}
+
+#workspaces button:hover {
+  background: #cdd6f4;;
+}
+
+
+#custom-arch {
+    padding: 0 8px;
+    font-size: 24px;
+    transition: color .5s;
+}
+#custom-arch:hover {
+    color: #1793d1;
+}
+
+#custom-powermenu {
+    font-size: 18px;
+    color: #e06c75;
+    background: #202336;
+    padding: 0px 18px;
+    border-radius: 30px;
+    padding-right: 23px;
+}
+
+#custom-powermenu:hover {
+    color: #b84852;
+    background: #2e3147
+}

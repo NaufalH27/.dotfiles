@@ -1,0 +1,22 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+
+    "modules-left": [
+        "clock",
+        "hyprland/workspaces",
+        "hyprland/window"
+
+    ],
+    "modules-right": [
+        "group/hardware",
+        "custom/powermenu"
+    ],
+    //Modules configuration
+    "include": [
+		"~/.config/waybar/modules.json"
+	]
+}
