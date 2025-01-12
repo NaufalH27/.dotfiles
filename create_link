@@ -44,9 +44,10 @@ fi
 function generate_symlink_name() {
   local name="$1"
   name="${name/#\~/$HOME}"
-  name="${name/#$HOME\//}"  
+  name="${name/#$HOME\//}"
   name="${name//\/home\/\/*\//}"
   name="${name//\//_}"
+  name="${name/#\./}"
   echo "$name"
 }
 
