@@ -1,0 +1,65 @@
+
+
+# WARNING : ONLY USE THIS FOR HOME FILE ONLY
+
+
+if [ $# -eq 0 ]; then
+  echo "Error: Missing filepath parameter"
+  usage
+fi
+
+while getopts "c:" opt; do
+  case "$opt" in
+    c)  
+        flag_c=true
+        param=$OPTARG
+        ;;
+    *) 
+        usage
+        ;;
+  esac
+done
+shift $((OPTIND-1))  
+
+
+file_path="$1"
+
+if [ "$flag_c" = true ]; then
+  file_path="$HOME/.config/${param}"
+fi
+
+file_path=$(eval echo "$file_path")
+
+
+
+if [ -z "$file_path" ]; then
+  echo "Error: Missing filepath parameter"
+  echo "Usage: $0 <filepath>"
+  exit 1
+fi
+
+
+
+
+function generate_symlink_name() {
+  local name="$1"
+  name="${name/#\~/$HOME}"
+  name="${name/#$HOME\//}"  
+  name="${name//\/home\/\/*\//}"
+  name="${name//\//_}"
+  echo "$name"
+}
+
+script_path=$(dirname "$(realpath "$0")")
+
+if [ -f "$file_path" ] || [ -d "$file_path" ]; then
+  symlink_name=$(generate_symlink_name $file_path)
+  mkdir -p "${script_path}/symlinks"
+
+  ln -s "$file_path" "${script_path}/symlinks/${symlink_name}"
+
+else
+  echo "File does not exist."
+fi
+
+
