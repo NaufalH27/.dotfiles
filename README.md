@@ -24,3 +24,5 @@
 | create clock widget                     |         ❌       |
 | create spotify widget in bar            |         ❌       |
 | pywal integration                       |         ❌       |
+| create app dock shortcut                |         ❌       |
+| create poweroff menu                    |         ❌       |
