@@ -6,43 +6,36 @@
     "editor.fontWeight": "500",
     "editor.lineHeight": 22,
     "editor.letterSpacing": 0.2,
-    "workbench.colorTheme": "Tokyo Night",
+    "workbench.colorTheme": "Catppuccin Mocha",
     "editor.renderWhitespace": "all",
     "editor.smoothScrolling": true,
     "editor.cursorStyle": "line",
     "editor.cursorBlinking": "smooth",
-    "editor.fontFamily": "'JetBrainsMono Nerd Font Mono', 'Symbols Nerd Font', 'monospace'",
-    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono', 'Symbols Nerd Font', 'monospace'",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font' , 'Symbols Nerd Font', 'monospace', 'Noto Color Emoji'",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'Symbols Nerd Font', 'monospace', 'Noto Color Emoji'",
     "workbench.tree.indent" :16,
     "editor.minimap.enabled": false,
-    "workbench.colorCustomizations": {
-        "editor.background": "#1e1e2e",
-        "sideBar.background": "#181825",
-        "statusBar.background": "#1e1e2e",
-        "titleBar.activeBackground": "#1e1e2e",
-        "titleBar.inactiveBackground": "#1e1e2e",
-        "terminal.background": "#1e1e2e",
-        "terminal.foreground": "#ffffff",
-        "tab.activeBackground": "#14161f",
-        "tab.inactiveBackground": "#1e1e2e",
-        "tab.border": "#1e1e2e",
-        "tab.activeForeground": "#ffffff",
-        "tab.inactiveForeground": "#919090",
-        "editorGroupHeader.tabsBackground": "#1e1e2e",
-        "editorGutter.background" : "#1e1e2e",
-        "editor.lineHighlightBackground": "#2b2f41", 
-        "editor.wordHighlightBackground": "#454a64", 
-        "editor.wordHighlightStrongBackground": "#50587a"
-    
-    },
-    
     "customizeUI.listRowHeight" : 24 ,
     "terminal.integrated.scrollback": 1000000,
-    "editor.fontLigatures": false,
+    "editor.fontLigatures": true,
     "workbench.activityBar.location": "hidden",
     "workbench.iconTheme": "material-icon-theme",
     "vscode_custom_css.policy": true,
     "editor.wordWrap": "on",
     "explorer.confirmDragAndDrop": false,
-    "workbench.editor.editorActionsLocation": "titleBar"
+    "workbench.editor.editorActionsLocation": "titleBar",
+   
+    "catppuccin.accentColor": "yellow",
+    "editor.semanticHighlighting.enabled": true,
+    "terminal.integrated.minimumContrastRatio": 1,
+    "gopls": {
+      "ui.semanticTokens": true,
+    },
+    "catppuccin.customUIColors": {
+      "mocha": {
+        "statusBar.foreground": "accent",
+      },
+    },
+    "explorer.confirmPasteNative": false,
 }
+

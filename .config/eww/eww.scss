@@ -1,0 +1,201 @@
+* {
+  font-family:  "Google Sans";
+}
+
+
+.bar {
+  border-radius: 10px;
+  background-color: #1e1e2e;
+  border: 2px solid #f9e2af;
+  padding: 2px 8px;
+}
+
+.bar .workspaces {
+  padding: 5px 9px;
+  margin: 7px 0px ;
+}
+
+.bar .workspaces button {
+  box-shadow: none; 
+  background-image: none;
+  background-color: transparent;
+
+  border: 2.5px solid #6c7086;
+  min-height: 0.25rem;
+  min-width:0.05rem;
+  border-radius: 120px;
+
+  transition-property: min-width, background-color, border; 
+  transition-duration: 0.275s; 
+  transition-timing-function: ease-out; 
+}
+
+
+.bar .workspaces button:hover {
+  border: 2px solid #f9e2af;
+  background-color: #f9e2af;
+}
+
+
+.bar .border {
+  font-weight: 300;
+  font-size: 22px;
+  color: #f9e2af;
+}
+
+
+.bar .clock {
+  color : #11111b;
+  font-size: 20px;
+  font-weight: 900;
+  padding: 0px 6px;
+  background-color: #f9e2af;
+  padding: 0px 8px;
+  margin: 8px 0px;;
+  border-radius: 4px;
+}
+
+.bar .clock .clock-logo {
+  color: #f9e2af;
+  font-size: 18px;
+}
+
+.search-bar button {
+  border : none;
+  background-color : transparent;
+  box-shadow: none; 
+  background-image: none;  
+
+  padding: 0px 11px 0px 5px;
+  font-size: 17px;
+  margin : 6px 0px;
+  border-radius: 120px;
+}
+
+.bar .search-bar button:hover {
+  color: #f9e2af;
+}
+
+.bar .powermenu {
+}
+
+.bar .powermenu button {
+  border : none;
+  box-shadow: none; 
+  background-image: none;  
+  background-color : transparent;
+  border-radius: 4px;
+  margin : 5px 0px;
+  padding-right: 12px;
+  font-size: 28px;
+}
+
+
+.bar .powermenu button:hover {
+  color: #f9e2af;
+}
+
+.power button {
+  border : none;
+  background-color : transparent;
+  box-shadow: none; 
+  background-image: none;
+
+  color : #f38ba8;
+  font-size: 25px;
+}
+
+
+
+.bar .banner {
+  border: 2px solid #949cbb;
+  min-width: 135px;
+  margin : 6px 0px;
+  border-radius: 4px;
+}
+
+
+.bar .controller {
+  font-weight: 600;
+}
+
+.bar .controller .wifi {
+    font-size: 18px;
+    color : #89b4fa;
+}
+.bar .controller .battery {
+  padding-left: 1px;
+  font-size: 18px;
+  color : #f2cdcd;
+}
+.bar .controller .brightness {
+  padding-right: 6px;
+  font-size: 17px;
+  color : #fab387;
+}
+.bar .controller .volume {
+  padding-right: 6px;
+  font-size: 22px;
+  color : #a6e3a1;
+}
+.bar .controller .mic {
+  padding-right: 1px;
+  font-size: 21px;
+  color : #94e2d5;
+}
+
+
+
+.bar .volume-value, 
+.bar .brightness-value,
+.bar .mic-value,
+.bar .wifi-value,
+.bar .battery-value {
+  font-size: 15px;
+  opacity: 0;
+  transition-property: opacity; 
+  transition-duration: 0.2s; 
+  transition-timing-function: ease-in-out; 
+}
+
+.bar .mic-value {
+  color : #cdd6f4;
+  padding-left: 10px;
+}
+.bar .volume-value {
+  color : #cdd6f4;
+  padding-left: 14px;
+}
+.bar .brightness-value {
+  color : #cdd6f4;
+  padding-left: 16px;
+}
+.bar .wifi-value {
+  color : #cdd6f4;
+  padding-left: 12px;
+}
+.bar .battery-value {
+  color : #cdd6f4;
+  padding-left: 4px;
+  padding-right: 8px;
+}
+
+
+.bar .volume-event-box:hover  .volume-value {
+  opacity: 1;
+}
+.bar .brightness-event-box:hover  .brightness-value {
+  opacity: 1;
+}
+.bar .mic-event-box:hover  .mic-value {
+  opacity: 1;
+}
+.bar .wifi-event-box:hover  .wifi-value {
+  opacity: 1;
+}
+.bar .battery-event-box:hover  .battery-value {
+  opacity: 1;
+}
+
+
+

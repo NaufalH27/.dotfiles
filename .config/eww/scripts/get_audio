@@ -1,0 +1,70 @@
+#!/bin/bash
+
+get_volume_power() {
+    amixer -D pulse sget Master | awk -F '[^0-9]+' '/Left:/ {print $3}'
+}
+
+is_volume_muted() {
+    [[ $(amixer -D pulse sget Master | awk -F'[][]' '/Left:/ {print $4}') == "off" ]]
+}
+
+get_mic_power() {
+    amixer -D pulse sget Capture | awk -F '[^0-9]+' '/Left:/ {print $3}'
+}
+
+is_mic_muted() {
+    [[ $(amixer -D pulse sget Capture | awk -F'[][]' '/Left:/ {print $4}') == "off" ]]
+}
+
+
+get_volume_icon() {
+    local volume_power=$1
+    if (( volume_power <= 0 )) || $(is_volume_muted); then
+        echo "󰝟"
+    elif (( volume_power < 60 )); then
+        echo "󰖀"
+    else
+        echo "󰕾"
+    fi
+}
+
+function get_mic_icon() {
+    if is_mic_muted; then
+        echo "󰍭"
+    else
+        echo "󰍬"
+    fi
+}
+
+
+function get_mic_status() {
+    if is_mic_muted; then
+        echo "off"
+    else
+        echo "on"
+    fi
+}
+
+
+
+
+function write_audio_state() {
+    echo "{ \"volume_icons\": \"$1\", \"volume_power\": \"$2\", \"mic_icons\" : \"$3\", \"mic_power\" : \"$4\",  \"mic_status\" : \"$5\" }"
+}
+
+
+
+notify_ui() {
+    volume_power=$(get_volume_power)
+    volume_icon=$(get_volume_icon "$volume_power")
+    mic_icon=$(get_mic_icon)
+    mic_power=$(get_mic_power)
+    mic_status=$(get_mic_status)
+    write_audio_state $volume_icon $volume_power $mic_icon $mic_power $mic_status
+}
+
+notify_ui
+
+pactl subscribe | grep --line-buffered "sink\|source" | while read -r _; do
+    notify_ui
+done

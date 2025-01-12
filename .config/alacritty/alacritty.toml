@@ -26,7 +26,7 @@ yellow = "#da8548"
 
 [colors.primary]
 background = "#1e1e2e"
-foreground = "#fffbf6"
+foreground = "#cdd6f4"
 
 [colors.selection]
 background = "#3e4451"
@@ -36,9 +36,12 @@ text = "CellForeground"
 TERM = "xterm-256color"
 
 [font]
-normal.family = "FiraCode Nerd Font Mono"
-
-
+normal.family = "JetBrainsMono Nerd Font"
+bold.family = "JetBrainsMono Nerd Font"
+italic.family = "JetBrainsMono Nerd Font"
+bold_italic.family = "JetBrainsMono Nerd Font"
+offset.x = 0
+offset.y = 0
 size = 12.0
 
 
@@ -133,7 +136,7 @@ history = 5000
 [window]
 dynamic_padding = false
 opacity = 1.0
-title = "Alacritty"
+title = "Terminal"
 
 [window.class]
 general = "Alacritty"

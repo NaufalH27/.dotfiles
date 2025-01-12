@@ -1,0 +1,47 @@
+#!/bin/sh
+
+function get_focused_workspace() {
+    hyprctl activeworkspace -j | jq '.id'
+}
+
+function get_workspace() {
+    hyprctl workspaces -j | jq -r '.[].id'
+}
+
+focus_style="background-color: #f9e2af; min-width:32px; border-radius:24px; border: none;"
+active_style="border: 2.5px solid #f9e2af;"
+
+function get_workspace_info() {
+    workspace_table=("\"\"" "\"\"" "\"\"" "\"\"" "\"\"" "\"\"" "\"\"" "\"\"" "\"\"" "\"\"" "\"\"")
+    foc_workspace=$(get_focused_workspace)
+    highest_active_workspace=0
+    workspaces=($(get_workspace))
+    for workspace in "${workspaces[@]}"; do
+        if ! [[ "$workspace" =~ ^[0-9]+$ ]]; then
+            continue
+        fi
+
+        if [[ "$workspace" == "$foc_workspace" ]]; then
+            workspace_table[$workspace]="\"${focus_style}\""
+        else 
+          workspace_table[$workspace]="\"${active_style}\""
+        fi
+        if (( highest_active_workspace < workspace )); then
+            highest_active_workspace=$workspace
+        fi
+    done
+
+    workspace_table_json=$(printf ",%s" "${workspace_table[@]}")
+    workspace_table_json="[${workspace_table_json:1}]"
+
+    echo "{ \"table_style\": $workspace_table_json, \"max_active\": \"$highest_active_workspace\" }"
+}
+
+get_workspace_info
+
+
+stdbuf -oL socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | \
+grep --line-buffered "^workspace>>" | \
+while read -r line; do
+    get_workspace_info
+done

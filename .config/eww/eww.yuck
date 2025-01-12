@@ -1,0 +1,234 @@
+
+(defvar ewwcli "./eww/target/release/eww")
+
+
+
+
+
+(defwindow bar
+            :monitor "eDP-1"
+            :geometry (geometry :x "0%" :y "4px" :width "88%" :height "50px" :anchor "top center")
+            :stacking "bg"
+            :exclusive "true"
+  (bar)
+)
+
+
+(defwidget bar []
+  (box :class "bar" :orientation "h"
+    (leftside)
+    (center)
+    (rightside)
+    )
+  )
+
+
+;; ---------------------- left side --------------------------------
+(defwidget leftside []
+  (box :orientation "horizontal"
+    (workspaces)
+  )
+)
+
+(deflisten workspace_event :initial "{ \"max_active\": 6, \"table_style\" : [] }" "~/.config/eww/scripts/workspace_event")
+
+
+(defwidget workspace_button [?number id]
+    (button :onclick "hyprctl dispatch workspace ${id}"
+            :style "${workspace_event.table_style[id] ?: ""}"
+    ) 
+)
+
+(defwidget non_persistance_button [?number id] 
+   (revealer 
+          :reveal "${workspace_event.max_active>=id ? "true" : "false"}"
+          :transition "fade" 
+          :duration 275
+      (workspace_button :id id)
+    ) 
+  )
+
+(defwidget workspaces []
+  (box  :class "workspaces" :orientation "h" :height 45 :halign "start" :spacing 7 :space-evenly "false" :vexpand "false" :hexpand "false" 
+    (workspace_button :id 1)
+    (workspace_button :id 2)
+    (workspace_button :id 3)
+    (workspace_button :id 4)
+    (workspace_button :id 5)
+    (workspace_button :id 6)
+    (non_persistance_button :id 7)
+    (non_persistance_button :id 8)
+    (non_persistance_button :id 9)
+    (non_persistance_button :id 10)
+  )
+)
+
+;; ---------------------- left side --------------------------------
+
+
+
+
+
+
+
+
+
+;; ---------------------- center --------------------------------
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(defpoll time :interval "10s"
+  "date '+%H : %M'")
+
+(defwidget center []
+  (box :orientation "h" :space-evenly "false" :spacing 8
+     :halign "center"
+     (powermenu)
+     (clocks)
+     (search-bar)
+
+  )
+)
+
+(defwidget border []
+  (box :class "border" :orientation "h" :halign "center" 
+    (label :text "|")
+  )
+)
+
+(defwidget powermenu []
+  (box :class "powermenu" :orientation "h" :halign "start" 
+    (button "󰀻")
+  )
+)
+
+(defwidget clocks []
+  (box :space-evenly "false" :spacing 20
+    :class "clock"
+    :halign "center"
+    (label :text "${time}")
+  )
+)
+
+(defwidget search-bar []
+  (box :class "search-bar"
+    (button "")
+  )
+)
+
+;; ---------------------- center --------------------------------
+
+
+
+
+
+
+
+
+(deflisten AUDIO :initial "{}" "~/.config/eww/scripts/get_audio" )
+(deflisten BRIGHTNESS :initial "{}" "~/.config/eww/scripts/get_brightness" )
+
+(defpoll BATTERY :initial "{}" :interval "2s" ". ~/.config/eww/scripts/get_battery")
+(defpoll NETWORK :initial "{}" :interval "2s" ". ~/.config/eww/scripts/get_network")
+
+
+(defwidget rightside []
+    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 17
+      (controller)
+      (banner)
+    )
+)
+
+(defwidget banner []
+   (box :class "banner"
+       (image 
+      :path "banner-bin/anime-resized.gif"
+     )
+   )
+)
+
+
+
+(defvar reveal_volume "false")
+(defvar reveal_mic "false")
+(defvar reveal_brightness "false")
+(defvar reveal_wifi "false")
+(defvar reveal_battery "false")
+
+(defwidget controller []
+
+  (box :class "controller" :orientation "h" :halign "center" :space-evenly "false" :spacing 22
+
+    (eventbox :class "mic-event-box" :onhover "${ewwcli} update reveal_mic=true" :onhoverlost "${ewwcli} update reveal_mic=false"
+      (box :class "mic" :orientation "h" :halign "center" :space-evenly "false" 
+        (label :text  "${AUDIO.mic_icons}")
+        (revealer :reveal "${reveal_mic}" :transition "slideright"
+          (box :class "mic-value"
+            (label :text "${AUDIO.mic_power}")
+          )
+        )
+      )
+    )
+
+    (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
+      (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 
+        (label :text "${AUDIO.volume_icons}")
+        (revealer :reveal "${reveal_volume}" :transition "slideright"
+          (box :class "volume-value"
+            (label :text "${AUDIO.volume_power}")
+          )
+        )
+      )
+    )
+
+    (eventbox :class "brightness-event-box" :onhover "${ewwcli} update reveal_brightness=true" :onhoverlost "${ewwcli} update reveal_brightness=false"
+      (box :class "brightness" :orientation "h" :halign "center" :space-evenly "false" 
+        (label :text "${BRIGHTNESS.icons}")
+        (revealer :reveal "${reveal_brightness}" :transition "slideright"
+          (box :class "brightness-value"
+            (label :text "${BRIGHTNESS.level}")
+          )
+        )
+      )
+    )
+
+    (eventbox :class "wifi-event-box" :onhover "${ewwcli} update reveal_wifi=true" :onhoverlost "${ewwcli} update reveal_wifi=false"
+      (box :class "wifi" :space-evenly "false" :spacing 8
+        (label :text  "${NETWORK.icons}")
+        (revealer :reveal "${reveal_wifi}" :transition "slideright"  
+          (box :class "wifi-value" :orientation "h" :halign "center" :space-evenly "false" 
+            (label :text "${NETWORK.ssid}")
+          )
+        )
+      )
+    )
+
+    (eventbox :class "battery-event-box" :onhover "${ewwcli} update reveal_battery=true" :onhoverlost "${ewwcli} update reveal_battery=false"
+      (box :class "battery" :space-evenly "false" :spacing 8
+        (label :text  "${BATTERY.icons}")
+        (revealer :reveal "${reveal_battery}" :transition "slideright"
+          (box :class "battery-value" :orientation "h" :halign "center" :space-evenly "false" 
+                (label :text "${BATTERY.capacity}")
+          )
+        )
+      )
+    )
+
+  )
+)
+
+
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+

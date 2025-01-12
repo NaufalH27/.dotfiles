@@ -1,0 +1,70 @@
+#!/bin/bash
+
+
+is_connected_wifi() {
+    if [ "$(nmcli g | awk '{print $1}' | grep connected)" == "connected" ]; then
+        return 0 
+    else
+        return 1
+    fi
+}
+
+is_connected_ethernet() {
+    if nmcli connection show --active | grep "ethernet" > /dev/null 2>&1; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+get_ssid() {
+    ssid=$(nmcli device show | grep GENERAL.CONNECTION | grep -v -E "\slo$")
+    echo $(echo $ssid | awk 'NR == 1 {print $2}')
+}
+
+get_icons() {
+    if [[ $1 -le 15 ]]; then
+        echo "󰤯"
+    elif [[ $1 -gt 15 && $1 -lt 30 ]]; then
+        echo "󰤟"
+    elif [[ $1 -gt 30 && $1 -lt 45 ]]; then
+        echo "󰤢"
+    elif [[ $1 -gt 45 && $1 -lt 70 ]]; then
+        echo "󰤥"
+    else 
+        echo "󰤨"
+    fi
+}
+
+
+get_signal_power() {
+    power=$(nmcli -f IN-USE,SIGNAL dev wifi | grep "*" | awk '{print $2}')
+    echo $power
+
+}
+
+if is_connected_ethernet; then
+    ssid=$(get_ssid)
+    echo "{ \"icons\":\"󰌘\", \"ssid\": \"${ssid}\" }"
+elif is_connected_wifi; then
+    ssid=$(get_ssid)
+    signal_power=$(get_signal_power)
+    icon=$(get_icons "$signal_power")
+    echo "{ \"icons\":\"$icon\", \"ssid\": \"${ssid}\" }"
+else
+    echo "{ \"icons\":\"󰤭\", \"ssid\": \"\" }"
+
+fi
+
+
+
+
+# toggle() {
+#     conName=$(nmcli con show | grep -v -E "^lo\s" | awk 'NR == 2 {print $1}')
+    
+#     if [ "$(get_con_status)" == "connected" ]; then
+#         nmcli con down $conName  
+#     else
+#         nmcli con up $conName
+#     fi
+# }
