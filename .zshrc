@@ -4,7 +4,7 @@
 
 alias n='nvim'
 alias neofetch='neofetch --source /home/nopal/custom_ascii'
-alias eww='~/.config/eww/target/release/eww'
+alias eww='~/.config/eww/eww/target/release/eww'
 alias ls='ls --color=auto'
 
 
