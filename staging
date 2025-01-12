@@ -1,0 +1,23 @@
+# this is for hook before pushing to github
+
+
+function remove_home_path() {
+  local name="$1"
+  name="${name/#\~/$HOME}"
+  name="${name/#$HOME\//}"  
+  name="${name//\/home\/\/*\//}"
+  echo "$name"
+}
+
+script_path=$(dirname "$(realpath "$0")")
+cd $HOME
+# dereference soft link and add it to staging
+for f in "${script_path}"/symlinks/*; do
+   if [ -L "$f" ]; then
+      file_path=$(readlink -f "$f")
+      file_path=$(remove_home_path "$file_path")
+      echo "copying ${file_path}"
+      cp --parent -r ${file_path} "${script_path}"
+   fi
+done
+
