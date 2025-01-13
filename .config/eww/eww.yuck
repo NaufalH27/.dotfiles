@@ -25,10 +25,39 @@
 
 ;; ---------------------- left side --------------------------------
 (defwidget leftside []
-  (box :orientation "horizontal"
+  (box :class "leftside" :orientation "h" :space-evenly "false" :spacing 20
     (workspaces)
+     (music-player)
+    
   )
 )
+
+
+(deflisten music_title :initial ""
+  "playerctl --follow metadata --format '{{ title }}' || true")
+
+(deflisten music_artist :initial ""
+  "playerctl --follow metadata --format '{{ artist }}' || true")
+
+
+(deflisten music_cover :initial ""
+  "~/.config/eww/scripts/get_music_cover"
+) 
+
+
+(defwidget music-player []
+  (overlay
+  (box :class "music-background" :orientation "h" :halign "start" :space-evenly "false"
+       :style "background-image: linear-gradient(115deg, transparent, rgba(30, 30, 46, 1)), url('${music_cover}');"
+    (box :class "music-cover" :style "background-image: url('${music_cover}');")
+    (box :class "music-label" :orientation "v" :halign "start" :space-evenly "false" :spacing 0
+      (label  :limit-width 30 :xalign 0 :text "${music_title}")
+      (label :class "music-artist" :limit-width 12 :xalign 0 :text "${music_artist}")
+    )
+  )
+  )
+)
+
 
 (deflisten workspace_event :initial "{ \"max_active\": 6, \"table_style\" : [] }" "~/.config/eww/scripts/workspace_event")
 
@@ -40,10 +69,11 @@
 )
 
 (defwidget non_persistance_button [?number id] 
-   (revealer 
+   (revealer :class "nonpersistance-button"
           :reveal "${workspace_event.max_active>=id ? "true" : "false"}"
-          :transition "fade" 
-          :duration 275
+          :style "${workspace_event.max_active>=id ? "opacity:1;" : "opacity:0;"}"
+          :transition "slideright" 
+          :duration "${workspace_event.max_active>=id ? (550+(10-id)*20)  : (70+(10-id)*50) }"
       (workspace_button :id id)
     ) 
   )
@@ -56,10 +86,7 @@
     (workspace_button :id 4)
     (workspace_button :id 5)
     (workspace_button :id 6)
-    (non_persistance_button :id 7)
-    (non_persistance_button :id 8)
-    (non_persistance_button :id 9)
-    (non_persistance_button :id 10)
+
   )
 )
 
@@ -74,8 +101,6 @@
 
 
 ;; ---------------------- center --------------------------------
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 
 (defpoll time :interval "10s"
   "date '+%H : %M'")
@@ -95,6 +120,7 @@
     (label :text "|")
   )
 )
+
 
 (defwidget powermenu []
   (box :class "powermenu" :orientation "h" :halign "start" 
@@ -134,7 +160,7 @@
 
 (defwidget rightside []
     (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 17
-      (controller)
+      (system-info)
       (banner)
     )
 )
@@ -155,9 +181,9 @@
 (defvar reveal_wifi "false")
 (defvar reveal_battery "false")
 
-(defwidget controller []
+(defwidget system-info []
 
-  (box :class "controller" :orientation "h" :halign "center" :space-evenly "false" :spacing 22
+  (box :class "system-info" :orientation "h" :halign "center" :space-evenly "false" :spacing 10
 
     (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
       (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 

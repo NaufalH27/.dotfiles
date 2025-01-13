@@ -41,7 +41,7 @@ bold.family = "Maple Mono SC NF"
 italic.family = "Maple Mono SC NF"
 bold_italic.family = "Maple Mono SC NF"
 offset.x = 0
-offset.y = 1
+offset.y = 0
 size = 11.0
 
 

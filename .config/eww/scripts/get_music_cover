@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+playerctl metadata | grep artUrl | awk '{ print $3 }'
+
+playerctl --follow metadata | grep --line-buffered "artUrl" | while read -r line; do
+    echo $(echo $line | grep artUrl | awk '{ print $3 }')
+done

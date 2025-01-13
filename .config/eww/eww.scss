@@ -11,9 +11,12 @@
 }
 
 .bar .workspaces {
+  
   padding: 5px 9px;
   margin: 7px 0px ;
 }
+
+
 
 .bar .workspaces button {
   box-shadow: none; 
@@ -29,11 +32,50 @@
   transition-duration: 0.275s; 
   transition-timing-function: ease-out; 
 }
-
+.nonpersistance-button {
+  transition-property: opacity;
+  transition-duration: 0.275s; 
+  transition-timing-function: ease-out;
+}
 
 .bar .workspaces button:hover {
   border: 2px solid #f9e2af;
   background-color: #f9e2af;
+}
+
+
+.bar .music-cover {
+  background-position: center center;
+  background-repeat: no-repeat; 
+  background-size: 100% auto; 
+  margin: 5px 2px 5px 8px;
+  min-width: 30px;
+  border: 0.5px solid #11111b;
+  box-shadow: 0px 0px 20px rgba(0,0,0,1);
+  border-radius: 3px;
+}
+
+.bar .music-background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  box-shadow: inset 20px 10px 18px rgba(30, 30, 46, 1);
+  border-radius: 5px;
+  min-width: 280px;
+  border : 2px solid #1e1e2e;
+}
+
+.bar .music-label {
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 8px 0px 8px;
+  color : #eff1f5;
+}
+
+
+.bar .music-label .music-artist {
+  font-weight: 400;
+  font-size: 12px;
 }
 
 
@@ -49,7 +91,6 @@
   color : #11111b;
   font-size: 20px;
   font-weight: 900;
-  padding: 0px 6px;
   background-color: #f9e2af;
   padding: 0px 8px;
   margin: 8px 0px;;
@@ -98,15 +139,6 @@
   color: #f9e2af;
 }
 
-.power button {
-  border : none;
-  background-color : transparent;
-  box-shadow: none; 
-  background-image: none;
-
-  color : #f38ba8;
-  font-size: 25px;
-}
 
 
 
@@ -118,30 +150,45 @@
 }
 
 
-.bar .controller {
+.bar .system-info {
   color : #f9e2af;
   font-weight: 600;
 }
+.bar .system-info .wifi,
+.bar .system-info .battery,
+.bar .system-info .brightness,
+.bar .system-info .volume {
+  transition-property: min-width, background-color, color; 
+  transition-duration: 0.2s; 
+  transition-timing-function: ease-out; 
+  margin: 8px 0px;
+  padding: 0px 8px;
+  border-radius: 4px;
+}
 
-.bar .controller .wifi {
+.bar .system-info .wifi-event-box:hover .wifi,
+.bar .system-info .battery-event-box:hover .battery,
+.bar .system-info .brightness-event-box:hover .brightness,
+.bar .system-info .volume-event-box:hover .volume {
+    background-color: #f9e2af;
+  color : #1e1e2e;
+}
+
+
+.bar .system-info .wifi {
+    
   font-size: 18px;
 }
-.bar .controller .battery {
-  padding-left: 1px;
+.bar .system-info .battery {  
   font-size: 18px;
 }
-.bar .controller .brightness {
-  padding-right: 6px;
+.bar .system-info .brightness {  
   font-size: 17px;
 }
-.bar .controller .volume {
-  padding-right: 6px;
+.bar .system-info .volume {  
   font-size: 22px;
 }
-.bar .controller .mic {
-  padding-right: 1px;
-  font-size: 21px;
-}
+
 
 
 
@@ -151,9 +198,6 @@
 .bar .wifi-value,
 .bar .battery-value {
   font-size: 15px;
-  transition-property: opacity; 
-  transition-duration: 0.2s; 
-  transition-timing-function: ease-in-out; 
 }
 
 .bar .mic-value {
@@ -166,11 +210,10 @@
   padding-left: 16px;
 }
 .bar .wifi-value {
-  padding-left: 12px;
+  padding-left: 8px;
 }
 .bar .battery-value {
   padding-left: 4px;
-  padding-right: 8px;
 }
 
 
