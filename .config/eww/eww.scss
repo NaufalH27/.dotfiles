@@ -44,6 +44,7 @@
 }
 
 
+
 .bar .clock {
   color : #11111b;
   font-size: 20px;
@@ -66,6 +67,7 @@
   box-shadow: none; 
   background-image: none;  
 
+  color: #f9e2af;
   padding: 0px 11px 0px 5px;
   font-size: 17px;
   margin : 6px 0px;
@@ -76,14 +78,15 @@
   color: #f9e2af;
 }
 
-.bar .powermenu {
-}
+
 
 .bar .powermenu button {
   border : none;
   box-shadow: none; 
   background-image: none;  
   background-color : transparent;
+
+  color: #f9e2af;
   border-radius: 4px;
   margin : 5px 0px;
   padding-right: 12px;
@@ -116,32 +119,28 @@
 
 
 .bar .controller {
+  color : #f9e2af;
   font-weight: 600;
 }
 
 .bar .controller .wifi {
-    font-size: 18px;
-    color : #89b4fa;
+  font-size: 18px;
 }
 .bar .controller .battery {
   padding-left: 1px;
   font-size: 18px;
-  color : #f2cdcd;
 }
 .bar .controller .brightness {
   padding-right: 6px;
   font-size: 17px;
-  color : #fab387;
 }
 .bar .controller .volume {
   padding-right: 6px;
   font-size: 22px;
-  color : #a6e3a1;
 }
 .bar .controller .mic {
   padding-right: 1px;
   font-size: 21px;
-  color : #94e2d5;
 }
 
 
@@ -152,49 +151,26 @@
 .bar .wifi-value,
 .bar .battery-value {
   font-size: 15px;
-  opacity: 0;
   transition-property: opacity; 
   transition-duration: 0.2s; 
   transition-timing-function: ease-in-out; 
 }
 
 .bar .mic-value {
-  color : #cdd6f4;
   padding-left: 10px;
 }
 .bar .volume-value {
-  color : #cdd6f4;
   padding-left: 14px;
 }
 .bar .brightness-value {
-  color : #cdd6f4;
   padding-left: 16px;
 }
 .bar .wifi-value {
-  color : #cdd6f4;
   padding-left: 12px;
 }
 .bar .battery-value {
-  color : #cdd6f4;
   padding-left: 4px;
   padding-right: 8px;
-}
-
-
-.bar .volume-event-box:hover  .volume-value {
-  opacity: 1;
-}
-.bar .brightness-event-box:hover  .brightness-value {
-  opacity: 1;
-}
-.bar .mic-event-box:hover  .mic-value {
-  opacity: 1;
-}
-.bar .wifi-event-box:hover  .wifi-value {
-  opacity: 1;
-}
-.bar .battery-event-box:hover  .battery-value {
-  opacity: 1;
 }
 
 

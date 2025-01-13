@@ -1,1 +1,1 @@
-this file is reminder to install catpucchin-mocha theme for gtk 
+this file is reminder to install catpucchin-mocha theme for gtk

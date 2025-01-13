@@ -159,35 +159,20 @@
 
   (box :class "controller" :orientation "h" :halign "center" :space-evenly "false" :spacing 22
 
-    (eventbox :class "mic-event-box" :onhover "${ewwcli} update reveal_mic=true" :onhoverlost "${ewwcli} update reveal_mic=false"
-      (box :class "mic" :orientation "h" :halign "center" :space-evenly "false" 
-        (label :text  "${AUDIO.mic_icons}")
-        (revealer :reveal "${reveal_mic}" :transition "slideright"
-          (box :class "mic-value"
-            (label :text "${AUDIO.mic_power}")
-          )
-        )
-      )
-    )
-
     (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
       (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 
         (label :text "${AUDIO.volume_icons}")
-        (revealer :reveal "${reveal_volume}" :transition "slideright"
           (box :class "volume-value"
-            (label :text "${AUDIO.volume_power}")
+            (label :text "${AUDIO.volume_power}%")
           )
-        )
       )
     )
 
     (eventbox :class "brightness-event-box" :onhover "${ewwcli} update reveal_brightness=true" :onhoverlost "${ewwcli} update reveal_brightness=false"
       (box :class "brightness" :orientation "h" :halign "center" :space-evenly "false" 
         (label :text "${BRIGHTNESS.icons}")
-        (revealer :reveal "${reveal_brightness}" :transition "slideright"
           (box :class "brightness-value"
-            (label :text "${BRIGHTNESS.level}")
-          )
+            (label :text "${BRIGHTNESS.level}%")
         )
       )
     )
@@ -195,10 +180,8 @@
     (eventbox :class "wifi-event-box" :onhover "${ewwcli} update reveal_wifi=true" :onhoverlost "${ewwcli} update reveal_wifi=false"
       (box :class "wifi" :space-evenly "false" :spacing 8
         (label :text  "${NETWORK.icons}")
-        (revealer :reveal "${reveal_wifi}" :transition "slideright"  
           (box :class "wifi-value" :orientation "h" :halign "center" :space-evenly "false" 
             (label :text "${NETWORK.ssid}")
-          )
         )
       )
     )
@@ -206,14 +189,11 @@
     (eventbox :class "battery-event-box" :onhover "${ewwcli} update reveal_battery=true" :onhoverlost "${ewwcli} update reveal_battery=false"
       (box :class "battery" :space-evenly "false" :spacing 8
         (label :text  "${BATTERY.icons}")
-        (revealer :reveal "${reveal_battery}" :transition "slideright"
           (box :class "battery-value" :orientation "h" :halign "center" :space-evenly "false" 
-                (label :text "${BATTERY.capacity}")
+                (label :text "${BATTERY.capacity}%")
           )
-        )
       )
     )
-
   )
 )
 

@@ -36,13 +36,13 @@ text = "CellForeground"
 TERM = "xterm-256color"
 
 [font]
-normal.family = "JetBrainsMono Nerd Font"
-bold.family = "JetBrainsMono Nerd Font"
-italic.family = "JetBrainsMono Nerd Font"
-bold_italic.family = "JetBrainsMono Nerd Font"
+normal.family = "Maple Mono SC NF"
+bold.family = "Maple Mono SC NF"
+italic.family = "Maple Mono SC NF"
+bold_italic.family = "Maple Mono SC NF"
 offset.x = 0
-offset.y = 0
-size = 12.0
+offset.y = 1
+size = 11.0
 
 
 
