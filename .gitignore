@@ -1,1 +1,10 @@
 symlinks/
+
+.config/eww/eww/
+.config/eww/banner-og/
+
+.config/zsh/zsh-autosuggestions/
+.config/zsh/fzf-tab/
+.config/zsh/zsh-history-substring-search/
+.config/zsh/zsh-syntax-highlighting/
+.config/gtk-4.0/

@@ -1,13 +1,14 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[╭](fg:current_line)\
-$status\
+[  ](fg:blue)\
 $directory\
-$git_branch\
 $git_status\
-$cmd_duration\
+$git_branch\
 
+$fill\
+$status\
+$cmd_duration\
 $line_break\
 $character\
 """
@@ -17,12 +18,13 @@ palette = 'catppuccin_mocha'
 add_newline = true
 
 [palettes.catppuccin_mocha]
-foreground = '#f9e2af'
+base = '#1e1e2e'
+surface = '#313244'
+foreground = '#cdd6f4'
 background = '#45475a'
 current_line = '#45475a'
 primary = '#313244'
 box = '#2E2E3E'
-blue = '#8AADF4'
 cyan = '#76E3F6'
 green = '#A6E3A1'
 orange = '#F9AF74'
@@ -31,46 +33,29 @@ purple = '#CBA6F7'
 red = '#F38BA8'
 yellow = '#F9E2AF'
 status = "#e23140"
-
-[palettes.tokyo_night]
-foreground = '#D8D8D8'
-background = '#1A1B26'
-current_line = '#2A2C37'
-primary = '#292E42'
-box = '#2A2C37'
-blue = '#7AA2F7'
-cyan = '#7FDBCA'
-green = '#98C379'
-orange = '#FF9E64'
-pink = '#FF75A0'
-purple = '#BB80B3'
-red = '#F7768E'
-yellow = '#E5C07B'
-status = "#e23140"
+blue = "#89b4fa"
+mauve = '#cba6f7'
 
 
 [status]
-format = "[─](fg:current_line)[](fg:status)[](fg:primary bg:status)[](fg:status bg:box)[ $status](fg:red bg:box)[](fg:box)"
+format = "[](fg:red)[ $status ](fg:red)"
 pipestatus = true
 pipestatus_separator = "-"
 pipestatus_segment_format = "$status"
-pipestatus_format = "[─](fg:current_line)[](fg:status)[](fg:primary bg:status)[](fg:status bg:box)[ $pipestatus](fg:foreground bg:box)[](fg:box)"
+pipestatus_format = "[](fg:red)[ $pipestatus ](fg:red)"
 disabled = false
 
 [directory]
-format = '[─](fg:current_line)[](fg:yellow)[󰷏](fg:primary bg:yellow)[](fg:yellow bg:box)[ $read_only$truncation_symbol$path](fg:foreground bg:box)[](fg:box)'
+format = '[󰉋 ](fg:mauve)[$path](bold fg:mauve)'
 home_symbol = "~"
-truncation_symbol = ''
-truncation_length = 2
-read_only = ' '
-read_only_style = ''
+truncation_length = 99
 
 [git_branch]
-format = '[─](fg:current_line)[](fg:green)[$symbol](fg:primary bg:green)[](fg:green bg:box)[ $branch](fg:green bg:box)'
-symbol = ''
+format = '[ on ](fg:foreground)[$symbol](fg:purple)[ $branch](bold fg:purple)'
+symbol = ''
 
 [git_status]
-format = '[$all_status](fg:green bg:box)[](fg:box)'
+format = '[$all_status](fg:green)'
 conflicted = ' ='
 up_to_date = ''
 untracked = ' ?${count}'
@@ -85,18 +70,18 @@ behind = ' ⇣${count}'
 
 
 [fill]
-symbol = '─'
-style = 'fg:current_line'
+symbol = ' '
+style = 'fg:surface'
 
 [cmd_duration]
 min_time = 500
-format = '[─](fg:current_line)[](fg:orange)[](fg:primary bg:orange)[](fg:orange bg:box)[ $duration](fg:foreground bg:box)[](fg:box)'
+format = '[ ](fg:orange)[ $duration ](fg:orange)'
 
 
 [character]
 format = """
-[╰─$symbol](fg:current_line) """
-success_symbol = '[❯](fg:bold yellow)'
-error_symbol = '[❯](fg:bold status)'
+[$symbol](fg:blue) """
+success_symbol = '[](fg:bold blue)'
+error_symbol = '[](fg:bold red)'
 [profiles]
 transient = """$character"""

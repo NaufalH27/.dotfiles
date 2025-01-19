@@ -10,6 +10,13 @@ function remove_home_path() {
 }
 
 script_path=$(dirname "$(realpath "$0")")
+
+if [[ -z "$script_path" || "$script_path" == "$HOME"  ]]; then
+   echo "FATAl : DANGEROUS PATH IN SCRIPT PATH"
+   exit 1
+fi
+
+rm -rf "$script_path/.config"
 cd $HOME
 # dereference soft link and add it to staging
 for f in "${script_path}"/symlinks/*; do

@@ -8,7 +8,7 @@
 (defwindow bar
             :monitor "eDP-1"
             :geometry (geometry :x "0%" :y "4px" :width "88%" :height "50px" :anchor "top center")
-            :stacking "bg"
+            :stacking "fg"
             :exclusive "true"
   (bar)
 )
@@ -25,7 +25,7 @@
 
 ;; ---------------------- left side --------------------------------
 (defwidget leftside []
-  (box :class "leftside" :orientation "h" :space-evenly "false" :spacing 20
+  (box :class "leftside" :orientation "h" :space-evenly "false" :spacing 0
     (workspaces)
      (music-player)
     
@@ -46,25 +46,29 @@
 
 
 (defwidget music-player []
-  (overlay
+  
   (box :class "music-background" :orientation "h" :halign "start" :space-evenly "false"
        :style "background-image: linear-gradient(115deg, transparent, rgba(30, 30, 46, 1)), url('${music_cover}');"
     (box :class "music-cover" :style "background-image: url('${music_cover}');")
-    (box :class "music-label" :orientation "v" :halign "start" :space-evenly "false" :spacing 0
-      (label  :limit-width 30 :xalign 0 :text "${music_title}")
+    (box :class "music-label" :orientation "v" :halign "start" :space-evenly "false" :spacing -3
+      (label  :limit-width 15 :xalign 0 :text "${music_title}")
       (label :class "music-artist" :limit-width 12 :xalign 0 :text "${music_artist}")
     )
   )
-  )
+  
 )
 
 
-(deflisten workspace_event :initial "{ \"max_active\": 6, \"table_style\" : [] }" "~/.config/eww/scripts/workspace_event")
+(deflisten workspace_event :initial "{ \"max_active\": 6, \"workspace_table\" : [] }" "~/.config/eww/scripts/workspace_event")
+
+(defvar primary_color "#cba6f7")
+
+
 
 
 (defwidget workspace_button [?number id]
     (button :onclick "hyprctl dispatch workspace ${id}"
-            :style "${workspace_event.table_style[id] ?: ""}"
+      :style "${workspace_event.workspace_table[id] == 1 ? "${ id == workspace_event.focused_workspace ? "background-color: ${primary_color}; min-width:32px; border-radius:24px; border: 2.5px solid ${primary_color};" : "border: 2.5px solid ${primary_color};" }" : "" }"
     ) 
 )
 
@@ -108,9 +112,7 @@
 (defwidget center []
   (box :orientation "h" :space-evenly "false" :spacing 8
      :halign "center"
-     (powermenu)
      (clocks)
-     (search-bar)
 
   )
 )
@@ -159,7 +161,7 @@
 
 
 (defwidget rightside []
-    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 17
+    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 12
       (system-info)
       (banner)
     )
@@ -183,7 +185,7 @@
 
 (defwidget system-info []
 
-  (box :class "system-info" :orientation "h" :halign "center" :space-evenly "false" :spacing 10
+  (box :class "system-info" :orientation "h" :halign "center" :space-evenly "false" :spacing 6
 
     (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
       (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 

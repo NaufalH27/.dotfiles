@@ -11,8 +11,8 @@
     "editor.smoothScrolling": true,
     "editor.cursorStyle": "line",
     "editor.cursorBlinking": "smooth",
-    "editor.fontFamily": "'Maple Mono SC NF' , 'Symbols Nerd Font', 'monospace', 'Noto Color Emoji'",
-    "terminal.integrated.fontFamily": "'Maple Mono SC NF', 'Symbols Nerd Font', 'monospace', 'Noto Color Emoji'",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font' , 'Symbols Nerd Font', 'monospace', 'Noto Color Emoji'",
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', 'Symbols Nerd Font', 'monospace', 'Noto Color Emoji'",
     "workbench.tree.indent" :16,
     "editor.minimap.enabled": false,
     "customizeUI.listRowHeight" : 24 ,
@@ -24,8 +24,8 @@
     "editor.wordWrap": "on",
     "explorer.confirmDragAndDrop": false,
     "workbench.editor.editorActionsLocation": "titleBar",
-   
-    "catppuccin.accentColor": "yellow",
+
+    "catppuccin.accentColor": "mauve",
     "editor.semanticHighlighting.enabled": true,
     "terminal.integrated.minimumContrastRatio": 1,
     "gopls": {
@@ -37,5 +37,16 @@
       },
     },
     "explorer.confirmPasteNative": false,
+    "redhat.telemetry.enabled": false,
+    "files.exclude": {
+      "**/.DS_Store": false,
+      "**/.git": false,
+      "**/.hg": false,
+      "**/.svn": false,
+      "**/CVS": false,
+      "**/Thumbs.db": false
+    },
+    "editor.guides.highlightActiveIndentation": "always",
+    "editor.trimAutoWhitespace": false,
 }
 
