@@ -1,8 +1,24 @@
 #!/bin/bash
 
+DIR="$HOME/.config/eww/img-bin/music-cover"
 
-playerctl metadata | grep artUrl | awk '{ print $3 }'
+mkdir -p "$DIR"
+
+get_img_link() {
+  echo $(playerctl metadata | grep artUrl | awk '{ print $3 }') 
+}
+
+i=1
 
 playerctl --follow metadata | grep --line-buffered "artUrl" | while read -r line; do
-    echo $(echo $line | grep artUrl | awk '{ print $3 }')
+    ((i++))
+    echo $i
+    img_link="$(get_img_link)"
+    if [[ $img_link =~ ^https://* ]]; then
+        wget -qO "${DIR}/cover" "${img_link}"
+        echo "${DIR}/cover" > "${DIR}/url"
+    else
+        echo "${img_link}" > "${DIR}/url" 
+    fi
+    
 done

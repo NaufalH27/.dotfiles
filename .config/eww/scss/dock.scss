@@ -1,0 +1,36 @@
+
+
+
+.dock {
+  box-shadow: none; 
+  background-image: none;
+  background-color: transparent;
+}
+
+.dock .drawer-container {
+  box-shadow: none; 
+  background-image: none;
+  background-color: transparent;
+  padding: 4px 4px 4px 4px;
+}
+
+.dock .drawer {
+    border-radius: 8px;
+    background-color: #1e1e2e;
+    border : 3px $primary_color solid;
+ 
+}
+
+.dock .gesture-container {
+  padding: 0px 90px 0px 90px;  
+}
+
+.dock .gesture {
+    opacity: 0.8;
+    border-radius: 100px 100px 0px 0px ;
+    background-color: #cdd6f4;
+}
+
+.gesture-eventbox:hover.gesture {
+  opacity: 1;
+}

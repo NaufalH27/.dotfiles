@@ -1,0 +1,47 @@
+(defwindow dock
+            :monitor "eDP-1"
+            :geometry (geometry :x "0" :y "0px" :width "40%" :height "0px" :anchor "bottom center")
+            :stacking "overlay"
+            :exclusive "false"
+    (dock) 
+)
+
+(defwidget dock []
+  (eventbox :onhoverlost "${ewwcli} update reveal_drawer=false"
+   (box :class "dock" :orientation "v" :valign "end" :space-evenly false 
+    (gesture)
+    (drawer) 
+    ) 
+  )
+)
+
+(defvar reveal_drawer false)
+(defwidget gesture[]
+  (eventbox :class "gesture-eventbox" :onhover "${reveal_drawer ? "" : "${ewwcli} update reveal_drawer=true" }"  
+    (revealer 
+      :reveal "${reveal_drawer ? false : true}" 
+      :transition "fade"
+      :duration "${reveal_drawer ? 1000 : 50}"
+      (box :class "gesture-container"
+        (box :class "gesture" :orientation "h" :height 6)
+      )
+    )
+  )
+)
+
+(defwidget drawer[] 
+  (eventbox :onhover "${ewwcli} update reveal_drawer=true"  :onhoverlost "${ewwcli} update reveal_drawer=false"   
+    (revealer
+      :reveal "${reveal_drawer}"
+      :transition "slideup"
+      :duration "${reveal_drawer ? 250 : 400}"
+      (box :class "drawer-container" 
+       (box :class "drawer" :orientation "h" :height 125)
+      )
+    )
+  )
+)
+
+
+
+

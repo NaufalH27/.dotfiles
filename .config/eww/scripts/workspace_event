@@ -8,11 +8,10 @@ function get_workspace() {
     hyprctl workspaces -j | jq -r '.[].id'
 }
 
-focus_style="background-color: #f9e2af; min-width:32px; border-radius:24px; border: 2.5px solid #f9e2af;"
-active_style="border: 2.5px solid #f9e2af;"
+
 
 function get_workspace_info() {
-    workspace_table=(0 0 0 0 0 0)
+    workspace_table=(0 0 0 0 0 0 0 0 0 0)
     foc_workspace=$(get_focused_workspace)
     highest_active_workspace=0
     workspaces=($(get_workspace))
