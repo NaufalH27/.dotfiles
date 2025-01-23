@@ -8,7 +8,6 @@ alias sudo='sudo'
 
 
 
-
 # Init
 autoload -U compinit
 zmodload zsh/complist
