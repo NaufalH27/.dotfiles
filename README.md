@@ -5,29 +5,30 @@
 # PREVIEW
 
 
-![image](https://github.com/user-attachments/assets/c539f43f-7491-4dd1-90ad-8ff02d0ef933)
+![image](https://github.com/user-attachments/assets/a0b62f6d-461e-4652-b3cb-e395dbb2e1a1)
 
 
-![image](https://github.com/user-attachments/assets/2e7b8b74-0f5b-4884-9aea-aa3f8e47b544)
-
-
-
+![image](https://github.com/user-attachments/assets/1de98d65-4f62-4bde-b794-837cf4827fdc)
 
 
 
 
 
 
-## TODO LIST
+
+
+
+
+
+## TARGET LIST
 
 
 | Description                             | Status           |
 |--------------------:|:--------------------------------|
-| create bar powermenu                    |         ❌       |
-| create bar dmenu                        |         ❌       |
-| create controller (rightside bar) popup |         ❌       |
+| create bar popup                        |         ❌       |
 | create clock widget                     |         ❌       |
-| create spotify widget in bar            |         ❌       |
+| create spotify widget in bar            |         ✔       |
 | pywal integration                       |         ❌       |
 | create app dock shortcut                |         ❌       |
 | create poweroff menu                    |         ❌       |
+| hyprlock                                |         ❌       |
