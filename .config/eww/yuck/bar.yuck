@@ -2,7 +2,7 @@
 
 (defwindow bar
             :monitor "eDP-1"
-            :geometry (geometry :x "0%" :y "6px" :width "88%" :height "50px" :anchor "top center")
+            :geometry (geometry :x "0%" :y "8px" :width "88%" :height "50px" :anchor "top center")
             :stacking "fg"
             :exclusive "true"
   (bar)
@@ -59,24 +59,50 @@
             :halign "start" 
             :space-evenly "false" 
             :spacing 9
-        (box  :class "music-cover" 
-              :style "${music_metadata.title == "" ? "" : "background-image: url('${music_cover}');"}"
+        (overlay
+          (revealer 
+            :reveal "${music_metadata.title == "" ? "false" : "true"}"
+            :transition "crossfade"
+            (box  :class "music-cover" 
+            :style "background-image: url('${music_cover}');"
+          )
+
+          )
+          (revealer
+            :reveal "${music_metadata.title == "" ? "true" : "false"}"
+            :transition "crossfade"
+            (label :class "default-music-cover" :text "󰝛")
+           )
         )
-        (box  :class "music-label" 
+        (overlay
+           (revealer 
+            :reveal "${music_metadata.title == "" ? "true" : "false"}"
+            :transition "crossfade"
+            (box :style "font-size : 14px; font-weight : 600;" :halign "start"
+              (label :text "No Music Player")
+            )
+           )
+          (revealer 
+            :reveal "${music_metadata.title == "" ? "false" : "true"}"
+            :transition "crossfade"
+            (box  :class "music-label" 
               :orientation "v" :halign "start" 
               :space-evenly "false" 
               :spacing -1
-          (label :class "music-title"
-                :limit-width 14 
-                :xalign 0
-                :text "${music_metadata.title}" 
-          )
-          (label :class "music-artist" 
-                :limit-width 14 
-                :xalign 0 
-                :text "${music_metadata.artist}"
+              (label :class "music-title"
+                    :limit-width 14 
+                    :xalign 0
+                    :text "${music_metadata.title}" 
+              )
+              (label :class "music-artist" 
+                    :limit-width 14 
+                    :xalign 0 
+                    :text "${music_metadata.artist}"
+              )
+            )
           )
         )
+    
       )
     )
     (eventbox :onhover "${ewwcli} update music_hover=false" :onhoverlost "${ewwcli} update music_hover=true"

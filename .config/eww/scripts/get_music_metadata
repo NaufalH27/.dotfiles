@@ -52,7 +52,12 @@ download_image() {
 }
 
 get_img_uri() {
-    playerctl metadata | awk -F 'artUrl ' '{print $2}' | tr -d '\n' | xargs
+    img_uri=$(playerctl metadata | awk -F 'artUrl ' '{print $2}' | tr -d '\n' | xargs)
+    if [[ "$img_uri" =~ ^No || -z "$img_uri" ]]; then
+        return 1
+    else
+        echo "$img_uri"
+    fi
 }
 
 send_new_uri() {
@@ -69,12 +74,16 @@ print_metadata() {
 uri_cache=""
 process() {
     img_uri="$(get_img_uri)"
+    if [ $? -ne 0 ]; then
+        echo "{ \"title\": \"\", \"artist\": \"\", \"status\": \"\" }"
+        return
+    fi
+    
     if [[ "$uri_cache" == "$img_uri" ]]; then 
         print_metadata
         return
     fi
     
-    print_metadata
     if [[ "$img_uri" =~ ^https:// ]]; then
         img_path=$(download_image "$img_uri")
     elif [[ "$img_uri" =~ ^data:image ]]; then 
@@ -86,6 +95,7 @@ process() {
         img_path="$img_uri"
     fi
     send_new_uri "$img_path"
+    print_metadata
     uri_cache="$img_uri"
 }
 
@@ -95,6 +105,8 @@ cleanup() {
     exit
 }
 trap cleanup SIGINT SIGTERM
+
+process
 
 playerctl --follow metadata | grep --line-buffered "artUrl" | while read -r line; do
     process

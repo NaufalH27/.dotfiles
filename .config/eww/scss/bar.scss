@@ -1,8 +1,8 @@
 .bar {
-  border-radius: 10px;
+  border-radius: 9px;
   background-color: #1e1e2e;
-  border: 3px solid $primary_color;
-  padding: 2px 8px;
+  padding: 2.5px 6px;
+  border: $primary_color solid 2.25px;
 }
 
 .bar .clock {
@@ -10,7 +10,7 @@
   font-weight: 900;
   background-color: #313244;
   min-width: 85px;
-  margin: 5px 4px;;
+  margin: 4px 4px;;
   border-radius: 4px;
   color: $primary_color;
 }
@@ -41,7 +41,14 @@
   margin: 3px 0px;
 }
 
+.bar .default-music-cover {
+  font-size:22px;
+}
 
+.bar .default-music-label {
+  font-size:22px;
+  font-size: 900;
+}
 
 .bar .music-label {
   margin-top : 2px;
@@ -54,7 +61,7 @@
 
 .bar .music-label .music-artist {
   font-weight: 300;
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .bar .music .controller button {
