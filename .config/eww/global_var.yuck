@@ -1,0 +1,21 @@
+(deflisten music_metadata :initial "{}" 
+  "~/.config/eww/scripts/get_music_metadata"
+)
+
+(deflisten music_cover :initial "" 
+ "~/.config/eww/scripts/music_cover_listener" 
+) 
+
+(defvar music_hover "true")
+
+
+(defpoll time :interval "10s"
+  "date '+%H : %M'")
+
+(deflisten workspace_event :initial "{ \"max_active\": 6, \"workspace_table\" : [] }" "~/.config/eww/scripts/workspace_event")
+
+(deflisten AUDIO :initial "{}" "~/.config/eww/scripts/get_audio" )
+(deflisten BRIGHTNESS :initial "{}" "~/.config/eww/scripts/get_brightness" )
+
+(defpoll BATTERY :initial "{}" :interval "2s" ". ~/.config/eww/scripts/get_battery")
+(defpoll NETWORK :initial "{}" :interval "2s" ". ~/.config/eww/scripts/get_network")

@@ -18,7 +18,6 @@
   )
 
 
-;; ---------------------- left side --------------------------------
 (defwidget leftside []
   (box :class "leftside" :orientation "h" :space-evenly "false" :spacing 0
      (clocks)
@@ -27,24 +26,30 @@
   )
 )
 
+
+(defwidget center []
+  (box :orientation "h" :space-evenly "false" :spacing 8
+     :halign "center"
+    (workspaces)
+  )
+)
+
+(defwidget rightside []
+    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 12
+      (system-info)
+      (battery)
+      (notification)
+    )
+)
+
+
+
 (defwidget clocks []
   (box :class "clock"
     (label :text "${time}")
   )
 )
 
-
-
-
-(deflisten music_metadata :initial "{}" 
-  "~/.config/eww/scripts/get_music_metadata"
-)
-
-(deflisten music_cover :initial "" 
- "~/.config/eww/scripts/music_cover_listener" 
-) 
-
-(defvar music_hover "true")
 
 (defwidget music-player []
   (eventbox :class "${music_hover ? "music-eventbox" : "" }" 
@@ -91,33 +96,6 @@
 
 
 
-;; ---------------------- left side --------------------------------
-
-
-
-
-
-
-
-
-
-;; ---------------------- center --------------------------------
-
-(defpoll time :interval "10s"
-  "date '+%H : %M'")
-
-(defwidget center []
-  (box :orientation "h" :space-evenly "false" :spacing 8
-     :halign "center"
-    (workspaces)
-  )
-)
-(deflisten workspace_event :initial "{ \"max_active\": 6, \"workspace_table\" : [] }" "~/.config/eww/scripts/workspace_event")
-
-
-
-
-
 (defwidget workspace_button [?number id]
     (eventbox :class "workspace-button-eventbox" :onclick "hyprctl dispatch workspace ${id}"
       (box :class "workspace-button 
@@ -126,9 +104,6 @@
       )
     ) 
 )
-
-
-
 
 
 
@@ -145,31 +120,10 @@
 )
 
 
-;; ---------------------- center --------------------------------
 
 
 
-
-
-
-
-
-(deflisten AUDIO :initial "{}" "~/.config/eww/scripts/get_audio" )
-(deflisten BRIGHTNESS :initial "{}" "~/.config/eww/scripts/get_brightness" )
-
-(defpoll BATTERY :initial "{}" :interval "2s" ". ~/.config/eww/scripts/get_battery")
-(defpoll NETWORK :initial "{}" :interval "2s" ". ~/.config/eww/scripts/get_network")
-
-
-(defwidget rightside []
-    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 12
-      (system-info)
-      (battery)
-      (notification-center)
-    )
-)
-
-(defwidget notification-center[]
+(defwidget notification[]
   (box :class "notification"
     (button "󰂚" )
   )
@@ -188,10 +142,8 @@
 
 
 (defwidget system-info []
-
   (box :class "system-info" :orientation "h" :halign "center" :space-evenly "false" :spacing 6
- 
-    (eventbox :class "device-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
+    (eventbox :class "device-event-box" 
       (box :class "device" :space-evenly "false"
       
         (box :class "wifi" :space-evenly "false"
@@ -225,20 +177,6 @@
       )
      )
     ) 
-)
-
-
-
-
-(defwidget metric [label value]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (scale :min 0
-           :max 101
-           :value value
-      )
-  )
 )
 
 
