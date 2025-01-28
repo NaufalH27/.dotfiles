@@ -35,7 +35,7 @@
 )
 
 (defwidget rightside []
-    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 12
+    (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 8
       (system-info)
       (battery)
       (notification)
