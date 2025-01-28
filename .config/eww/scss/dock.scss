@@ -1,16 +1,9 @@
 
 
 
-.dock {
-  box-shadow: none; 
-  background-image: none;
-  background-color: transparent;
-}
+
 
 .dock .drawer-container {
-  box-shadow: none; 
-  background-image: none;
-  background-color: transparent;
   padding: 4px 4px 4px 4px;
 }
 
@@ -33,4 +26,8 @@
 
 .gesture-eventbox:hover.gesture {
   opacity: 1;
+}
+
+.dock .icon-tray-container {
+  
 }

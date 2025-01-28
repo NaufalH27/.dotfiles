@@ -1,6 +1,0 @@
-URL_DIR=~/.config/eww/img-bin/music-cover/url
-head -n 1 "${URL_DIR}"
-inotifywait -q -m -e modify "${URL_DIR}" | while read; do
-  head -n 1 "${URL_DIR}"
-done
- 

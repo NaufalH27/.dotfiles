@@ -5,14 +5,27 @@ get_battery_level() {
 }
 
 get_adapter_status() {
-    status=$(acpi -b | awk 'NR == 1 {print $3}' | sed -e 's/,//g')
-    if [[ $status == "Not" ]]; then 
-        echo "Plugged"
-        return
-    fi
-    echo $status
+    echo "$(acpi -b | awk 'NR == 1 {print $3}' | sed -e 's/,//g')"
 }
 
-echo "{ \"status\":\"$(get_adapter_status)\", \"capacity\": \"$(get_battery_level)\" }"
+charged_icon=("" "" "" "" "")
+discharged_icon=("" "" "" "" "")
 
+battery_level="$(get_battery_level)"
+adapter_status="$(get_adapter_status)"
+
+size=${#charged_icon[@]}
+index=$(( (battery_level - 1) / size ))
+
+if [[ $adapter_status = "Charging" ]]; then
+    icon="󱐋 ${charged_icon[$index]}"
+elif [[ $adapter_status = "Discharging" ]]; then
+    icon="${discharged_icon[$index]}"
+elif [[ $adapter_status = "Full" ]]; then 
+    icon=""
+else
+    icon=""
+fi
+
+echo "{ \"status\":\"$adapter_status\", \"icons\":\"$icon\", \"capacity\": \"$battery_level\" }"
 

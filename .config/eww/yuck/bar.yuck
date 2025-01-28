@@ -34,49 +34,59 @@
 )
 
 
-(deflisten music_title :initial ""
-  "playerctl --follow metadata --format '{{ title }}'"
-)
 
-(deflisten music_artist :initial ""
-  "playerctl --follow metadata --format '{{ artist }}'"
-)
 
-(deflisten music_status :initial ""
-  "playerctl --follow metadata --format '{{status}}'"
-)
-
-(deflisten music_cover_writer :initial "" 
-  "~/.config/eww/scripts/get_music_cover"
+(deflisten music_metadata :initial "{}" 
+  "~/.config/eww/scripts/get_music_metadata"
 )
 
 (deflisten music_cover :initial "" 
- "~/.config/eww/scripts/music_cover_url_listener" 
+ "~/.config/eww/scripts/music_cover_listener" 
 ) 
 
-
-
+(defvar music_hover "true")
 
 (defwidget music-player []
-  (box :class "music" :orientation "h" :halign "start" :space-evenly "false" :spacing 8
-    (box :class "music-cover" :style "background-image: url('${music_cover}');")
-    (box :class "music-label" :orientation "v" :halign "start" :space-evenly "false" :spacing -1
-      (label  :limit-width 14 :xalign 0 :text "${music_title}")
-      (label :class "music-artist" :limit-width 14 :xalign 0 :text "${music_artist}")
-      
-      
-      ;; for triggering music cover url writer, dont remove
-      (label :visible false :text "${music_cover_writer}")
+  (eventbox :class "${music_hover ? "music-eventbox" : "" }" 
+    (box :class "music" :space-evenly "false"
+      (box :hexpand "true"
+      (box  :orientation "h" 
+            :halign "start" 
+            :space-evenly "false" 
+            :spacing 9
+        (box  :class "music-cover" 
+              :style "${music_metadata.title == "" ? "" : "background-image: url('${music_cover}');"}"
+        )
+        (box  :class "music-label" 
+              :orientation "v" :halign "start" 
+              :space-evenly "false" 
+              :spacing -1
+          (label :class "music-title"
+                :limit-width 14 
+                :xalign 0
+                :text "${music_metadata.title}" 
+          )
+          (label :class "music-artist" 
+                :limit-width 14 
+                :xalign 0 
+                :text "${music_metadata.artist}"
+          )
+        )
+      )
     )
-    
-      (box :class "controller" :halign "end" :hexpand true
-        (button :onclick "playerctl previous" "󰒮")
-        (button :onclick "playerctl play-pause" "${music_status == "Playing" ? "󰏤" : "󰐊"}" )
+    (eventbox :onhover "${ewwcli} update music_hover=false" :onhoverlost "${ewwcli} update music_hover=true"
+     (box :class "controller" :halign "end" :hexpand false
+        (button :onclick "playerctl previous"  "󰒮")
+        (button :onclick "playerctl play-pause" "${music_metadata.status == "Playing" ? "󰏤" : "󰐊"}" )
         (button :onclick "playerctl next" "󰒭") 
       )
+    )
   )
-  
+    
+  )
 )
+
+
 
 
 
@@ -104,15 +114,15 @@
 )
 (deflisten workspace_event :initial "{ \"max_active\": 6, \"workspace_table\" : [] }" "~/.config/eww/scripts/workspace_event")
 
-(defvar primary_color "#cba6f7")
 
 
 
 
 (defwidget workspace_button [?number id]
     (eventbox :class "workspace-button-eventbox" :onclick "hyprctl dispatch workspace ${id}"
-      (box :class "workspace-button"
-       :style "${workspace_event.workspace_table[id] == 1 ? "${ id == workspace_event.focused_workspace ? "background-color: ${primary_color}; min-width:40px;" : "background-color : ${primary_color}; " }" : "" }"
+      (box :class "workspace-button 
+                  ${workspace_event.workspace_table[id]==1 ? "workspace-button-active" : "" } 
+                  ${workspace_event.focused_workspace==id ? "workspace-button-focused" : ""}"
       )
     ) 
 )
@@ -153,8 +163,8 @@
 
 (defwidget rightside []
     (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 12
-      (battery)
       (system-info)
+      (battery)
       (notification-center)
     )
 )
@@ -176,12 +186,6 @@
 )
 
 
-
-(defvar reveal_volume "false")
-(defvar reveal_mic "false")
-(defvar reveal_brightness "false")
-(defvar reveal_wifi "false")
-(defvar reveal_battery "false")
 
 (defwidget system-info []
 
@@ -207,12 +211,19 @@
   )
 )
 
+
 (defwidget battery[]
-  (eventbox :class "battery-event-box" :onhover "${ewwcli} update reveal_battery=true" :onhoverlost "${ewwcli} update reveal_battery=false"
-      (box :class "battery"
-        :style "background-image: linear-gradient(90deg, ${primary_color} ${BATTERY.capacity}%, ${primary_color} ${BATTERY.capacity}%, #313244 ${BATTERY.capacity}%, #313244 100%); ${BATTERY.capacity < 45 ? "color: ${primary_color}; text-shadow: 1px 1px 1px #1e1e2e; " : "color: #1e1e2e; text-shadow: 1px 1px 1px ${primary_color};" } ${reveal_battery ? "font-size: 11px" : "font-size:15px"}"
-        (label :text "${reveal_battery ? "${BATTERY.status} : ${BATTERY.capacity}%" : "${BATTERY.status == "Discharging" ? "${BATTERY.capacity}%" : "󱐋"}"} ")
+  (eventbox :class "battery-event-box" 
+     (box :class "battery":halign "center" :space-evenly false
+      (box :halign "center"  :space-evenly false :hexpand "true" :spacing 15 
+        (label :class "icons" :text "${BATTERY.icons}")
+        (box :spacing 4 :space-evenly false
+          (label :class "capacity" :text "${BATTERY.capacity}" )
+          (label :visible "${BATTERY.status == "Charging"}" :class "charging-icons" :text "󱐋")
+        )
+        
       )
+     )
     ) 
 )
 

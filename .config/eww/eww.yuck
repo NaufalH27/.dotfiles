@@ -1,5 +1,5 @@
 (defvar ewwcli "./eww/target/release/eww")
 
-
+(include "global_var.yuck")
 (include "yuck/bar.yuck")
 (include "yuck/dock.yuck")

@@ -1,6 +1,6 @@
 (defwindow dock
             :monitor "eDP-1"
-            :geometry (geometry :x "0" :y "0px" :width "40%" :height "0px" :anchor "bottom center")
+            :geometry (geometry :x "0" :y "0px" :width "30%" :height "0px" :anchor "bottom center")
             :stacking "overlay"
             :exclusive "false"
     (dock) 
@@ -36,7 +36,14 @@
       :transition "slideup"
       :duration "${reveal_drawer ? 250 : 400}"
       (box :class "drawer-container" 
-       (box :class "drawer" :orientation "h" :height 125)
+       (box :class "drawer" :orientation "h" :height 100 
+          (box :class "icon-tray-container")
+          (box :class "icon-tray-container")
+          (box :class "icon-tray-container")
+          (box :class "icon-tray-container")
+          (box :class "icon-tray-container")
+          
+       )
       )
     )
   )
