@@ -10,7 +10,7 @@
   font-weight: 900;
   background-color: #313244;
   min-width: 85px;
-  margin: 4px 4px;;
+  margin: 5px 4px;;
   border-radius: 4px;
   color: $primary_color;
 }
@@ -28,7 +28,7 @@
   border-radius: 4px;
   min-width: 260px;
   padding: 0px 8px;
-  margin: 4px 4px;
+  margin: 5px 4px;
   border-radius: 4px;
 }
 
@@ -36,7 +36,7 @@
   background-position: center center;
   background-repeat: no-repeat; 
   background-size: cover;
-  min-width: 34px;
+  min-width: 31px;
   border-radius: 2px;
   margin: 3px 0px;
 }
@@ -199,22 +199,22 @@
 .bar .battery {  
   color: $primary_color;
   background-color: #313244;
-  font-weight: 900;
+  font-weight: 300;
   margin: 5px 0px;
   border-radius: 5px; 
   padding: 0px 12px;
 }
 
 .bar .battery .icons {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .bar .battery .charging-icons {
-  font-size: 17px;
+  font-size: 15px;
 }
 
 .bar .battery .capacity {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 

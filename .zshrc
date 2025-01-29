@@ -51,7 +51,7 @@ source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.z
 source ~/.config/zsh/fzf-tab/fzf-tab.zsh
 
 
-eval "$(starship init zsh)"
+eval "$(oh-my-posh --config ~/.config/posh/config.toml init zsh)"
 
 # Catppuccin Mocha Theme (for zsh-syntax-highlighting)
 #

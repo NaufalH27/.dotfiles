@@ -15,16 +15,16 @@ battery_level="$(get_battery_level)"
 adapter_status="$(get_adapter_status)"
 
 size=${#charged_icon[@]}
-index=$(( (battery_level - 1) / size ))
+index=$(( (battery_level) / (100 / $size) ))
 
 if [[ $adapter_status = "Charging" ]]; then
-    icon="󱐋 ${charged_icon[$index]}"
+    icon="${charged_icon[$index]}"
 elif [[ $adapter_status = "Discharging" ]]; then
     icon="${discharged_icon[$index]}"
 elif [[ $adapter_status = "Full" ]]; then 
     icon=""
 else
-    icon=""
+    icon="${discharged_icon[$index]}"
 fi
 
 echo "{ \"status\":\"$adapter_status\", \"icons\":\"$icon\", \"capacity\": \"$battery_level\" }"

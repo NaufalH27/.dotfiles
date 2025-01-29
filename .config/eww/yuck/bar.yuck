@@ -193,13 +193,9 @@
 (defwidget battery[]
   (eventbox :class "battery-event-box" 
      (box :class "battery":halign "center" :space-evenly false
-      (box :halign "center"  :space-evenly false :hexpand "true" :spacing 15 
+      (box :halign "center"  :space-evenly false :hexpand "true" :spacing 16
         (label :class "icons" :text "${BATTERY.icons}")
-        (box :spacing 4 :space-evenly false
-          (label :class "capacity" :text "${BATTERY.capacity}" )
-          (label :visible "${BATTERY.status == "Charging"}" :class "charging-icons" :text "󱐋")
-        )
-        
+        (label :class "capacity" :text "${BATTERY.capacity}%" )
       )
      )
     ) 

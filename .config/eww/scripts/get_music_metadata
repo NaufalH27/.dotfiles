@@ -53,7 +53,7 @@ download_image() {
 
 get_img_uri() {
     img_uri=$(playerctl metadata | awk -F 'artUrl ' '{print $2}' | tr -d '\n' | xargs)
-    if [[ "$img_uri" =~ ^No || -z "$img_uri" ]]; then
+    if [[ "$img_uri" =~ ^No || -z "$img_uri" ]] then
         return 1
     else
         echo "$img_uri"
@@ -84,6 +84,7 @@ process() {
         return
     fi
     
+    print_metadata
     if [[ "$img_uri" =~ ^https:// ]]; then
         img_path=$(download_image "$img_uri")
     elif [[ "$img_uri" =~ ^data:image ]]; then 
@@ -95,7 +96,6 @@ process() {
         img_path="$img_uri"
     fi
     send_new_uri "$img_path"
-    print_metadata
     uri_cache="$img_uri"
 }
 
