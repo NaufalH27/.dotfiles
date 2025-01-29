@@ -10,7 +10,7 @@
 
 
 (defwidget bar []
-  (centerbox :class "bar" :orientation "h" 
+  (centerbox :class "bar" :orientation "h"
     (leftside)
     (center)
     (rightside)
@@ -53,19 +53,21 @@
 
 (defwidget music-player []
   (eventbox :class "${music_hover ? "music-eventbox" : "" }" 
-    (box :class "music" :space-evenly "false"
-      (box :hexpand "true"
+    (box :class "music" :space-evenly "false" 
+      (box :hexpand "true" 
       (box  :orientation "h" 
             :halign "start" 
+            :hexpand true
             :space-evenly "false" 
             :spacing 9
+            
         (overlay
           (revealer 
             :reveal "${music_metadata.title == "" ? "false" : "true"}"
             :transition "crossfade"
             (box  :class "music-cover" 
             :style "background-image: url('${music_cover}');"
-          )
+            )
 
           )
           (revealer
@@ -74,34 +76,40 @@
             (label :class "default-music-cover" :text "󰝛")
            )
         )
-        (overlay
-           (revealer 
-            :reveal "${music_metadata.title == "" ? "true" : "false"}"
-            :transition "crossfade"
-            (box :style "font-size : 14px; font-weight : 600;" :halign "start"
-              (label :text "No Music Player")
-            )
-           )
+        (box :width 145 
+          (overlay
           (revealer 
             :reveal "${music_metadata.title == "" ? "false" : "true"}"
             :transition "crossfade"
-            (box  :class "music-label" 
+            (box  :class "music-label"
               :orientation "v" :halign "start" 
               :space-evenly "false" 
               :spacing -1
               (label :class "music-title"
-                    :limit-width 14 
+                    :limit-width 18
                     :xalign 0
                     :text "${music_metadata.title}" 
+                    :vexpand false :hexpand false
+                    :height 1
               )
               (label :class "music-artist" 
-                    :limit-width 14 
+                    :limit-width 18
                     :xalign 0 
                     :text "${music_metadata.artist}"
               )
             )
           )
+          (revealer 
+            :reveal "${music_metadata.title == "" ? "true" : "false"}"
+            :transition "crossfade"
+            (box :style "font-size : 14px; font-weight : 600; " :halign "start"
+              (label :text "No Music Playing" )
+            )
+          )
         )
+        
+        )
+        
     
       )
     )
