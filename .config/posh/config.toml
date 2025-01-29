@@ -46,18 +46,7 @@ version = 3
       branch_icon = ' '
       commit_icon = '@'
       fetch_status = true
-      
-  [[blocks.segments]]
-    type = 'git'
-    style = "diamond"
-    trailing_diamond = ""
-    background = "p:surface0"
-    foreground_templates =[ "{{if or (.Working.Changed) (.Staging.Changed)}}p:yellow{{else}}p:green{{end}}" ]
-    template = " {{if or (.Working.Changed) (.Staging.Changed)}} {{ else if ne .Ahead 0 }}{{else}} {{end}}"
-    [blocks.segments.properties]
-      branch_icon = ''
-      commit_icon = '@'
-      fetch_status = true
+ 
 
   [[blocks.segments]]
     type = 'git'
@@ -68,7 +57,7 @@ version = 3
                             "{{if gt .Ahead 0}}p:maroon{{end}}",
                             "{{if eq .Ahead 0}}p:green{{end}}"
                             ]
-    template = "{{ if gt .Behind 0 }}󰶡 {{ .Behind }}{{ else if gt .Ahead 0 }}󰶣 {{ .Ahead }}{{ else }}{{end}} "
+    template = " {{if or (.Working.Changed) (.Staging.Changed)}}<p:yellow></> {{ if ne .Ahead 0 }} {{end}}{{ else if ne .Ahead 0 }}{{else}}<p:green></> {{ if ne .Ahead 0 }} {{end}}{{end}}{{ if gt .Behind 0 }}󰶡 {{ .Behind }}{{ else if gt .Ahead 0 }}󰶣 {{ .Ahead }}{{ else }}{{end}}"
     [blocks.segments.properties]
       branch_icon = ''
       commit_icon = '@'
