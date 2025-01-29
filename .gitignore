@@ -9,3 +9,4 @@ symlinks/
 .config/zsh/zsh-history-substring-search/
 .config/zsh/zsh-syntax-highlighting/
 .config/gtk-4.0/
+*.bak
