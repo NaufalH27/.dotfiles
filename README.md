@@ -5,10 +5,13 @@
 # PREVIEW
 
 
-![image](https://github.com/user-attachments/assets/a0b62f6d-461e-4652-b3cb-e395dbb2e1a1)
+![image](https://github.com/user-attachments/assets/2eea4a20-f16f-453a-96c0-115d53a26539)
 
 
-![image](https://github.com/user-attachments/assets/1de98d65-4f62-4bde-b794-837cf4827fdc)
+
+
+![image](https://github.com/user-attachments/assets/43c86a9c-7a8c-4787-be35-550a5c21e9cc)
+
 
 
 
@@ -26,7 +29,7 @@
 | Description                             | Status           |
 |--------------------:|:--------------------------------|
 | create bar popup                        |         ❌       |
-| create clock widget                     |         ❌       |
+| create date widget                     |         ❌       |
 | create spotify widget in bar            |         ✔       |
 | pywal integration                       |         ❌       |
 | create app dock shortcut                |         ❌       |
