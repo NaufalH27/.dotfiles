@@ -8,21 +8,11 @@ alias sudo='sudo'
 
 
 
-# Init
-autoload -U compinit
-zmodload zsh/complist
 
 # Enable autocorrection
 setopt CORRECT
 
-# Source environment variables and aliases
-source ~/.config/zsh/env.zsh
 
-
-# History configuration
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
 
 # Better history navigation
 bindkey '^[[A' history-substring-search-up
@@ -38,10 +28,6 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --icons=always --color=
 
 
 
-# Edit line in Vim with ctrl-e
-autoload edit-command-line
-zle -N edit-command-line
-bindkey '^e' edit-command-line
 
 
 # Source plugins
@@ -53,37 +39,15 @@ source ~/.config/zsh/fzf-tab/fzf-tab.zsh
 
 eval "$(oh-my-posh --config ~/.config/posh/config.toml init zsh)"
 
-# Catppuccin Mocha Theme (for zsh-syntax-highlighting)
-#
-# Paste this files contents inside your ~/.zshrc before you activate zsh-syntax-highlighting
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main cursor)
-typeset -gA ZSH_HIGHLIGHT_STYLES
 
-# Main highlighter styling: https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md
-#
-## General
-### Diffs
-### Markup
-## Classes
-## Comments
-ZSH_HIGHLIGHT_STYLES[comment]='fg=#585b70'
+# Source environment variables and aliases
+source ~/.config/zsh/env.zsh
+source ~/.config/zsh/syntax-highlighting-catppuccin.zsh
+source ~/.config/zsh/fzf-style.zsh
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+export HISTSIZE=10000
+export SAVEHIST=10000
 
-ZSH_HIGHLIGHT_STYLES[command-substitution-quoted]='fg=#a6e3a1'
-ZSH_HIGHLIGHT_STYLES[command-substitution-delimiter-quoted]='fg=#a6e3a1'
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=#a6e3a1'
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument-unclosed]='fg=#eba0ac'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=#a6e3a1'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument-unclosed]='fg=#eba0ac'
-ZSH_HIGHLIGHT_STYLES[rc-quote]='fg=#a6e3a1'
-
-
-ZSH_HIGHLIGHT_STYLES[alias]=fg="#89b4fa",bold
-ZSH_HIGHLIGHT_STYLES[builtin]=fg="#89b4fa",bold
-ZSH_HIGHLIGHT_STYLES[function]=fg="#89b4fa",bold
-ZSH_HIGHLIGHT_STYLES[command]=fg="#89b4fa",bold
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#f38ba8',bold
-ZSH_HIGHLIGHT_STYLES[back-quoted-argument-delimiter]=fg='#f38ba8'
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]=fg='#f38ba8'
-ZSH_HIGHLIGHT_STYLES[back-dollar-quoted-argument]=fg='#f38ba8' 
-ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=#f38ba8' 
-ZSH_HIGHLIGHT_STYLES[path_prefix_pathseparator]='fg=#f38ba8'
+export PATH="/home/nopal/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/nopal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"

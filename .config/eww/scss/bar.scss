@@ -151,83 +151,88 @@
   color : $primary_color;
 }
 
-.bar .system-info {
-  color : $primary_color;
-  font-weight: 600;
-}
-
-.bar .system-info .device {
-  margin: 5px 0px;
-  border-radius: 6px; 
-  padding: 0px 4px;
-  background-color: #313244;
-}
-
-.bar .system-info .device-event-box:hover .device,
-.bar .notification button:hover  {
+.bar .notification button:hover {
   background-color: $primary_color;
   color : #1e1e2e;
 }
 
-.bar .system-info .device-event-box:active .device,
 .bar .notification button:active {
   background-color: $primary_color_dark;
   color : #1e1e2e;
 }
 
+
+.bar .system-info {
+  color : $primary_color;
+  font-weight: 600;
+  transition-property: min-width, background-color, color; 
+  transition-duration: 0.2s; 
+  transition-timing-function: ease-out; 
+}
+.bar .system-info .brightness,
+.bar .system-info .wifi,
+.bar .system-info .volume,
+.bar .system-info .battery {
+  padding: 0px 8px;
+  margin: 5px 0px;
+  border-radius: 4px;
+  background-color: #313244;
+}
+
+
+
+
+.bar .system-info .wifi-event-box:hover .wifi,
+.bar .system-info .battery-event-box:hover .battery,
+.bar .system-info .brightness-event-box:hover .brightness,
+.bar .system-info .volume-event-box:hover .volume {
+  background-color: #313244;
+}
+
+
 .bar .system-info .wifi {
-  padding: 0px 7px;
-  font-size: 16px;
+  font-size: 18px;
+}
+.bar .system-info .battery {  
+  font-size: 18px;
 }
 .bar .system-info .brightness {  
-  padding: 0px 6px;
-  font-size: 15px;
+  font-size: 17px;
 }
 .bar .system-info .volume {  
-  padding: 0px 8px;
-  font-size: 20px;
-  margin-left: 4px;
-}
-.bar .system-info .bluetooth {  
-  padding: 0px 5px;
-  font-size: 18px;
-  margin-left: 5px;
+  font-size: 22px;
 }
 
 
 
-.bar .battery {  
-  color: $primary_color;
-  background-color: #313244;
-  font-weight: 300;
-  margin: 5px 0px;
-  border-radius: 5px; 
-  padding: 0px 12px;
-}
 
-.bar .battery .icons {
-  font-size: 20px;
-}
-
-.bar .battery .charging-icons {
+.bar .volume-value, 
+.bar .brightness-value,
+.bar .mic-value,
+.bar .wifi-value,
+.bar .battery-value {
   font-size: 15px;
 }
 
-.bar .battery .capacity {
-  font-size: 16px;
+.bar .mic-value {
+  padding-left: 10px;
+}
+.bar .volume-value {
+  padding-left: 14px;
+}
+.bar .brightness-value {
+  padding-left: 16px;
+}
+.bar .wifi-value {
+  padding-left: 8px;
+}
+.bar .battery-value {
+  padding-left: 4px;
 }
 
 
 
-@keyframes rainbow {
-  0% {
-    border-color: $primary_color;
-  }
-  
-  57% {
-    border-color: $primary_color;
-  }
-  100% {
-    border-color: $primary_color;
-  }
-}
+
+
+
+

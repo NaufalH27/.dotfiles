@@ -8,24 +8,24 @@ get_adapter_status() {
     echo "$(acpi -b | awk 'NR == 1 {print $3}' | sed -e 's/,//g')"
 }
 
-charged_icon=("" "" "" "" "")
-discharged_icon=("" "" "" "" "")
+charged_icon=("󰢟" "󰢜" "󰂆" "󰂇" "󰂈" "󰢝" "󰂉" "󰂊" "󰂋" "󰂅")
+discharged_icon=("󱃍" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰂀" "󰂁" "󰂂" "󰁹")
 
 battery_level="$(get_battery_level)"
 adapter_status="$(get_adapter_status)"
 
 size=${#charged_icon[@]}
-index=$(( (battery_level) / (100 / $size) ))
+index=$(( (battery_level - 1) / size ))
 
 if [[ $adapter_status = "Charging" ]]; then
     icon="${charged_icon[$index]}"
 elif [[ $adapter_status = "Discharging" ]]; then
     icon="${discharged_icon[$index]}"
 elif [[ $adapter_status = "Full" ]]; then 
-    icon=""
+    icon="󰁹"
 else
-    icon="${discharged_icon[$index]}"
+    icon="󰂄"
 fi
 
-echo "{ \"status\":\"$adapter_status\", \"icons\":\"$icon\", \"capacity\": \"$battery_level\" }"
+echo "{ \"icons\":\"$icon\", \"capacity\": \"$battery_level\" }"
 

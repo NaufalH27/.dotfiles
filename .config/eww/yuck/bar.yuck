@@ -28,7 +28,7 @@
 
 
 (defwidget center []
-  (box :orientation "h" :space-evenly "false" :spacing 8
+  (box :orientation "h" :space-evenly "false" :spacing 6
      :halign "center"
     (workspaces)
   )
@@ -37,7 +37,6 @@
 (defwidget rightside []
     (box :class "rightside" :orientation "h" :halign "end" :space-evenly "false" :spacing 8
       (system-info)
-      (battery)
       (notification)
     )
 )
@@ -176,37 +175,47 @@
 
 
 (defwidget system-info []
+
   (box :class "system-info" :orientation "h" :halign "center" :space-evenly "false" :spacing 6
-    (eventbox :class "device-event-box" 
-      (box :class "device" :space-evenly "false"
-      
-        (box :class "wifi" :space-evenly "false"
-          (label :text  "${NETWORK.icons}")  
-        )  
-       (box :class "bluetooth" :space-evenly "false"
-          (label :text  "󰂯")  
+    (eventbox :class "brightness-event-box" :onhover "${ewwcli} update reveal_brightness=true" :onhoverlost "${ewwcli} update reveal_brightness=false"
+      (box :class "brightness" :orientation "h" :halign "center" :space-evenly "false" 
+        (label :text "${BRIGHTNESS.icons}")
+          (box :class "brightness-value"
+            (label :text "${BRIGHTNESS.level}%")
         )
-         (box :class "brightness" :orientation "h" :halign "center" :space-evenly "false" 
-          (label :text "${BRIGHTNESS.icons}") 
-        ) 
-        (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 
-          (label :text "${AUDIO.volume_icons}")    
-        ) 
       )
-   )
+    )
+    
+    (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
+      (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 
+        (label :text "${AUDIO.volume_icons}")
+          (box :class "volume-value"
+            (label :text "${AUDIO.volume_power}%")
+          )
+      )
+    )
+
+
+    (eventbox :class "wifi-event-box" :onhover "${ewwcli} update reveal_wifi=true" :onhoverlost "${ewwcli} update reveal_wifi=false"
+      (box :class "wifi" :space-evenly "false" :spacing 8
+        (label :text  "${NETWORK.icons}")
+          (box :class "wifi-value" :orientation "h" :halign "center" :space-evenly "false" 
+            (label :text "${NETWORK.ssid}")
+        )
+      )
+    )
+
+    (eventbox :class "battery-event-box" :onhover "${ewwcli} update reveal_battery=true" :onhoverlost "${ewwcli} update reveal_battery=false"
+      (box :class "battery" :space-evenly "false" :spacing 6
+        (label :text  "${BATTERY.icons}")
+          (box :class "battery-value" :orientation "h" :halign "center" :space-evenly "false" 
+                (label :text "${BATTERY.capacity}%")
+          )
+      )
+    )
   )
 )
 
 
-(defwidget battery[]
-  (eventbox :class "battery-event-box" 
-     (box :class "battery":halign "center" :space-evenly false
-      (box :halign "center"  :space-evenly false :hexpand "true" :spacing 16
-        (label :class "icons" :text "${BATTERY.icons}")
-        (label :class "capacity" :text "${BATTERY.capacity}%" )
-      )
-     )
-    ) 
-)
 
 
