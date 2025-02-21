@@ -2,7 +2,7 @@
 
 (defwindow bar
             :monitor "eDP-1"
-            :geometry (geometry :x "0%" :y "8px" :width "88%" :height "50px" :anchor "top center")
+            :geometry (geometry :x "0%" :y "4px" :width "98.25%" :height "50px" :anchor "top center")
             :stacking "fg"
             :exclusive "true"
   (bar)
@@ -40,7 +40,6 @@
       (notification)
     )
 )
-
 
 
 (defwidget clocks []
@@ -177,6 +176,15 @@
 (defwidget system-info []
 
   (box :class "system-info" :orientation "h" :halign "center" :space-evenly "false" :spacing 6
+    (eventbox :class "wifi-event-box" :onhover "${ewwcli} update reveal_wifi=true" :onhoverlost "${ewwcli} update reveal_wifi=false"
+      (box :class "wifi" :space-evenly "false" :spacing 8
+        (label :text  "${NETWORK.icons}")
+          (box :class "wifi-value"  :orientation "h" :halign "center" :space-evenly "false" 
+            (label :text "${NETWORK.ssid == "" ? "No Connection" : NETWORK.ssid}")
+        )
+      )
+    )
+
     (eventbox :class "brightness-event-box" :onhover "${ewwcli} update reveal_brightness=true" :onhoverlost "${ewwcli} update reveal_brightness=false"
       (box :class "brightness" :orientation "h" :halign "center" :space-evenly "false" 
         (label :text "${BRIGHTNESS.icons}")
@@ -186,22 +194,12 @@
       )
     )
     
-    (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false"
-      (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" 
+    (eventbox :class "volume-event-box" :onhover "${ewwcli} update reveal_volume=true" :onhoverlost "${ewwcli} update reveal_volume=false" 
+      (box :class "volume" :orientation "h" :halign "center" :space-evenly "false" :spacing -2
         (label :text "${AUDIO.volume_icons}")
           (box :class "volume-value"
             (label :text "${AUDIO.volume_power}%")
           )
-      )
-    )
-
-
-    (eventbox :class "wifi-event-box" :onhover "${ewwcli} update reveal_wifi=true" :onhoverlost "${ewwcli} update reveal_wifi=false"
-      (box :class "wifi" :space-evenly "false" :spacing 8
-        (label :text  "${NETWORK.icons}")
-          (box :class "wifi-value" :orientation "h" :halign "center" :space-evenly "false" 
-            (label :text "${NETWORK.ssid}")
-        )
       )
     )
 

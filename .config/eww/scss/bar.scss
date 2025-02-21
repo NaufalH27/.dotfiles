@@ -1,30 +1,24 @@
 .bar {
-  border-radius: 9px;
-  background-color: #1e1e2e;
+  border-radius: 10px;
+  background-color: $background;
   padding: 2.5px 6px;
   border: $primary_color solid 2.25px;
+  opacity: 0.99;
 }
 
 .bar .clock {
   font-size: 20px;
-  font-weight: 900;
-  background-color: #313244;
+  font-weight: 600;
+  background-color: $sub-background;
   min-width: 85px;
   margin: 5px 4px;;
   border-radius: 4px;
-  color: $primary_color;
+  color: $text;
 }
-
-.bar .clock .clock-logo {
-  color: $primary_color;
-  font-size: 18px;
-}
-
-
 
 .bar .music {
-  background-color: #313244 ;
-  color : $primary_color;
+  background-color: $sub-background ;
+  color : $text;
   border-radius: 4px;
   min-width: 260px;
   padding: 0px 8px;
@@ -47,21 +41,21 @@
 
 .bar .default-music-label {
   font-size:22px;
-  font-size: 900;
+  font-size: 600;
 }
 
 .bar .music-label {
-  margin-top : 3px;
+  margin-top : 2px;
 }
 
 .bar .music-label .music-title {
-  font-weight: 900;
-  font-size: 12px;
+  font-weight: 600;
+  font-size: 11px;
 }
 
 .bar .music-label .music-artist {
   font-weight: 300;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .bar .music .controller button {
@@ -83,16 +77,16 @@
 
 .bar .music-eventbox:hover .music {
   background-color: $primary_color ;
-  color : #313244;
+  color : $sub-background
 }
 
 .bar .music-eventbox:active .music {
   background-color: $primary_color_dark ;
-  color : #313244;
+  color : $sub-background
 }
 
 .bar .music-eventbox:hover .controller button {
-  color : #313244;
+  color : $sub-background;
 }
 
 
@@ -100,7 +94,7 @@
   border-radius: 10px;
   padding: 7px 9px;
   margin: 7px 0px ;
-  background-color: #313244;
+  background-color: $sub-background;
 }
 
 .bar .workspace-button {
@@ -146,9 +140,9 @@
   margin: 5px 0px;
   border-radius: 6px; 
   padding: 0px 8px;
-  background-color: #313244;  
+  background-color: $sub-background;  
   font-size: 16px;
-  color : $primary_color;
+  color : $flamingo;
 }
 
 .bar .notification button:hover {
@@ -163,7 +157,6 @@
 
 
 .bar .system-info {
-  color : $primary_color;
   font-weight: 600;
   transition-property: min-width, background-color, color; 
   transition-duration: 0.2s; 
@@ -173,10 +166,10 @@
 .bar .system-info .wifi,
 .bar .system-info .volume,
 .bar .system-info .battery {
-  padding: 0px 8px;
+  padding: 0px 10px;
   margin: 5px 0px;
   border-radius: 4px;
-  background-color: #313244;
+  background-color: $sub-background;
 }
 
 
@@ -186,23 +179,26 @@
 .bar .system-info .battery-event-box:hover .battery,
 .bar .system-info .brightness-event-box:hover .brightness,
 .bar .system-info .volume-event-box:hover .volume {
-  background-color: #313244;
+  background-color: $surface1;
 }
 
 
 .bar .system-info .wifi {
+  color : $mauve;
   font-size: 18px;
 }
-.bar .system-info .battery {  
+.bar .system-info .battery {
+  color : $green;
   font-size: 18px;
 }
 .bar .system-info .brightness {  
+  color : $yellow;
   font-size: 17px;
 }
 .bar .system-info .volume {  
+  color : $sky;
   font-size: 22px;
 }
-
 
 
 
@@ -211,7 +207,8 @@
 .bar .mic-value,
 .bar .wifi-value,
 .bar .battery-value {
-  font-size: 15px;
+  font-size: 14px;
+  color: $text;
 }
 
 .bar .mic-value {

@@ -10,7 +10,7 @@
 
 
 (defpoll time :interval "10s"
-  "date '+%H : %M'")
+  "date '+%H:%M'")
 
 (deflisten workspace_event :initial "{ \"max_active\": 6, \"workspace_table\" : [] }" "~/.config/eww/scripts/workspace_event")
 

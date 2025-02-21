@@ -12,7 +12,7 @@
       //}
       "source": "~/.config/fastfetch/purple_arch.png",
       "type": "kitty",
-      "width": 26,
+      "width": 26
      
   },
   "modules": [

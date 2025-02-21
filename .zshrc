@@ -1,24 +1,18 @@
-
-
-
-alias n='nvim'
 alias eww='~/.config/eww/eww/target/release/eww'
 alias ls='ls --color=auto'
 alias sudo='sudo'
 
-
-
-
-# Enable autocorrection
 setopt CORRECT
-
-
-
 # Better history navigation
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey '^[[1;5D' backward-word
 bindkey '^[[1;5C' forward-word
+
+bindkey '^H' backward-word          # Ctrl + H moves back one word
+bindkey '^L' forward-word           # Ctrl + L moves forward one word
+bindkey '^K' history-substring-search-up    # Ctrl + K searches history upwards
+bindkey '^J' history-substring-search-down  # Ctrl + J searches history downwards
 
 
 # Completion settings
@@ -35,7 +29,6 @@ source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ~/.config/zsh/fzf-tab/fzf-tab.zsh
-
 
 eval "$(oh-my-posh --config ~/.config/posh/config.toml init zsh)"
 

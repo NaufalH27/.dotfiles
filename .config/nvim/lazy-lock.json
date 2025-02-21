@@ -1,0 +1,5 @@
+{
+  "lazy.nvim": { "branch": "main", "commit": "e5e9bf48211a13d9ee6c1077c88327c49c1ab4a0" },
+  "nvim-colorizer.lua": { "branch": "master", "commit": "943be69156b94fbc96064f4913d653f0c7fb299f" },
+  "vim-plugin-AnsiEsc": { "branch": "master", "commit": "690f820d20b6e3a79ba20499874eb7333aa4ca5c" }
+}
