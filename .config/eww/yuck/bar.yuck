@@ -2,7 +2,7 @@
 
 (defwindow bar
             :monitor "eDP-1"
-            :geometry (geometry :x "0%" :y "4px" :width "98.25%" :height "50px" :anchor "top center")
+            :geometry (geometry :x "0%" :y "4px" :width "99%" :height "10px" :anchor "top center")
             :stacking "fg"
             :exclusive "true"
   (bar)
@@ -19,7 +19,7 @@
 
 
 (defwidget leftside []
-  (box :class "leftside" :orientation "h" :space-evenly "false" :spacing 0
+  (box :class "leftside" :orientation "h" :space-evenly "false" :spacing 5
      (clocks)
      (music-player)
     
@@ -84,14 +84,14 @@
               :space-evenly "false" 
               :spacing -1
               (label :class "music-title"
-                    :limit-width 18
+                    :limit-width 24
                     :xalign 0
                     :text "${music_metadata.title}" 
                     :vexpand false :hexpand false
                     :height 1
               )
               (label :class "music-artist" 
-                    :limit-width 18
+                    :limit-width 24
                     :xalign 0 
                     :text "${music_metadata.artist}"
               )
@@ -123,11 +123,6 @@
   )
 )
 
-
-
-
-
-
 (defwidget workspace_button [?number id]
     (eventbox :class "workspace-button-eventbox" :onclick "hyprctl dispatch workspace ${id}"
       (box :class "workspace-button 
@@ -140,13 +135,16 @@
 
 
 (defwidget workspaces []
-  (box  :class "workspaces" :orientation "h" :height 45 :halign "center" :spacing 7 :space-evenly "false" 
+  (box  :class "workspaces" :orientation "h" :halign "center" :spacing 7 :space-evenly "false" 
     (workspace_button :id 1)
     (workspace_button :id 2)
     (workspace_button :id 3)
     (workspace_button :id 4)
     (workspace_button :id 5)
     (workspace_button :id 6)
+    (workspace_button :id 7)
+    (workspace_button :id 8)
+    (workspace_button :id 9)
   )
   
 )

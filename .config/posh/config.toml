@@ -10,24 +10,31 @@ version = 3
   newline = true
     
   [[blocks.segments]]
-    foreground_templates = [ "{{ if .SSHSession }}p:mauve{{else}}p:surface0{{ end }}" ]
-    template = "<p:surface0>┌</>"
+    template = "<p:muted>┌</>"
     style = "plain"
     type = "session"
     
   [[blocks.segments]]
-    foreground = "p:surface0"
-    background="p:mauve"
+    foreground = "p:surface"
+    background="p:iris"
     type = "session"
     style = "diamond"
-    trailing_diamond = ""
-    template = "{{ if .SSHSession }}󰢹 SSH{{end}}"
-    
+    trailing_diamond = ""
+    template = "{{ if .SSHSession }} 󰢹 SSH {{end}}"
+  
   [[blocks.segments]]
-    foreground = "p:mauve"
-    background = "p:surface0"
+    foreground = "p:overlay"
+    background = "p:subtle"
+    trailing_diamond = ""
+    template = "  {{ .UserName }} "
+    style = "diamond"
+    type = "session"
+  
+  [[blocks.segments]]
+    foreground = "p:text"
+    background = "p:surface"
     
-    trailing_diamond = ""
+    trailing_diamond = ""
     template = "  {{ .Path }} "
     style = "diamond"
     type = "path"
@@ -37,10 +44,10 @@ version = 3
   [[blocks.segments]]
     type = 'git'
     style = "diamond"
-    foreground = "p:green"
-    background = "p:surface1"
-    trailing_diamond = ""
-    template = ' {{ .HEAD }} '
+    foreground = "p:iris"
+    background = "p:highlight_low"
+    trailing_diamond = ""
+    template = ' {{ .HEAD }}'
 
     [blocks.segments.properties]
       branch_icon = ' '
@@ -51,45 +58,40 @@ version = 3
   [[blocks.segments]]
     type = 'git'
     style = "diamond"
-    background = "p:surface0"
-    trailing_diamond = ""
-    foreground_templates = ["{{if gt .Behind 0}}p:red{{end}}",
-                            "{{if gt .Ahead 0}}p:maroon{{end}}",
-                            "{{if eq .Ahead 0}}p:green{{end}}"
+    background = "p:overlay"
+    trailing_diamond = ""
+    foreground_templates = ["{{if gt .Behind 0}}p:love{{end}}",
+                            "{{if gt .Ahead 0}}p:rose{{end}}",
+                            "{{if eq .Ahead 0}}p:foam{{end}}"
                             ]
-    template = " {{if or (.Working.Changed) (.Staging.Changed)}}<p:yellow></> {{ if ne .Ahead 0 }} {{end}}{{ else if ne .Ahead 0 }}{{else}}<p:green></> {{ if ne .Ahead 0 }} {{end}}{{end}}{{ if gt .Behind 0 }}󰶡 {{ .Behind }}{{ else if gt .Ahead 0 }}󰶣 {{ .Ahead }}{{ else }}{{end}}"
+    template = " {{if or (.Working.Changed) (.Staging.Changed)}}<p:gold></> {{ if ne .Ahead 0 }} {{end}}{{ else if ne .Ahead 0 }}{{else}}<p:foam></> {{ if ne .Ahead 0 }} {{end}}{{end}}{{ if gt .Behind 0 }}󰶡 {{ .Behind }} {{ else if gt .Ahead 0 }}󰶣 {{ .Ahead }} {{ else }}{{end}}"
     [blocks.segments.properties]
       branch_icon = ''
       commit_icon = '@'
       fetch_status = true
-      
-[[blocks]]
-  type = 'prompt'
-  alignment = 'right'
   
   [[blocks.segments]]
     type = 'executiontime'
-    foreground = "p:yellow"
-    background = "p:surface0"
-    leading_diamond = ""
-     trailing_diamond = " "
+    foreground = "p:gold"
+    background = "p:highlight_med"
+     trailing_diamond = ""
     
-    template = '  {{ .FormattedMs }}'
+    template = '  {{ .FormattedMs }} '
     style = "diamond"
     
     [blocks.segments.properties]
       threshold = 500
       style = "round"
       
-   [[blocks.segments]]
+  [[blocks.segments]]
     type = 'status'
     style = "diamond"
-    foreground = "p:red"
-    background = "p:surface0"
-    leading_diamond = ""
-     trailing_diamond = ""
-    template = '{{ if ne .Code 0 }} {{.Code}}{{ end }}'
+    foreground = "p:rose"
+    background = "p:highlight_high"
+    trailing_diamond = ""
+    template = '{{ if ne .Code 0 }}  {{.Code}} {{ end }}'
 
+ 
     
  
 
@@ -101,17 +103,17 @@ newline = true
 
 
   [[blocks.segments]]
-  foreground = "p:blue"
+  foreground = "p:pine"
   type = "text"
-  template = "<p:surface0>└</>"
+  template = "<p:muted>└</>"
 
 
 
 
 [transient_prompt]
 foreground_templates = [
-"{{if gt .Code 0}}p:red{{end}}",
-"{{if eq .Code 0}}p:blue{{end}}",
+"{{if gt .Code 0}}p:love{{end}}",
+"{{if eq .Code 0}}p:pine{{end}}",
 ]
 background = 'transparent'
 template = ' '
@@ -125,27 +127,19 @@ template = ' '
 
 
 [palette]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
+base = "#faf4ed"
+surface = "#fffaf3"
+overlay = "#f2e9e1"
+muted = "#9893a5"
+subtle = "#797593"
+text = "#575279"
+love = "#b4637a"
+gold = "#ea9d34"
+rose = "#d7827e"
+pine = "#286983"
+foam = "#56949f"
+iris = "#907aa9"
+highlight_low = "#f4ede8"
+highlight_med = "#dfdad9"
+highlight_high = "#cecacd"
+

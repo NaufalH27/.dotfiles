@@ -1,5 +1,5 @@
-export EDITOR='code'
-export VISUAL='code'
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 alias eww='~/AUR/eww/target/release/eww'
 export HISTFILE="$XDG_STATE_HOME"/bash/history

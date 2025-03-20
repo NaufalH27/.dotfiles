@@ -21,15 +21,6 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
     end
 })
 
-vim.keymap.set("n", "<leader>wf", function()
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
-        local config = vim.api.nvim_win_get_config(win)
-        if config and config.zindex then  -- Detect floating windows
-            vim.api.nvim_set_current_win(win)
-            break
-        end
-    end
-end, { desc = "Focus Hover Window" })
 vim.keymap.set("n", "<Esc>", function()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     if vim.api.nvim_win_get_config(win).relative ~= "" then
@@ -39,26 +30,8 @@ vim.keymap.set("n", "<Esc>", function()
   end
 end, { desc = "Close floating window on Esc" })
 
-
-
-vim.keymap.set("n", "<leader>wc", function()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative ~= "" then
-      vim.api.nvim_win_close(win, false)
-    end
-  end
-end, { desc = "Close floating window" })
-
-vim.keymap.set("n", "<leader>fh", function()
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    if vim.api.nvim_win_get_config(win).relative ~= "" then
-      vim.api.nvim_set_current_win(win)
-      return
-    end
-  end
-end, { desc = "Focus floating window" })
-
-
 vim.keymap.set("n", "<<", "v<gv", { noremap = true, silent = true })
 vim.keymap.set("n", ">>", "v>gv", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 

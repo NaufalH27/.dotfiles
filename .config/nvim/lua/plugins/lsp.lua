@@ -2,7 +2,6 @@ return {
     { "williamboman/mason.nvim",
         config = true,
     },
-
     { "williamboman/mason-lspconfig.nvim", config = function()
         require("mason-lspconfig").setup({
             ensure_installed = {
@@ -11,7 +10,6 @@ return {
                 "rust_analyzer",
                 "gopls",
                 "clangd",
-                "kotlin_language_server",
                 "yamlls",
                 "jsonls",
                 "efm",
@@ -23,6 +21,8 @@ return {
                 "cssls", -- Correct name for CSS LSP
                 "html",
                 "intelephense",
+                "jdtls",
+                "ts_ls",
             },
             automatic_installation = true,
         })
@@ -31,6 +31,7 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             "saghen/blink.cmp",
+            "jose-elias-alvarez/typescript.nvim",
         },
         lazy = false,
         config = function()
@@ -61,7 +62,9 @@ return {
                     },
                 },
             })
-            setup_server("pyright", {})
+            setup_server("pyright", {
+                root_dir = lspconfig.util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git", "venv", ".venv")
+            })
             setup_server("intelephense", {
                 settings = {
                     intelephense = {
@@ -79,16 +82,72 @@ return {
                 },
             })
             setup_server("kotlin_language_server", {
+                cmd = {"kotlin-language-server"},
                 filetypes = { "kotlin" },
+                root_dir = lspconfig.util.root_pattern( "gradlew", ".git" ),
             })
             setup_server("gopls", {
                 cmd = { "gopls" },
                 filetypes = { "go", "gomod", "gowork", "gotmpl" },
                 root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
             })
-            setup_server("clangd", {})
+            setup_server("clangd", {
+                cmd = { "clangd", "--fallback-style=Google" },
+                root_dir = lspconfig.util.root_pattern( "Makefile", "CMakeLists.txt", ".git" ),
+            })
+            setup_server("ts_ls", {
+                root_dir = lspconfig.util.root_pattern( "node_modules", ".git", "packge.json", "package-lock.json" ),
+            })
+            local home = os.getenv("HOME")
+            local jdtls_path = home .. "/.local/share/nvim/mason/packages/jdtls"
+            local lombok_path = home .. "/.local/share/nvim/mason/share/jdtls/lombok.jar"
+            local plugins_path = jdtls_path .. "/plugins/"
+            local launcher_jar = vim.fn.glob(plugins_path .. "org.eclipse.equinox.launcher_*.jar")
+            local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+            local workspace_dir = home .. "/.cache/jdtls/workspace/" .. project_name
+            setup_server("jdtls", {
+                filetypes = { "java" },
+                cmd = {
+                    "java",
+                    "-javaagent:" .. lombok_path,
+                    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+                    "-Dosgi.bundles.defaultStartLevel=4",
+                    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+                    "-Dlog.protocol=true",
+                    "-Dlog.level=ALL",
+                    "-Xms1g",
+                    "--add-modules=ALL-SYSTEM",
+                    "--add-opens",
+                    "java.base/java.util=ALL-UNNAMED",
+                    "--add-opens",
+                    "java.base/java.lang=ALL-UNNAMED",
+                    "-jar",
+                    launcher_jar,
+                    "-configuration",
+                    jdtls_path .. "/config_linux",
+                    "-data",
+                    workspace_dir,
+                },
+                root_dir = lspconfig.util.root_pattern( "gradlew", "mvnw", ".git" ),
+            })
+            lspconfig.kotlin_language_server.setup({
+                cmd = { "/home/nopal/development/kotlin-language-server/server/build/install/server/bin/kotlin-language-server" },
+                filetypes = { "kotlin" },
+                root_dir = lspconfig.util.root_pattern("gradlew", ".git"),
+            })
         end
     },
+    {
+        'nvim-flutter/flutter-tools.nvim',
+        lazy = false,
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
+        },
+        config = true,
+    }
+
+
 }
 
 

@@ -49,20 +49,29 @@ return {
         verbose = false,
       },
     }
-        vim.keymap.set("n", "<C-S-d>", function() dap.continue() end, { desc = "Start/Continue Debugging" })
-        vim.keymap.set("n", "<C-S-o>", function() dap.step_over() end, { desc = "Step Over" })
-        vim.keymap.set("n", "<C-S-i>", function() dap.step_into() end, { desc = "Step Into" })
-        vim.keymap.set("n", "<C-S-u>", function() dap.step_out() end, { desc = "Step Out" })
-        vim.keymap.set("n", "<Leader>b", function() dap.toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
-        vim.keymap.set("n", "<Leader>B", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, { desc = "Set Conditional Breakpoint" })
+        vim.keymap.set("n", "<Leader>ds", function() dap.continue() end, { desc = "Start/Continue Debugging" })
+        vim.keymap.set("n", "<Leader>do", function() dap.step_over() end, { desc = "Step Over" })
+        vim.keymap.set("n", "<Leader>di", function() dap.step_into() end, { desc = "Step Into" })
+        vim.keymap.set("n", "<Leader>du", function() dap.step_out() end, { desc = "Step Out" })
+        vim.keymap.set("n", "<Leader>db", function() dap.toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
+        vim.keymap.set("n", "<Leader>dB", function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, { desc = "Set Conditional Breakpoint" })
         vim.keymap.set("n", "<Leader>dr", function() dap.repl.open() end, { desc = "Open Debug REPL" })
         vim.keymap.set("n", "<Leader>du", function() dapui.open() end, { desc = "Open DAP UI" })
         vim.keymap.set("n", "<Leader>dd", function() dapui.close() end, { desc = "Close DAP UI" })
         vim.keymap.set("n", "<Leader>dl", function() dap.repl.toggle() end, { desc = "Toggle DAP Log" })
-        vim.fn.sign_define("DapBreakpoint", { text = "🔴", texthl = "Error", linehl = "", numhl = "" })
-        vim.fn.sign_define("DapBreakpointCondition", { text = "🟡", texthl = "Warning", linehl = "", numhl = "" })
-        vim.fn.sign_define("DapLogPoint", { text = "🟢", texthl = "Info", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapBreakpoint", { text = "•", texthl = "Error", linehl = "", numhl = "Error" })
+        vim.fn.sign_define("DapBreakpointCondition", { text = "•", texthl = "Warning", linehl = "", numhl = "Warning" })
+        vim.fn.sign_define("DapLogPoint", { text = "•", texthl = "Info", linehl = "", numhl = "Info" })
+
     end,
   },
+  {
+       "julianolf/nvim-dap-lldb",
+       dependencies = { "mfussenegger/nvim-dap" },
+       opts = { codelldb_path = "/path/to/codelldb" },
+
+    }
+
+
 }
 

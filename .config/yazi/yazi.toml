@@ -1,11 +1,11 @@
 [opener]
 play = [
-	{ run = 'haruna "$@"', orphan = true, for = "unix" },
+    { run = 'mpv "$@"', orphan = true, for = "unix" },
 
 ]
 edit = [
-	{ run = 'nvim "$@"', block = true, for = "unix" },
+    { run = 'nvim "$@"', block = true, for = "unix" },
 ]
 open = [
-	{ run = 'xdg-open "$@"', desc = "Open" },
+    { run = 'xdg-open "$@"', desc = "Open" },
 ]
