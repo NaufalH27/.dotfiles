@@ -145,6 +145,7 @@
     (workspace_button :id 7)
     (workspace_button :id 8)
     (workspace_button :id 9)
+    (workspace_button :id 10)
   )
   
 )
