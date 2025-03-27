@@ -33,5 +33,21 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
-vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ff0000", bg = "NONE" })
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_set_hl(0, "MatchParen", { fg = "#ff0000", bg = "NONE" })
+    end
+})
+
+
+for i = 2, 8, 2 do
+  vim.keymap.set("n", "<leader>in" .. i, function()
+    vim.opt.tabstop = i
+    vim.opt.shiftwidth = i
+    vim.opt.softtabstop = i
+    vim.opt.expandtab = true
+    print("Indentation set to " .. i)
+  end, { desc = "Set indentation to " .. i })
+end
 

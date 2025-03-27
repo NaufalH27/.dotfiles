@@ -41,3 +41,5 @@ export PATH="/home/nopal/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/nopal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 echo
 
+
+export PATH=$PATH:/home/nopal/.spicetify
