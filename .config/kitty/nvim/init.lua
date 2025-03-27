@@ -2,23 +2,16 @@ vim.opt.runtimepath:prepend(vim.fn.expand("$HOME/.config/kitty/nvim"))
 require("config.lazy")
 require("keybinds")
 vim.opt.number = false 
-vim.opt.cursorline = false
-vim.opt.tabstop = 4 
-vim.opt.shiftwidth = 4  
-vim.opt.expandtab = true
-vim.opt.softtabstop = 4
 vim.o.scrolloff = 5   
 vim.o.sidescrolloff = 8  
 vim.o.smoothscroll = true 
 vim.opt.swapfile = false
 
 vim.o.termguicolors = true
-vim.cmd("highlight Normal guibg=#1e1e2e ctermbg=NONE")
-vim.api.nvim_set_hl(0, "Normal", { fg = "#cdd6f4" }) 
 
 vim.api.nvim_create_autocmd("QuitPre", {
-    pattern = "*",
-    command = "silent! qall!"
+  pattern = "*",
+  command = "silent! qall!"
 })
 vim.opt.wildoptions:remove("pum")
 
@@ -38,7 +31,7 @@ vim.fn.chanclose(term_chan)
 
 local last_line = #lines
 while last_line > 0 and lines[last_line] == "" do
-    last_line = last_line - 1
+  last_line = last_line - 1
 end
 if last_line == 0 then last_line = 1 end
 
