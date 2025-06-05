@@ -4,8 +4,8 @@ vim.keymap.set({ "n", "v", "i" }, "<S-Down>", "<Nop>", { noremap = true, silent 
 vim.keymap.set({ "n", "v", "i" }, "<S-Up>", "<Nop>", { noremap = true, silent = true })
 
 vim.keymap.set({ "n", "v" }, "<C-/>", ":noh<CR>", { noremap = true, silent = true })
-vim.keymap.set({"n", "v", "i"}, "<C-u>", "<C-u>zz", { noremap = true, silent = true })
-vim.keymap.set({"n", "v", "i"}, "<C-d>", "<C-d>zz", { noremap = true, silent = true })
+vim.keymap.set({"n", "v"}, "<C-u>", "<C-u>zz", { noremap = true, silent = true })
+vim.keymap.set({"n", "v"}, "<C-d>", "<C-d>zz", { noremap = true, silent = true })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, buffer = bufnr })
 vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, buffer = bufnr })
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true, buffer = bufnr })

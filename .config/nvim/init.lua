@@ -41,13 +41,32 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 
 
-for i = 2, 8, 2 do
-  vim.keymap.set("n", "<leader>in" .. i, function()
-    vim.opt.tabstop = i
-    vim.opt.shiftwidth = i
-    vim.opt.softtabstop = i
-    vim.opt.expandtab = true
-    print("Indentation set to " .. i)
-  end, { desc = "Set indentation to " .. i })
-end
+vim.api.nvim_create_user_command("Ci", function(opts)
+  local indent = tonumber(opts.args)
+  if not indent or indent <= 0 then
+    print("Please provide a valid positive number, e.g., :Ci 2")
+    return
+  end
+  vim.opt.tabstop = indent
+  vim.opt.shiftwidth = indent
+  vim.opt.softtabstop = indent
+  vim.opt.expandtab = true
+  print("Indentation set to " .. indent)
+end, {
+  nargs = 1,
+  complete = function(ArgLead)
+    -- Optional completion suggestion
+    return { "2", "4", "8" }
+  end,
+  desc = "Set code indentation width",
+})
+
+
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
 

@@ -3,7 +3,7 @@
 alias eww='~/.config/eww/eww/target/release/eww'
 alias ls='ls --color=auto'
 alias sudo='sudo'
-alias buildApk='./gradlew --no-daemon assembleDebug && waydroid app install app/build/outputs/apk/debug/app-debug.apk'
+alias buildApk='./gradlew --no-daemon assembleDebug && adb install app/build/outputs/apk/debug/app-debug.apk || waydroid app install app/build/outputs/apk/debug/app-debug.apk'
 
 setopt CORRECT
 # Better history navigation

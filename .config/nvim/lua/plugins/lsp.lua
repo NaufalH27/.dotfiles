@@ -5,7 +5,6 @@ return {
     { "williamboman/mason-lspconfig.nvim", config = function()
         require("mason-lspconfig").setup({
             ensure_installed = {
-                "pyright",
                 "pylsp",
                 "rust_analyzer",
                 "gopls",
@@ -62,9 +61,14 @@ return {
                     },
                 },
             })
-            setup_server("pyright", {
-                root_dir = lspconfig.util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git", "venv", ".venv")
-            })
+
+            setup_server("pylsp", {
+                root_dir = lspconfig.util.root_pattern(
+                    "pyproject.toml", "setup.py", "setup.cfg",
+                    "requirements.txt", ".git", "venv", ".venv"
+                ),
+              })
+
             setup_server("intelephense", {
                 settings = {
                     intelephense = {
@@ -130,11 +134,6 @@ return {
                 },
                 root_dir = lspconfig.util.root_pattern( "gradlew", "mvnw", ".git" ),
             })
-            lspconfig.kotlin_language_server.setup({
-                cmd = { "/home/nopal/development/kotlin-language-server/server/build/install/server/bin/kotlin-language-server" },
-                filetypes = { "kotlin" },
-                root_dir = lspconfig.util.root_pattern("gradlew", ".git"),
-            })
         end
     },
     {
@@ -144,7 +143,6 @@ return {
             'nvim-lua/plenary.nvim',
             'stevearc/dressing.nvim', -- optional for vim.ui.select
         },
-        config = true,
     }
 
 

@@ -20,7 +20,7 @@ return {
                     "^env/",
                     "^.env/",
                     "^target/",
-                    "^build/",
+                    "/build/",
                     "^.git/",
                     "^dist/",
                     "^__pycache__/",
