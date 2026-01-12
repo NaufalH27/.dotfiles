@@ -70,3 +70,5 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
+vim.opt.swapfile = false
+

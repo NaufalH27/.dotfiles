@@ -3,7 +3,6 @@ final_space = true
 version = 3
 
 
-
 [[blocks]]
   type = 'prompt'
   alignment = 'left'
@@ -13,6 +12,7 @@ version = 3
     template = "<p:muted>┌</>"
     style = "plain"
     type = "session"
+
     
   [[blocks.segments]]
     foreground = "p:surface"
@@ -21,6 +21,7 @@ version = 3
     style = "diamond"
     trailing_diamond = ""
     template = "{{ if .SSHSession }} 󰢹 SSH {{end}}"
+
   
   [[blocks.segments]]
     foreground = "p:overlay"
@@ -29,6 +30,16 @@ version = 3
     template = "  {{ .UserName }} "
     style = "diamond"
     type = "session"
+
+  [[blocks.segments]]
+    foreground = "p:overlay"
+    background="p:gold"
+    style = "diamond"
+    trailing_diamond = ""
+    type = "text"
+    template = "{{ if and (env \"VIRTUAL_ENV\") (ne (base (env \"VIRTUAL_ENV\")) \"base\") }}  {{ base (env \"VIRTUAL_ENV\") }} {{ end }}"
+    [blocks.segments.properties]
+    display_mode = "always"
   
   [[blocks.segments]]
     foreground = "p:text"
@@ -103,6 +114,7 @@ newline = true
 
 
   [[blocks.segments]]
+  style = "plain"
   foreground = "p:pine"
   type = "text"
   template = "<p:muted>└</>"

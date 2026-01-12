@@ -1,8 +1,5 @@
 symlinks/
 
-.config/eww/eww/
-.config/eww/banner-og/
-.config/eww/img-bin/
 
 .config/zsh/zsh-autosuggestions/
 .config/zsh/fzf-tab/

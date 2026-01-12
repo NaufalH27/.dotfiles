@@ -7,7 +7,6 @@ source ~/.config/zsh/fzf-style.zsh
 # Default Apps
 export EDITOR="nvim"
 export VISUAL="nvim"
-export BROWSER="firefox"
 export TERM="xterm-256color"
 
 # Manpager

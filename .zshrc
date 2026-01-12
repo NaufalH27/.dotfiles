@@ -32,14 +32,26 @@ eval "$(oh-my-posh --config ~/.config/posh/config.toml init zsh)"
 # Source environment variables and aliases
 source ~/.config/zsh/env.zsh
 source ~/.config/zsh/fzf-style.zsh
+mkdir -p "$XDG_CACHE_HOME/zsh"
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+export HISTFILE="$XDG_STATE_HOME/zsh/history"
+mkdir -p "$(dirname "$HISTFILE")"
 export HISTSIZE=10000
 export SAVEHIST=10000
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+
 
 export PATH="/home/nopal/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/nopal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 echo
 
-
 export PATH=$PATH:/home/nopal/.spicetify
+export ICON_DIRS="$HOME/.local/share/icons:/usr/share/icons:/usr/share/pixmaps"
+export PREFERRED_ICON_THEME=WhiteSur
+

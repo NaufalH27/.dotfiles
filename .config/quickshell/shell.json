@@ -1,0 +1,67 @@
+{
+    "font": {
+        "family": {
+            "mono": "CaskaydiaMono Nerd Font",
+            "sans": "MesloLGL Nerd Font"
+        },
+        "size": {
+            "extraLarge": 28,
+            "large": 18,
+            "larger": 15,
+            "normal": 13,
+            "scale": 1,
+            "small": 11,
+            "smaller": 12
+        }
+    },
+    "palette": {
+        "primary": {
+            "base": "#faf4ed",
+            "foam": "#56949f",
+            "gold": "#ea9d34",
+            "highlightHigh": "#cecacd",
+            "highlightLow": "#f4ede8",
+            "highlightMed": "#dfdad9",
+            "iris": "#907aa9",
+            "love": "#b4637a",
+            "muted": "#9893a5",
+            "overlay": "#f2e9e1",
+            "pine": "#286983",
+            "rose": "#d7827e",
+            "subtle": "#797593",
+            "surface": "#fffaf3",
+            "text": "#575279"
+        }
+    },
+    "system": {
+        "service": {
+            "clockFormat": 1,
+            "numberOfClockFormat": 4
+        },
+        "ui": {
+            "maxNumberOfPillShown": 10,
+            "minNumberOfPillShown": 5
+        }
+    },
+    "utility": {
+        "enabled": true,
+        "maxToast": 4,
+        "sizes": {
+            "toastWidth": 430,
+            "width": 430
+        },
+        "toast": {
+            "audioInputChanged": true,
+            "audioOutputChanged": true,
+            "capsLockChanged": true,
+            "chargingChanged": true,
+            "configLoaded": true,
+            "dndChanged": true,
+            "gameModeChanged": true,
+            "kbLayoutChanged": true,
+            "nowPlaying": false,
+            "numLockChanged": true,
+            "vpnChanged": true
+        }
+    }
+}
