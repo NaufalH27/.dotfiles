@@ -4,12 +4,7 @@
 
 # PREVIEW
 
-![image](https://github.com/user-attachments/assets/736b3377-b419-450f-a003-57b157f6a100)
-
-
-
-
-
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/08cde390-c0b3-41fa-86ed-646d7b985257" />
 
 
 
@@ -30,6 +25,6 @@
 | create date widget                     |         ❌       |
 | create spotify widget in bar            |         ✔       |
 | pywal integration                       |         ❌       |
-| create app dock shortcut                |         ❌       |
+| create app dock shortcut                |         ✔       |
 | create poweroff menu                    |         ❌       |
-| hyprlock                                |         ❌       |
+| lockscreen                                |         ❌       |
