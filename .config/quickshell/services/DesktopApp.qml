@@ -24,10 +24,10 @@ Singleton {
         const dockSet = new Set([
           "kitty",
           "google-chrome",
-          "discord",
           "spotify",
           "code",
-          "org.kde.dolphin"
+          "org.kde.dolphin",
+          "com.obsproject.Studio"
         ])
 
         function parseCSVLine(line) {

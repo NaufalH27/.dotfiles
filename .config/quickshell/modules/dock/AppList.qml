@@ -68,6 +68,7 @@ Rectangle {
               height: 48
               source: appIcon.model.iconExt !== "svg" ? "" : appIcon.model.icon
               visible: appIcon.model.iconExt === "svg" && appIcon.model
+              preferredRendererType: VectorImage.CurveRenderer
             }
 
             Image {

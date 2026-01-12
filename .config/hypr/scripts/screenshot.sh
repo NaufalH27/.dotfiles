@@ -29,7 +29,6 @@ case "$MODE" in
     ;;
 esac
 
-# Ensure non-empty output
 if [ -s "$TMP" ]; then
   mv "$TMP" "$FILE"
   wl-copy < "$FILE"
