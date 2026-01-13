@@ -4,6 +4,7 @@ Y_OFFSET=20
 WIDTH_PADDING=50
 HEIGHT_PADDING=100
 
+at_anchors
 
 stdbuf -oL socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock |
 grep --line-buffered -E "^(changefloatingmode>>|openwindow>>)" |
@@ -47,17 +48,20 @@ while read -r line; do
 		]
 		| max_by(.at[0]) as $max
 		| if
-			($max.at[0] + $max.size[0] + $x_off) <= ($mw - $wp)
-			and
-			($max.at[1] + $max.size[1] + $y_off) <= ($mh - $hp)
+			($max.at[0] + $max.size[0] + $x_off) > ($mw - $wp)
 		then
-			$max.at
-		else
+			null
+		elif
+			($max.at[1] + $max.size[1] + $y_off) > ($mh - $hp)
+		then
 			[
 			$max.at[0] + 1,
 			50
 			]
+		else
+			$max.at
 		end
+
 		'
 	)
 

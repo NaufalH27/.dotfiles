@@ -24,6 +24,6 @@ case $window in
 swayimg|imv|Display) toggle_float "640" "480";;
 mpv|vlc|org.kde.haruna|smplayer) toggle_float "960" "540";;
 Code|zen-beta|vivaldi|Google-chrome) toggle_float "1280" "720";;
-*) toggle_float "960" "540";;
+*) toggle_float "960" "640";;
 esac
 
