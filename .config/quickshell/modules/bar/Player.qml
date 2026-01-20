@@ -13,7 +13,7 @@ Rectangle {
   id: media
   width: 260
   radius: width/2
-  color: Config.palette.primary.overlay 
+  color: "transparent"
 
   readonly property bool isActive:
   !!(Players.active?.trackTitle || Players.active?.trackArtist)
@@ -56,6 +56,10 @@ Rectangle {
             visible: false
             asynchronous: true
             fillMode: Image.PreserveAspectCrop
+            smooth: true
+            mipmap: true
+            sourceSize.width: width * Screen.devicePixelRatio
+            sourceSize.height: height * Screen.devicePixelRatio
           }
           Item {
             id: coverMask
@@ -63,7 +67,6 @@ Rectangle {
             height: cover.height
             layer.enabled: true
             layer.smooth: true
-            visible: false
 
             Rectangle {
               anchors.fill: parent
@@ -103,7 +106,7 @@ Rectangle {
         font.pointSize:7
         font.weight: Font.DemiBold
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         elide: Text.ElideRight
       }
 
@@ -113,7 +116,7 @@ Rectangle {
         text: Players.active?.trackArtist ?? ""
         font.pointSize: 5
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         elide: Text.ElideRight
         font.weight: Font.Medium
       }
@@ -127,7 +130,7 @@ Rectangle {
         text: "󰒮"
         font.pointSize: 12
         color: Players.active?.canGoPrevious ?
-        Config.palette.primary.subtle : Config.palette.primary.muted
+        Config.color.primary.subtle : Config.color.primary.muted
 
         MouseArea {
           anchors.fill: parent
@@ -143,7 +146,7 @@ Rectangle {
         text: Players.active?.isPlaying ? "󰏤" : "󰐊"   
         font.pointSize: 12
         color: Players.active?.canTogglePlaying ?
-        Config.palette.primary.subtle : Config.palette.primary.muted
+        Config.color.primary.subtle : Config.color.primary.muted
 
         MouseArea {
           anchors.fill: parent
@@ -159,7 +162,7 @@ Rectangle {
         text: "󰒭"
         font.pointSize: 12
         color: Players.active?.canGoNext ?
-        Config.palette.primary.subtle : Config.palette.primary.muted
+        Config.color.primary.subtle : Config.color.primary.muted
 
         MouseArea {
           anchors.fill: parent

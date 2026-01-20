@@ -9,6 +9,14 @@ Singleton {
     source: "/usr/share/fonts/SFPro/SF-Pro-Text-Regular.otf"
   }
   FontLoader {
+    id: kazesawa 
+    source: "/usr/share/fonts/kazesawa/Kazesawa-Regular.ttf"
+  }
+  FontLoader {
+    id: geoSans 
+    source: "/usr/share/fonts/geoSansLight/GeosansLight.ttf"
+  }
+  FontLoader {
     id: materialfont
     source: "/usr/share/fonts/material-symbol-fonts/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf"
   }
@@ -21,9 +29,10 @@ Singleton {
     id: shipporiMincho
     source: "/usr/share/fonts/shippori-mincho/ShipporiMincho-Regular.ttf"
   }
-  property alias sans: sfprofont.font.family
+  property alias sans: kazesawa.font.family
   property alias mono: mapleMonofont.font.family
   property alias material: materialfont.font.family
   property alias chinesejp: shipporiMincho.font.family
+  property alias subtitle: geoSans.font.family
 
 }

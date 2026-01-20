@@ -42,7 +42,7 @@ Scope {
           id: bar
           width: window.width
           height: root.barHeight
-          color: Config.palette.primary.base
+          color: Config.color.primary.base
           anchors {
             bottom: parent.bottom
             left: parent.left
@@ -59,8 +59,8 @@ Scope {
           radiusX: bar.height
           radiusY: bar.height*2
 
-          fillColor: Config.palette.primary.base
-          strokeColor:Config.palette.primary.subtle
+          fillColor: Config.color.primary.base
+          strokeColor:Config.color.primary.subtle
 
           direction: CurvedTriangle.Direction.TopRight
         }
@@ -71,8 +71,8 @@ Scope {
           radiusX: bar.height
           radiusY: bar.height*2
 
-          fillColor: Config.palette.primary.base
-          strokeColor:Config.palette.primary.subtle
+          fillColor: Config.color.primary.base
+          strokeColor:Config.color.primary.subtle
 
           direction: CurvedTriangle.Direction.TopLeft
         }
@@ -81,7 +81,7 @@ Scope {
           antialiasing: true
           ShapePath {
             fillColor: "transparent"
-            strokeColor: Config.palette.primary.subtle
+            strokeColor: Config.color.primary.subtle
             strokeWidth: 2
 
             PathMove { x: leftTriangle.startX + leftTriangle.radiusX; y: window.startBarY }

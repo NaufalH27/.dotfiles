@@ -8,7 +8,7 @@ Singleton {
     id: root
 
     property alias font: adapter.font
-    property alias palette: adapter.palette
+    property alias color: adapter.color
     property alias utility: adapter.utility
     property alias system: adapter.system
 
@@ -69,7 +69,7 @@ Singleton {
             id: adapter
 
             property FontConfig font: FontConfig {}
-            property PaletteConfig palette: PaletteConfig {}
+            property ColorConfig color: ColorConfig {}
             property UtilityConfig utility: UtilityConfig {}
             property SystemConfig system: SystemConfig {}
         }

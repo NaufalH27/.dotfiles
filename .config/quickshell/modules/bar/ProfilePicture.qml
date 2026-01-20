@@ -1,65 +1,74 @@
+import qs.components
 import qs.configs
-import Quickshell
-import Quickshell.Io
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Shapes
 import Qt.labs.platform
 import QtQuick.Effects
 
 Rectangle {
   id: root
-  implicitWidth: image.width
+  width: cover.width
   color:"transparent"
   Rectangle {
     id: image
-    height: parent.height
     width: cover.width
+    height: parent.height
     anchors.centerIn: parent
-    radius: width / 2
     color:"transparent"
     Image {
       id: cover
       source: StandardPaths.writableLocation(StandardPaths.HomeLocation)
-        + "/.config/quickshell/assets/mutsu_saki.jpg"
+        + "/.config/quickshell/assets/mutsu.jpg"
       anchors.centerIn: parent
       height: parent.height
       width: parent.height
-      visible: false
-      asynchronous: true
       fillMode: Image.PreserveAspectCrop
+      visible: false
+      smooth: true
+      mipmap: true
+      asynchronous: true
+      sourceSize.width: width * Screen.devicePixelRatio
+      sourceSize.height: height * Screen.devicePixelRatio
+
     }
-    Item {
+    Diamond {
       id: coverMask
       width: cover.width
       height: cover.height
       layer.enabled: true
-      visible: false
+      fillColor: "transparent"
 
-      Rectangle {
-        height: cover.height
-        width: cover.width
-        radius: width / 2
-        color: "black"
-      }
+    }
+    Diamond {
+      id: coverShadow
+      width: cover.width
+      height: cover.height
+
+      fillColor: "transparent"
+      strokeColor: Config.color.primary.purple
+      strokeWidth: 1
     }
 
-    MultiEffect {
-      source: cover
+
+    MultiEffect { 
       anchors.fill: cover
-      maskEnabled: true
+      source: cover
+      maskEnabled: true 
       maskSource: coverMask
-      maskThresholdMin: 0.5
-      maskSpreadAtMin: 1.0
+      maskThresholdMin: 0.5 
+      maskSpreadAtMin: 1.0 
     }
-  }
-  Rectangle {
-    width: parent.width
-    height: parent.height
-    radius: width / 2
-    color: "transparent"
-    border.color: Config.palette.primary.subtle
-    border.width: 1
+    MultiEffect {
+      anchors.fill: coverShadow
+      source: coverShadow
+      shadowEnabled: true
+
+      shadowVerticalOffset: 2
+      shadowHorizontalOffset: 0
+      shadowBlur: 0.4
+      shadowOpacity: 1
+      shadowColor: Config.color.primary.subtle
+      z: coverMask.z-1
+    }
   }
   MouseArea {
     height: root.height

@@ -1,6 +1,6 @@
 import qs.configs
 import qs.utils
-import qs.components
+import qs.services
 import Quickshell
 import QtQuick
 import Quickshell.Hyprland
@@ -21,80 +21,41 @@ Scope {
         }
         color: "transparent"
         margins {
-          bottom: -50
+          bottom: -dock.height
         }
 
-        implicitHeight: appList.implicitHeight + barMask.height
-        implicitWidth: appList.width + maxRadius*5
+        implicitHeight: dock.height + dockMask.height + 25
+        implicitWidth: dock.width + 50
         exclusionMode: ExclusionMode.Ignore
 
         mask: Region {
-          item: dock
+          item: hoverArea
         }
-        property real maxRadius: 10
-        property real posY: window.height - barMask.height
-        property real notchHeight: dock.height - barMask.height
-        property real radiusY: window.notchHeight/2 < maxRadius ? window.notchHeight/2 : maxRadius
 
-        Column {
-          id: dock
-          height: notch.height + barMask.height
-          clip: true
-          width: notch.width
+        property bool isOpen: hover.hovered || Hypr.isActiveWsEmpty
+
+        Item {
+          id: hoverArea
+          width: dock.width + 40
+          height: window.isOpen ? dock.height*2 + 20 : dock.height + 4
           anchors.bottom: parent.bottom
           anchors.horizontalCenter: parent.horizontalCenter
           Rectangle{
-            id: notch
-            width: appList.width
-            height: hover.hovered ? appListss.implicitHeight : root.barHeight + 1
-            color: Config.palette.primary.base
-            topLeftRadius: 12
-            topRightRadius: 12
-            border.color: Config.palette.primary.subtle
+            id: dock
+            width: appList.width + 10
+            height: appList.implicitHeight 
+            color: Config.color.primary.base
+            radius: 12
+            border.color: Config.color.primary.subtle
             border.width: 2
-            Rectangle {
-                height: window.radiusY
-                width: parent.width
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
-                color: parent.color    
-            }
-            Column {
+            anchors.bottom: dockMask.top
+            anchors.bottomMargin: window.isOpen ? 0 : -height - 4
+            anchors.horizontalCenter: parent.horizontalCenter
+            AppList {
               anchors.horizontalCenter: parent.horizontalCenter
-              id: appListss
-              width: appList.width + appListTopPadding.height
-              Item {
-                id: appListTopPadding
-                width: appList.width
-                height: hover.hovered ? 0 : 5
-                Behavior on height {
-                  NumberAnimation {
-                    duration: Anim.durations.small/3
-                    easing.type: Easing.BezierSpline
-                    easing.bezierCurve: Anim.curves.standardAccel
-                  }
-                }
-              }
-              AppList {
-                anchors.horizontalCenter: parent.horizontalCenter
-                id:appList
-              }
+              id:appList
             }
-            Behavior on height {
-              NumberAnimation {
-                duration: Anim.durations.normal
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: Anim.curves.standard
-              }
-            }
-            Behavior on width {
-              NumberAnimation {
-                duration: Anim.durations.normal
-                easing.type: Easing.BezierSpline
-                easing.bezierCurve: Anim.curves.standard
-              }
-            }
-            Behavior on width {
+            Behavior on anchors.bottomMargin {
               NumberAnimation {
                 duration: Anim.durations.normal
                 easing.type: Easing.BezierSpline
@@ -104,76 +65,23 @@ Scope {
           }
 
           Rectangle {
-            id: barMask
-            width: notch.implicitWidth
-            implicitHeight: -1 * window.margins.bottom + root.barHeight
+            id: dockMask
+            width: dock.width
+            anchors.bottom: parent.bottom
+            implicitHeight: dock.height + 4
             color: "transparent"
             z: 1
           }
+        }
 
-        }
         HoverHandler {
-            id: hover
+          id: hover
         }
+
         HyprlandFocusGrab {
           id: dockGrab
           windows: [ window ]
           active: hover.hovered
-      }
-
-
-
-        CurvedTriangle {
-          id: notchLeftTriangle
-          startX: window.width/2 - dock.width/2 +1
-          startY: window.posY-1
-          radiusX: window.maxRadius
-          radiusY: window.radiusY
-
-          fillColor: Config.palette.primary.base
-          strokeColor:Config.palette.primary.subtle
-          strokeWidth:2
-
-          direction: CurvedTriangle.Direction.TopLeft
-        }
-
-        CurvedTriangle {
-          id: notchRightTriangle
-          startX: window.width/2 + dock.width/2 -1
-          startY: window.posY-1
-          radiusX: window.maxRadius
-          radiusY: window.radiusY
-          strokeWidth:2
-
-          fillColor: Config.palette.primary.base
-          strokeColor:Config.palette.primary.subtle
-
-          direction: CurvedTriangle.Direction.TopRight
-        }
-        CurvedTriangle {
-          startX: notchLeftTriangle.startX
-          startY: notchLeftTriangle.startY
-          radiusX: notchLeftTriangle.radiusX
-          radiusY: notchLeftTriangle.radiusY
-          strokeWidth:2
-
-          fillColor: Config.palette.primary.base
-          strokeColor:"transparent"
-
-          direction: CurvedTriangle.Direction.BottomLeft
-        }
-
-        CurvedTriangle {
-          startX: notchRightTriangle.startX
-          startY: notchRightTriangle.startY
-          radiusX: notchRightTriangle.radiusX
-          radiusY: notchRightTriangle.radiusY
-          strokeWidth:2
-
-          fillColor: Config.palette.primary.base
-          strokeColor:"transparent"
-
-          direction: CurvedTriangle.Direction.BottomRight
         }
       }
 

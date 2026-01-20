@@ -6,7 +6,7 @@ import QtQuick.Layouts
 Rectangle {
   id:root
   width: column.implicitWidth
-  color: Config.palette.primary.rose
+  color: Config.color.primary.contrast
   radius: width/2
   RowLayout {
     id: column
@@ -23,7 +23,7 @@ Rectangle {
         text:""
         anchors.verticalCenter: parent.verticalCenter
         font.family: Fonts.sans
-        color: Config.palette.primary.base
+        color: Config.color.primary.base
         font.pointSize: 10
         font.weight: 900
         leftPadding: 10
@@ -39,7 +39,7 @@ Rectangle {
         text:"Recording"
         anchors.verticalCenter: parent.verticalCenter
         font.family: Fonts.sans
-        color: Config.palette.primary.base
+        color: Config.color.primary.base
         font.pointSize: 9
         font.weight: Font.Normal
         rightPadding:10

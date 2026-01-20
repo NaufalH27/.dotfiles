@@ -16,7 +16,7 @@ Singleton {
 
   Process {
     running: true
-    command: ["sh", "-c", `${Paths.script}/scripts/desktopapp.sh`]
+    command: ["sh", "-c", `${Paths.script}/scripts/desktopapp.sh -n WhiteSur`]
 
     stdout: StdioCollector {
       onStreamFinished: {

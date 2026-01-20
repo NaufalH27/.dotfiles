@@ -1,6 +1,5 @@
 pragma Singleton
 import qs.configs
-import qs.utils
 import Quickshell
 import Quickshell.Hyprland
 import QtQml
@@ -22,21 +21,7 @@ Singleton {
   readonly property HyprlandMonitor focusedMonitor: Hyprland.focusedMonitor
   readonly property int activeWsId: focusedWorkspace?.id ?? 1
   property int maxWsId: Config.system.ui.minNumberOfPillShown
-  property bool isSpecialActive: false
-  onWorkspacesValuesChanged: updateWorkspaceModel() 
-  onToplevelsValuesChanged: {
-    updateWorkspaceModel() 
-  } 
-  onActiveToplevelTitleChanged: {
-    updateWorkspaceModel() 
-  } 
-  onActiveToplevelChanged: {
-    updateWorkspaceModel() 
-  } 
-  onActiveToplevelInitialClassChanged: {
-    updateWorkspaceModel() 
-  } 
-  onFocusedWorkspaceChanged: updateWorkspaceModel() 
+  property bool isActiveWsEmpty: false
 
   ListModel {
     id: workspaceModel
@@ -67,15 +52,6 @@ Singleton {
       } else if (["workspace", "moveworkspace", "focusedmon"].includes(n)) {
         Hyprland.refreshWorkspaces()
         Hyprland.refreshMonitors()
-      } else if (n.includes("activespecial")){
-        if (data.includes("special:special")){
-          root.isSpecialActive = true
-        } else {
-          root.isSpecialActive = false
-        }
-        Hyprland.refreshToplevels()
-        Hyprland.refreshWorkspaces()
-
       }else if (["openwindow", "closewindow", "movewindow"].includes(n)) {
         Hyprland.refreshToplevels()
         Hyprland.refreshWorkspaces()
@@ -90,6 +66,7 @@ Singleton {
       ) {
         Hyprland.refreshToplevels()
       }
+      root.updateWorkspaceModel()
     }
   }
 
@@ -99,91 +76,51 @@ Singleton {
       workspaceModel.setProperty(i, "active", false)
       workspaceModel.setProperty(i, "urgent", false)
       workspaceModel.setProperty(i, "special", false)
-      workspaceModel.setProperty(i, "appRepTitle", "")
-      workspaceModel.setProperty(i, "appRepIndex", -1)
-      workspaceModel.setProperty(i, "appRepScore", 0)
-      workspaceModel.setProperty(i, "appRepIcon", "")
       let model = workspaceModel.get(i).toplevels
       model.clear()
     }
 
     let maxId = Config.system.ui.minNumberOfPillShown
-
     for (let ws of root.workspaces.values) {
-      let wsId = ws.id <= 0 ? 0 : ws.id
-      if (wsId < 0 || wsId >= workspaceModel.count)
-      continue
+      let wsId = ws.id
+      if (wsId > 10) {
+          wsId = wsId - 10
+      }
 
-      let i = wsId
+      if (wsId < 1 || wsId > workspaceModel.count)
+          continue
+
+      let i = wsId - 1
       workspaceModel.setProperty(i, "exists", true)
       workspaceModel.setProperty(i, "active", ws.active)
       workspaceModel.setProperty(i, "urgent", ws.urgent)
       if (wsId > root.maxWsId) {
         maxId = wsId > maxId ? wsId : maxId
-      } else if (wsId < Config.system.ui.minNumberOfPillShown) {
+      } else if (maxId == Config.system.ui.minNumberOfPillShownChanged && wsId <= Config.system.ui.minNumberOfPillShown) {
         maxId = Config.system.ui.minNumberOfPillShown
       }
       if (root.maxWsId != maxId) {
         root.maxWsId = maxId
       }
     }
-    function isStrictPathTitle(title) {
-      if (!title)
-      return false
+    
 
-      const t = title.trim()
-      const re = /^(~\/|\/)[a-zA-Z0-9._\-\/]*$/
-
-      return re.test(t)
-    }
-
-    function appScoreAndIcon(clazz, titlee) {
-      const cls = (clazz || "").toLowerCase()
-      const title = titlee || ""
-
-      const isTerminal = cls in Icon.terminals
-
-      let score = 0
-      let icon = ""
-
-      // non-terminal + recognized
-      if (!isTerminal) {
-        const [ priority, recognizedIcon ] = Icon.getRecognizedIconFromInitialClass(cls)
-        if (recognizedIcon) {
-          score += priority + 50
-          icon = recognizedIcon
-        }
-      }
-      // terminal + recognized
-      else if (isTerminal) {
-        const [ priority, recognizedIcon ] = Icon.getRecognizedIconFromTitle(title)
-        if (recognizedIcon) {
-          score += priority
-          icon = recognizedIcon
-        } else {
-          icon = Icon.terminals.kitty
-          score += 10
-        }
-      }
-      // non-terminal unrecognized
-      else {
-        score += 1
-        icon = ""
-      }
-
-      return { score, icon }
-    }
-
+    let isActiveEmpty = true
     for (let toplevel of root.toplevels.values) {
       if(!toplevel.workspace?.id) {
         continue
       }
-      let wsId = toplevel.workspace?.id <= 0 ? 0 : toplevel.workspace?.id
-      if (wsId < 0 || wsId >= workspaceModel.count) continue
+      if (toplevel.workspace.id === root.activeWsId) {
+        isActiveEmpty = false
+      }
+      let wsId = toplevel.workspace?.id
+      if (wsId > 10) {
+          wsId = wsId - 10
+      }
+      if (wsId < 1 || wsId > workspaceModel.count) continue
 
-      let ws = workspaceModel.get(wsId)
+      let ws = workspaceModel.get(wsId - 1)
       let wsToplevel = ws.toplevels
-      let index = wsToplevel.count
       var o = toplevel.lastIpcObject
 
       wsToplevel.append({
@@ -204,20 +141,12 @@ Singleton {
         height: o.size ? o.size[1] : 0,
         workspaceId: wsId,
         workspaceName: toplevel.workspace.name,
-        monitor: toplevel.monitor
       })
-
-
-      const { score, icon } = appScoreAndIcon(o.initialClass, toplevel.title)
-
-
-      if (score > ws.appRepScore) {
-        ws.appRepTitle = toplevel.title
-        ws.appRepIcon = icon
-        ws.appRepIndex = index
-        ws.appRepScore = score
-      }
-
+    }
+    if (isActiveEmpty) {
+      root.isActiveWsEmpty = true
+    } else {
+      root.isActiveWsEmpty = false
     }
   }
 
@@ -225,18 +154,13 @@ Singleton {
   Component.onCompleted: {
     workspaceModel.clear()
 
-    for (let i = 0; i < Config.system.ui.maxNumberOfPillShown + 1; i++) {
+    for (let i = 1; i <= Config.system.ui.maxNumberOfPillShown; i++) {
       root.workspaceModel.append({
         wsId: i,
         exists: false,
         active: false,
         urgent: false,
-        special: false,
         toplevels: [],
-        appRepTitle: "",        
-        appRepIcon: "",        
-        appRepIndex: -1,     
-        appRepScore: 0,      
       })
     }
 

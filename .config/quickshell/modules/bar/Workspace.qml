@@ -7,9 +7,8 @@ import QtQuick.Layouts
 
 Rectangle {
   id:root
-  color: Config.palette.primary.overlay
+  color: "transparent"
   implicitWidth: row.implicitWidth
-  radius: width/2
   Behavior on implicitWidth {
     NumberAnimation {
       duration: Anim.durations.expressiveDefaultSpatial
@@ -40,28 +39,27 @@ Rectangle {
       height: row.height
       width: contentWidth
       orientation: ListView.Horizontal
-      currentIndex: Hypr.activeWsId
+      currentIndex: Hypr.activeWsId - 1
       interactive: false
       anchors.verticalCenter: parent.verticalCenter
 
 
       delegate: Rectangle {
-        property int innerSpacing: 10
+        property int innerSpacing: 12
         id: pill
         color: "transparent"
         required property var model
 
         property int wsId : model.wsId
-        property bool isSpecialWs : wsId == 0
-        property bool isShown: model.exists || wsId <= Hypr.maxWsId || isSpecialWs
+        property bool isShown: model.exists || wsId <= Hypr.maxWsId
         property bool isActive: model.exists
-        property bool isFocused: Hypr.activeWsId === wsId || Hypr.isSpecialActive && isSpecialWs
+        property bool isFocused: Hypr.activeWsId === wsId
         anchors.verticalCenter: parent.verticalCenter
         height: parent.height
         visible: isShown
         scale: isShown ? 1 : 0
         opacity: isShown ? 1.0 : 0
-        implicitWidth: isShown ? parent.height + innerSpacing: 0
+        implicitWidth: isShown ? 24 + innerSpacing: 0
 
         Behavior on scale {
           NumberAnimation {
@@ -78,32 +76,14 @@ Rectangle {
             easing.bezierCurve: Anim.curves.emphasized
           }
         }
-        Rectangle {
-          MouseArea {
-            height: pill.height
-            width: pill.width
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
+        MouseArea {
+          height: pill.height
+          width: pill.width
+          hoverEnabled: true
+          cursorShape: Qt.PointingHandCursor
 
-            onClicked: {
-              if (pill.wsId === 0) {
-                Hypr.dispatch("togglespecialworkspace")
-              } else {
-                Hypr.dispatch(`workspace ${pill.wsId}`)
-              }
-            }
-          }
-          height: parent.height
-          anchors.centerIn: parent
-          width:height
-          radius: width / 2
-          color: pill.isSpecialWs && pill.isFocused ? Config.palette.primary.gold : "transparent"
-          Behavior on color {
-            ColorAnimation {
-              duration: Anim.durations.normal
-              easing.type: Easing.BezierSpline
-              easing.bezierCurve: Anim.curves.emphasized
-            }
+          onClicked: {
+            Hypr.dispatch(`workspace ${pill.wsId}`)
           }
         }
 
@@ -119,31 +99,21 @@ Rectangle {
 
           function textColor() {
             if (pill.isFocused)
-            return Config.palette.primary.highlightLow
+            return Config.color.primary.base
 
             if (pill.isActive) {
-              return pill.isSpecialWs
-              ? Config.palette.primary.gold
-              : Config.palette.primary.text
+              return Config.color.primary.contrast
             }
-            if (pill.isSpecialWs) {
-              return Config.palette.primary.rose
-            }
-            return Config.palette.primary.muted
+            return Config.color.primary.muted
           }
 
           function textDisplay() {
-            if (pill.isActive && pill.model.appRepIcon != "") {
-              return pill.model.appRepIcon
-            } else {
-              return pill.isSpecialWs ? "殊" : Icon.toCnNumber(pill.wsId)
-            }
           }
 
-          text: textDisplay()
+          text: Icon.romanDigit[pill.wsId]
           anchors.centerIn: parent
           color: textColor()
-          font.pointSize: pill.model.appRepIcon === "" ? 12 : 13
+          font.pointSize: 10
           font.family: Fonts.chinesejp
           font.weight: Font.ExtraBold
         }
@@ -152,13 +122,12 @@ Rectangle {
         id: focusIndicator
         parent: list.contentItem   
         z: -1
-        width: height
+        width: list.currentItem ? list.currentItem.width : 0
         height: list.height
         anchors.verticalCenter: parent.verticalCenter
-        radius: width / 2
         color: {
           if (!list.currentItem) return "transparent"
-          else Config.palette.primary.text
+          else Config.color.primary.contrast
         }
 
         x: list.currentItem ? list.currentItem.x + (list.currentItem.width - focusIndicator.width)/2: 0

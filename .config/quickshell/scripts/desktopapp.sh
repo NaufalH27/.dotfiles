@@ -3,17 +3,35 @@ set -euo pipefail
 
 CACHE_DIR="$HOME/.cache/quickshell"
 DESKTOP_DIR="/usr/share/applications"
-PREFERRED_ICON_THEME="${PREFERRED_ICON_THEME:-}"
 INDEX_DB="$CACHE_DIR/icon-index.db"
 META_FILE="$CACHE_DIR/icon-index.meta"
+DEFAULT_ICON_DIRS="$HOME/.local/share/icons:/usr/share/icons:/usr/share/pixmaps" 
 
-
-DEFAULT_ICON_DIRS="$HOME/.local/share/icons:/usr/share/icons:/usr/share/pixmaps"
-ICON_DIRS_ENV="${ICON_DIRS:-$DEFAULT_ICON_DIRS}"
-IFS=':' read -r -a ICON_DIRS <<< "$ICON_DIRS_ENV"
-
+PREFERRED_ICON_THEME="${PREFERRED_ICON_THEME:-}"
 MANUAL_REBUILD=0
-[[ "${1:-}" == "--rebuild" ]] && MANUAL_REBUILD=1
+
+while getopts ":n:-:" opt; do
+  case "$opt" in
+    n)
+      PREFERRED_ICON_THEME="$OPTARG"
+      ;;
+    -)
+      [[ "$OPTARG" == "rebuild" ]] && MANUAL_REBUILD=1
+      ;;
+    :)
+      echo "option -$OPTARG requires an argument" >&2
+      exit 1
+      ;;
+    \?)
+      echo "invalid option -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
+shift $((OPTIND - 1))
+ICON_DIRS_ENV="${ICON_DIRS:-$DEFAULT_ICON_DIRS}" 
+IFS=':' read -r -a ICON_DIRS <<< "$ICON_DIRS_ENV"
 
 mkdir -p "$CACHE_DIR"
 

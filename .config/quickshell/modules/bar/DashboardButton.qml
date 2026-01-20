@@ -10,6 +10,6 @@ Rectangle {
     anchors.centerIn: parent
     text:"󰕮"
     font.pointSize: 20
-    color: Config.palette.primary.text
+    color: Config.color.primary.text
   }
 }

@@ -12,7 +12,7 @@ Rectangle {
   property var aa: Audio
   property var nn: Networking
   property var bb: Battery
-  property var fontSize: 13
+  property var fontSize: 11
   RowLayout {
     id: column
     height: parent.height
@@ -27,7 +27,7 @@ Rectangle {
         text:Audio.activeMic?.audio.muted ? "󰍭" : ""
         anchors.verticalCenter: parent.verticalCenter
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.fontSize-1
         MouseArea {
           height: mic.height
@@ -49,7 +49,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text:Audio.activeSpeaker?.audio.muted ? "" : Icon.volumeIcon(Audio.activeSpeaker?.audio.volume * 100)
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.fontSize -1
         MouseArea {
           height: volume.height
@@ -71,7 +71,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text:"󰂯"
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.fontSize
       }
     }
@@ -85,7 +85,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text: Networking.topNetwork === null ? "wifi_off"  : "wifi" 
         font.family: Fonts.material
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.fontSize
       }
 
@@ -95,7 +95,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text: "󰍹" 
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.fontSize
       }
 
@@ -106,7 +106,7 @@ Rectangle {
         text: "󰈁" 
         leftPadding: -3
         font.family: Fonts.sans
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize:root.fontSize
       }
     }
@@ -119,28 +119,28 @@ Rectangle {
         text:Icon.batteryIcon(Battery.levelPercentage * 100)
         anchors.verticalCenter: parent.verticalCenter
         font.family: Fonts.material
-        color: Battery.device.state === UPowerDeviceState.Charging ? Config.palette.primary.foam : Battery.levelPercentage * 100 <= 20 ? Config.palette.primary.rose : Config.palette.primary.text
+        color: Battery.device.state === UPowerDeviceState.Charging ? Config.color.primary.green : Battery.levelPercentage * 100 <= 20 ? Config.color.primary.red : Config.color.primary.text
         font.pointSize: root.fontSize+4
       }
       Text {
         text:Icon.batteryIcon(0)
         anchors.centerIn: battery
         font.family: battery.font.family
-        color: Config.palette.primary.subtle
+        color: Config.color.primary.subtle
         font.pointSize: battery.font.pointSize
         rightPadding: battery.rightPadding
         leftPadding: battery.leftPadding
       }
       Text {
         id: batteryCharging
-        visible: Battery.device.state === UPowerDeviceState.Charging 
+        visible: Battery.device.state === UPowerDeviceState.Charging
         text: "󱐋"
         anchors.centerIn: parent
         rightPadding: 2
         leftPadding: battery.leftPadding
         font.family: Fonts.sans
-        color: Config.palette.primary.surface
-        font.pointSize: 14
+        color: Config.color.primary.surface
+        font.pointSize: 13
       }
       Text {
         visible: batteryCharging.visible
@@ -149,7 +149,7 @@ Rectangle {
         rightPadding: batteryCharging.rightPadding
         leftPadding: batteryCharging.leftPadding
         font.family: batteryCharging.font.family
-        color: Config.palette.primary.subtle
+        color: Config.color.primary.subtle
         font.pointSize: 9
       }
     }

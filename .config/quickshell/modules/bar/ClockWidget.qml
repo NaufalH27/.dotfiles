@@ -65,7 +65,7 @@ Rectangle {
         visible: root.clockFormat === 0 
         opacity: 1
         text: ""
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: time.fontSize
         font.family: Fonts.sans
         font.weight: 900
@@ -78,10 +78,10 @@ Rectangle {
               :  Time.hour12 + ":" + Time.minute
 
 
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.clockFormat === 0 || root.clockFormat === 1 ? time.fontSize : 8
         font.family: Fonts.sans
-        font.weight: 600
+        font.weight: 500
       }
 
       Text {
@@ -92,10 +92,10 @@ Rectangle {
               :  Time.ampm
 
 
-        color: Config.palette.primary.text
+        color: Config.color.primary.text
         font.pointSize: root.clockFormat === 0 || root.clockFormat === 1 ? time.fontSize : 8
         font.family: Fonts.sans
-        font.weight: 600
+        font.weight: 500
       }
 
     }
@@ -108,7 +108,7 @@ Rectangle {
       text: Time.day + "/" + Time.month + "/" + Time.year
   
 
-      color: Config.palette.primary.text
+      color: Config.color.primary.text
       font.pointSize: 8
       font.family: Fonts.sans
       font.weight: 600

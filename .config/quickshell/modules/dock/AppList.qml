@@ -24,7 +24,7 @@ Rectangle {
     height: row.height + topPadding + bottomPadding
     width: row.width
     property int topPadding: 8
-    property int bottomPadding: 0
+    property int bottomPadding: 8
     Item {
       width: col.width
       height: col.topPadding

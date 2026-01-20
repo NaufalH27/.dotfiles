@@ -11,7 +11,7 @@ Rectangle {
     anchors.centerIn: parent
     text:"󰕮"
     font.pointSize: 19
-    color: Config.palette.primary.text
+    color: Config.color.primary.text
   }
   MouseArea {
     height: root.height

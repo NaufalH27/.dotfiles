@@ -1,4 +1,19 @@
 {
+    "color": {
+        "primary": {
+            "base": "#ffffff",
+            "blue": "#353d61",
+            "contrast": "#544b5d",
+            "green": "#8bb57b",
+            "muted": "#9790A0",
+            "overlay": "#ffffff",
+            "purple": "#58376c",
+            "red": "#c91c60",
+            "subtle": "#696969",
+            "surface": "#ffffff",
+            "text": "#5b4f56"
+        }
+    },
     "font": {
         "family": {
             "mono": "CaskaydiaMono Nerd Font",
@@ -12,25 +27,6 @@
             "scale": 1,
             "small": 11,
             "smaller": 12
-        }
-    },
-    "palette": {
-        "primary": {
-            "base": "#faf4ed",
-            "foam": "#56949f",
-            "gold": "#ea9d34",
-            "highlightHigh": "#cecacd",
-            "highlightLow": "#f4ede8",
-            "highlightMed": "#dfdad9",
-            "iris": "#907aa9",
-            "love": "#b4637a",
-            "muted": "#9893a5",
-            "overlay": "#f2e9e1",
-            "pine": "#286983",
-            "rose": "#d7827e",
-            "subtle": "#797593",
-            "surface": "#fffaf3",
-            "text": "#575279"
         }
     },
     "system": {

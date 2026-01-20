@@ -1,10 +1,7 @@
 import qs.configs
-import qs.components
 import Quickshell
-import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Shapes
 import Qt.labs.platform
 import QtQuick.Effects
 
@@ -32,110 +29,148 @@ Scope {
           bottom: -bar.height/2
         }
 
+        Rectangle {
+          id: bar
+          height: 32
+          width: parent.width
+        }
+
         color : "transparent"
         implicitHeight: bar.height + bar.height/2
 
         Rectangle {
-          id: bar
-          width: window.width
-          height: 37
-          color: Config.palette.primary.base
+          clip:true
+          width: bar.width
+          height: bar.height
+          color: "transparent"
+          Image {
+            id: decor
+            anchors.top : parent.top
+            anchors.right : parent.right
+            source: Qt.resolvedUrl(
+              StandardPaths.writableLocation(StandardPaths.HomeLocation)
+              + "/.config/quickshell/assets/top_bar_decor.png"
+            )
+            opacity: 0.7
+            smooth: true
+            asynchronous: true
+          }
+        }
+        Rectangle {
+          clip:true
+          width: bar.width
+          height: bar.height
+          color: "transparent"
+          Image {
+            id: decor2
+            anchors.top : parent.top
+            anchors.left : parent.left
+            source: Qt.resolvedUrl(
+              StandardPaths.writableLocation(StandardPaths.HomeLocation)
+              + "/.config/quickshell/assets/abstract_decor.jpg"
+            )
+            opacity: 0.9
+            smooth: true
+            asynchronous: true
+          }
+        }
 
-          GridLayout {
-            rows:3
-            anchors.fill: parent
-            anchors.topMargin: 5
-            anchors.bottomMargin: 5
-            anchors.leftMargin: 14
-            anchors.rightMargin:14
-            uniformCellWidths: true
 
-            RowLayout {
-              Layout.fillHeight: true
-              spacing: 12
+        Row {
+          width: parent.width
+          height: parent.height
+
+          RowLayout {
+            height: bar.height
+            width: parent.width/3
+            Workspace {
               Layout.alignment: Qt.AlignLeft
+              Layout.fillHeight: true
+            }
+            Item { Layout.fillWidth: true }
 
+          }
+
+          Rectangle {
+            height:bar.height
+            Layout.preferredHeight: bar.height
+            width: parent.width/3
+            color: "transparent"
+            Row {
+              spacing: 12
+              height: parent.height
+              anchors.centerIn: parent
+              anchors.horizontalCenter: parent.horizontalCenter
+              Item {
+              }
+              Username {
+                height: parent.height
+              }
               ProfilePicture {
-                Layout.fillHeight: true
+                anchors.top: parent.top
+                anchors.topMargin: -12
+                height: window.height + 8
               }
-              Media{
-                Layout.fillHeight: true
+
+              Item {
+                width: 24
+                height: parent.height
               }
-              ScreenIndicator{
-                Layout.fillHeight: true
+
+              Player {
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: 4
+                anchors.bottomMargin: 4
+                height: parent.height
               }
             }
 
-            RowLayout {
-              Layout.alignment: Qt.AlignHCenter
-              Layout.fillHeight: true
-              Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-              }
-              Workspace {
-                Layout.fillHeight: true
-              }
-              Item {
-                Layout.fillWidth: true
-              }
-            }
+          }
 
-            RowLayout {
-              spacing: 20
-              Layout.alignment: Qt.AlignRight
-              Layout.fillHeight: true
+
+          Rectangle {
+            height:bar.height
+            width: parent.width/3
+            color: "transparent"
+            Row {
+              height: parent.height
+              anchors.top: parent.top
+              anchors.bottom: parent.bottom
+              anchors.right: parent.right
+              anchors.rightMargin: 12
+              spacing: 18
               SystemInfo {
-                Layout.fillHeight: true
+                height: parent.height
               }
               SettingButton {
-                Layout.fillHeight: true
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: 4
+                anchors.bottomMargin: 4
+                height: parent.height
               }
               ClockWidget{
-                Layout.fillHeight: true
-                Layout.preferredWidth: implicitWidth
+                height: parent.height
               }
-
             }
+
           }
+
         }
 
-        Shape {
-          preferredRendererType: Shape.CurveRenderer
-          antialiasing: true
-          ShapePath {
-            fillColor: "transparent"
-            strokeColor: Config.palette.primary.subtle
-            strokeWidth: 2
 
-            PathMove { x: bar.height/2; y: bar.height }
-            PathLine {x : bar.width - bar.height/2; y:bar.height }
-          }
-        }
+        MultiEffect {
+          anchors.fill: bar
+          source: bar
+          shadowEnabled: true
 
-        CurvedTriangle {
-          startX: bar.width
-          startY: bar.height
-          radiusX: bar.height/2
-          radiusY: bar.height/3
-          strokeWidth: 2
-
-          fillColor: Config.palette.primary.base
-          strokeColor:Config.palette.primary.subtle
-
-          direction: CurvedTriangle.Direction.BottomLeft
-        }
-        CurvedTriangle {
-          startX: 0
-          startY: bar.height
-          radiusX: bar.height/2
-          radiusY: bar.height/3
-          strokeWidth: 2
-
-          fillColor: Config.palette.primary.base
-          strokeColor:Config.palette.primary.subtle
-
-          direction: CurvedTriangle.Direction.BottomRight
+          shadowVerticalOffset: 2
+          shadowHorizontalOffset: 0
+          shadowBlur: 0.4
+          shadowOpacity: 1
+          shadowColor: Config.color.primary.subtle
+          z: bar.z-1
         }
       }
     }

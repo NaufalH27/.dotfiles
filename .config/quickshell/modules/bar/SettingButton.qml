@@ -17,7 +17,7 @@ Rectangle {
         id: column
         height: parent.height
         anchors.centerIn: parent
-        spacing: -10
+        spacing: -6
         Rectangle {
             width: symbol.implicitWidth
             Layout.fillHeight: true
@@ -31,7 +31,7 @@ Rectangle {
                     yScale: 0.95
                 }
                 font.family: Config.font.family.sans
-                color: Config.palette.primary.text
+                color: Config.color.primary.text
                 font.pointSize: 11
             }
 
@@ -49,7 +49,7 @@ Rectangle {
 
                 anchors.verticalCenter: parent.verticalCenter
                 font.family: Config.font.family.sans
-                color: Config.palette.primary.text
+                color: Config.color.primary.contrast
                 font.pointSize: 11
             }
 
