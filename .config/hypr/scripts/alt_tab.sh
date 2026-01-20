@@ -6,34 +6,41 @@ hidden_ws=$((active_ws + 10))
 
 if jq -e '. == null' <<<"$active" >/dev/null; then
 
-    next_pid=$(hyprctl clients -j | jq -r \
+    next_addr=$(hyprctl clients -j | jq -r \
         --argjson hidden "$hidden_ws" '
-        [.[] 
+        [.[]
          | select(.workspace.id == $hidden)
-         | {pid, focusHistoryID}]
+         | {address, focusHistoryID}]
         | sort_by(.focusHistoryID)
-        | last.pid
+        | last.address
         // empty
     ')
-else
-    floating=$(jq -r '.floating' <<<"$active")
-    pid=$(jq -r '.pid' <<<"$active")
 
-    next_pid=$(hyprctl clients -j | jq -r \
+else
+    active_addr=$(jq -r '.address' <<<"$active")
+
+    next_addr=$(hyprctl clients -j | jq -r \
         --argjson ws "$active_ws" \
         --argjson hidden "$hidden_ws" \
-        --argjson pid "$pid" '
-        [.[] 
-         | select((.workspace.id == $ws or .workspace.id == $hidden) and .pid != $pid)
-         | {pid, focusHistoryID}]
+        --arg addr "$active_addr" '
+        [.[]
+         | select(
+             (.workspace.id == $ws or .workspace.id == $hidden)
+             and .address != $addr
+           )
+         | {address, focusHistoryID}]
         | sort_by(.focusHistoryID)
-        | last.pid
+        | last.address
         // empty
     ')
 fi
 
-[[ -n "$next_pid" ]] && hyprctl dispatch movetoworkspacesilent "$active_ws", "pid:$next_pid"
-[[ -n "$next_pid" ]] && hyprctl dispatch focuswindow "pid:$next_pid"
+echo "$next_addr"
+
+if [[ -n "$next_addr" ]]; then
+    hyprctl dispatch movetoworkspacesilent "$active_ws",address:"$next_addr"
+    hyprctl dispatch focuswindow address:"$next_addr"
+fi
 
 hyprctl dispatch bringactivetotop
 

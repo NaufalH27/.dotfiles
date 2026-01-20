@@ -4,88 +4,87 @@ set -euo pipefail
 active_ws=$(hyprctl activeworkspace -j)
 workspace_id=$(jq -r '.id' <<<"$active_ws")
 has_fullscreen=$(jq -r '.hasfullscreen' <<<"$active_ws")
-killed_pid=$(hyprctl activewindow -j | jq -r '.pid')
-killed_is_tiled=$(
-  hyprctl activewindow -j | jq -r '
-    (.floating == false) and (.fullscreen == 0)
-  '
-)
+
+active=$(hyprctl activewindow -j)
+killed_addr=$(jq -r '.address' <<<"$active")
+killed_is_tiled=$(jq -r '
+  (.floating == false) and (.fullscreen == 0)
+' <<<"$active")
 
 windows=$(hyprctl clients -j | jq --argjson wid "$workspace_id" '
   [.[] | select(.workspace.id == $wid)]
 ')
 
-overfullscreen_pid=$(
-  jq -r --argjson killed "$killed_pid" '
+overfullscreen_addr=$(
+  jq -r --arg killed "$killed_addr" '
     [.[]
       | select(
           .overFullscreen == true
           and .floating == true
-          and .pid != $killed
+          and .address != $killed
         )
     ]
     | sort_by(.focusHistoryID)
-    | .[0].pid // empty
+    | .[0].address // empty
   ' <<<"$windows"
 )
 
-if [[ "$has_fullscreen" == "true" && -n "$overfullscreen_pid" ]]; then
+if [[ "$has_fullscreen" == "true" && -n "$overfullscreen_addr" ]]; then
   hyprctl dispatch killactive
-  hyprctl dispatch focuswindow "pid:$overfullscreen_pid"
+  hyprctl dispatch focuswindow address:"$overfullscreen_addr"
   exit 0
 fi
 
-fullscreen_pid=$(
-  jq -r --argjson killed "$killed_pid" '
+fullscreen_addr=$(
+  jq -r --arg killed "$killed_addr" '
     [.[]
-      | select(.fullscreen > 0 and .pid != $killed)
+      | select(.fullscreen > 0 and .address != $killed)
     ]
-    | .[0].pid // empty
+    | .[0].address // empty
   ' <<<"$windows"
 )
 
-if [[ -n "$fullscreen_pid" ]]; then
+if [[ -n "$fullscreen_addr" ]]; then
   hyprctl dispatch killactive
-  hyprctl dispatch focuswindow "pid:$fullscreen_pid"
+  hyprctl dispatch focuswindow address:"$fullscreen_addr"
   exit 0
 fi
 
-floating_pid=$(
-  jq -r --argjson killed "$killed_pid" '
+floating_addr=$(
+  jq -r --arg killed "$killed_addr" '
     [.[]
       | select(
           .floating == true
-          and .pid != $killed
+          and .address != $killed
         )
     ]
     | sort_by(.focusHistoryID)
-    | .[0].pid // empty
+    | .[0].address // empty
   ' <<<"$windows"
 )
 
-tiled_pid=$(
-  jq -r --argjson killed "$killed_pid" '
+tiled_addr=$(
+  jq -r --arg killed "$killed_addr" '
     [.[]
       | select(
           .floating == false
-          and .pid != $killed
+          and .address != $killed
         )
     ]
     | sort_by(.focusHistoryID)
-    | .[0].pid // empty
+    | .[0].address // empty
   ' <<<"$windows"
 )
 
-if [[ "$killed_is_tiled" == "true" ]]; then
+if [[ "$killed_is_tiled" == "true" && -n "$tiled_addr" ]]; then
   hyprctl dispatch killactive
-  hyprctl dispatch focuswindow "pid:$tiled_pid"
+  hyprctl dispatch focuswindow address:"$tiled_addr"
   exit 0
 fi
 
-
-if [[ -n "$floating_pid" ]]; then
+if [[ -n "$floating_addr" ]]; then
   hyprctl dispatch killactive
-  hyprctl dispatch focuswindow "pid:$floating_pid"
+  hyprctl dispatch focuswindow address:"$floating_addr"
   exit 0
 fi
 
