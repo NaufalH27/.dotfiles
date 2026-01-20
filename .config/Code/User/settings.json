@@ -1,0 +1,112 @@
+{
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "files.autoSave": "afterDelay",
+    "explorer.confirmDelete": false,
+    "editor.fontFamily": "'Maple Mono NL NF CN', monospace",
+    "terminal.integrated.fontFamily": "'Maple Mono NL NF CN'",
+
+    "editor.fontLigatures": true,
+    "editor.fontSize": 14,
+
+    "terminal.integrated.fontSize": 13,
+    "workbench.iconTheme": "material-icon-theme",
+
+    "material-icon-theme.folders.theme": "classic",
+    "material-icon-theme.files.associations": {
+        "*.md": "markdown",
+        "*.json": "settings"
+  },
+  "editor.minimap.enabled": false,
+  "qt-core.additionalQtPaths": [
+    {
+      "name": "Qt-6.10.1-linux-g++_from_PATH",
+      "path": "/usr/bin/qmake"
+    }
+  ],
+
+  "clangd.path": "/home/nopal/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/21.1.0/clangd_21.1.0/bin/clangd",
+  "jdk.telemetry.enabled": false,
+  "workbench.colorTheme": "GitHub Light Monochrome",
+  "workbench.colorCustomizations": {
+    "editor.foreground": "#5b4f56",
+    "editorError.foreground": "#c91c60",
+    "editorWarning.foreground": "#d6b36a",
+    "editorInfo.foreground": "#353d61",
+    "editorHint.foreground": "#8bb57b",
+    "editorCursor.foreground": "#544b5d",
+    "editorCursor.background": "#151515",
+    "editorWidget.border": "#58376c",       
+    "editorGroup.border": "#f2f2f2",
+    "editor.findMatchBackground": "#d6b36a",
+    "editor.findMatchForeground": "#ffffff",
+    "editor.wordHighlightBackground": "#544b5d22",
+    "editor.wordHighlightBorder": "#544b5d22",
+    "editor.wordHighlightStrongBackground": "#544b5d33",
+  },
+  "editor.bracketPairColorization.enabled": false,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "storage.type",
+          "storage.type.builtin",
+          "support.type",
+          "support.type.builtin",
+          "support.type.primitive",
+          "entity.name.type"
+        ],
+        "settings": {
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": [
+          "entity.name.type.class",
+          "entity.name.function",
+          "entity.name.tag",
+          "support.type.property-name",
+          "variable.other.property",
+        ],
+        "settings": {
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": "string",
+        "settings": {
+          "foreground": "#8bb57b"
+        }
+      },
+      {
+        "scope": [
+          "constant.language.boolean",
+          "constant.language.null"
+        ],
+        "settings": {
+          "foreground": "#d6b36a",
+          "fontStyle": "italic"
+        }
+      },
+      {
+        "scope": [
+          "constant.numeric",
+          "constant",
+        ],
+        "settings": {
+          "foreground": "#d6b36a",
+        }
+      },
+      {
+        "scope": "comment",
+        "settings": {
+          "foreground": "#9790A0"
+        }
+      }
+    ]
+  },
+
+
+
+
+
+}
