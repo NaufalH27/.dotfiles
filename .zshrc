@@ -1,4 +1,4 @@
-
+export PREFERRED_ICON_THEME=WhiteSur
 
 alias eww='~/.config/eww/eww/target/release/eww'
 alias ls='ls --color=auto'
@@ -53,5 +53,4 @@ echo
 
 export PATH=$PATH:/home/nopal/.spicetify
 export ICON_DIRS="$HOME/.local/share/icons:/usr/share/icons:/usr/share/pixmaps"
-export PREFERRED_ICON_THEME=WhiteSur
 
