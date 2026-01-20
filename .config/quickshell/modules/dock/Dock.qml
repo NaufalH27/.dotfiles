@@ -3,6 +3,7 @@ import qs.utils
 import qs.services
 import Quickshell
 import QtQuick
+import QtQuick.Effects
 import Quickshell.Hyprland
 
 Scope {
@@ -62,7 +63,19 @@ Scope {
                 easing.bezierCurve: Anim.curves.standard
               }
             }
-          }
+        }
+        MultiEffect {
+          anchors.fill: dock
+          source: dock
+          shadowEnabled: true
+
+          shadowVerticalOffset: 2
+          shadowHorizontalOffset: 2
+          shadowBlur: 0.6
+          shadowOpacity: 1
+          shadowColor: Config.color.primary.subtle
+          z: dock.z-1
+        }
 
           Rectangle {
             id: dockMask

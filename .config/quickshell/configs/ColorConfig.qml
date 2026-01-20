@@ -16,6 +16,7 @@ JsonObject {
         property string red: "#c91c60"
         property string blue: "#353d61"
         property string green: "#38615b"
+        property string yellow: "#d6b36a"
         property string purple: "#58376c"
     }
 
@@ -33,6 +34,7 @@ JsonObject {
         blue: "#353d61"
         green: "#8bb57b"
         purple: "#58376c"
+        yellow: "#d6b36a"
     }
     component Dark: Primary {
         base: "#faf4ed"

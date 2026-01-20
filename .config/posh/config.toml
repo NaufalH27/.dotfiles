@@ -43,7 +43,7 @@ version = 3
   
   [[blocks.segments]]
     foreground = "p:text"
-    background = "p:surface"
+    background = "p:highlight_low"
     
     trailing_diamond = ""
     template = "  {{ .Path }} "
@@ -115,20 +115,13 @@ newline = true
 
   [[blocks.segments]]
   style = "plain"
-  foreground = "p:pine"
+  foreground = "p:text"
   type = "text"
   template = "<p:muted>└</>"
 
 
 
 
-[transient_prompt]
-foreground_templates = [
-"{{if gt .Code 0}}p:love{{end}}",
-"{{if eq .Code 0}}p:pine{{end}}",
-]
-background = 'transparent'
-template = ' '
   
 
 [secondary_prompt]
@@ -139,19 +132,19 @@ template = ' '
 
 
 [palette]
-base = "#faf4ed"
-surface = "#fffaf3"
-overlay = "#f2e9e1"
-muted = "#9893a5"
-subtle = "#797593"
-text = "#575279"
-love = "#b4637a"
-gold = "#ea9d34"
-rose = "#d7827e"
-pine = "#286983"
-foam = "#56949f"
-iris = "#907aa9"
-highlight_low = "#f4ede8"
-highlight_med = "#dfdad9"
-highlight_high = "#cecacd"
+base = "#ffffff"
+surface = "#ffffff"
+overlay = "#ffffff"
+muted = "#9790A0"
+subtle = "#696969"
+text = "#5b4f56"
+love = "#c91c60"
+rose = "#c91c60"
+pine = "#8bb57b"
+foam = "#353d61"
+iris = "#58376c"
+gold = "#d6b36a"
+highlight_low = "#f5f5f5"
+highlight_med = "#e6e6e6"
+highlight_high = "#d1d1d1"
 

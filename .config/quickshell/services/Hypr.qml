@@ -84,11 +84,11 @@ Singleton {
     for (let ws of root.workspaces.values) {
       let wsId = ws.id
       if (wsId > 10) {
-          wsId = wsId - 10
+        wsId = wsId - 10
       }
 
       if (wsId < 1 || wsId > workspaceModel.count)
-          continue
+      continue
 
       let i = wsId - 1
       workspaceModel.setProperty(i, "exists", true)
@@ -103,7 +103,7 @@ Singleton {
         root.maxWsId = maxId
       }
     }
-    
+
 
     let isActiveEmpty = true
     for (let toplevel of root.toplevels.values) {
@@ -115,7 +115,7 @@ Singleton {
       }
       let wsId = toplevel.workspace?.id
       if (wsId > 10) {
-          wsId = wsId - 10
+        wsId = wsId - 10
       }
       if (wsId < 1 || wsId > workspaceModel.count) continue
 
