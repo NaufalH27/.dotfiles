@@ -33,8 +33,8 @@ Rectangle {
       id: row
       height: lists.implicitHeight
       width: lists.implicitWidth + rightPadding + leftPadding
-      property int rightPadding: 8
-      property int leftPadding: 8
+      property int rightPadding: 2
+      property int leftPadding: 2
       Item {
         width: row.leftPadding
         height: row.height

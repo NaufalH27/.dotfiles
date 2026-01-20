@@ -48,7 +48,7 @@ Scope {
             color: Config.color.primary.base
             radius: 12
             border.color: Config.color.primary.subtle
-            border.width: 2
+            border.width: 1
             anchors.bottom: dockMask.top
             anchors.bottomMargin: window.isOpen ? 0 : -height - 4
             anchors.horizontalCenter: parent.horizontalCenter
@@ -69,11 +69,9 @@ Scope {
           source: dock
           shadowEnabled: true
 
-          shadowVerticalOffset: 2
-          shadowHorizontalOffset: 2
-          shadowBlur: 0.6
-          shadowOpacity: 1
-          shadowColor: Config.color.primary.subtle
+          shadowBlur: 0.8
+          shadowOpacity: 0.4
+          shadowColor: "#1f1f1f"
           z: dock.z-1
         }
 

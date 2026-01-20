@@ -23,12 +23,14 @@ Singleton {
 
         const dockSet = new Set([
           "kitty",
-          "google-chrome",
-          "spotify",
           "code",
+          "google-chrome",
+          "com.obsproject.Studio",
+          "spotify",
           "org.kde.dolphin",
-          "com.obsproject.Studio"
         ])
+
+        const dockItemsById = new Map()
 
         function parseCSVLine(line) {
           const result = []
@@ -97,6 +99,13 @@ Singleton {
           appModel.append(item)
 
           if (dockSet.has(desktopId)) {
+            dockItemsById.set(desktopId, item)
+          }
+        })
+
+        dockSet.forEach(id => {
+          const item = dockItemsById.get(id)
+          if (item) {
             dockModel.append(item)
           }
         })
