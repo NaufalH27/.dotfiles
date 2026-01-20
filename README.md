@@ -5,10 +5,9 @@ kinda gothic and futuristic idk, also kinda monochrome
 >  THIS IS STILL WIP AND NOT FULLY FUNCTIONAL YET
 >  its for my personal use, not ready for public use yet, there might be some bug or some uncomfortable settings
 
-# PREVIEW
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/399e1d88-44bd-42c3-beca-5f657735ff28" />
+# PREVIEW  
 
-
+<img width="1920" height="1080" alt="2026-01-20_18-20-30" src="https://github.com/user-attachments/assets/6d4d1c1f-42bf-4b80-80e7-0f870d2ebbc5" />
 
 
 
