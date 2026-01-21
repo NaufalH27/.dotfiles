@@ -121,9 +121,19 @@ SQL
 grep -L '^NoDisplay=true' /usr/share/applications/*.desktop |
 while IFS= read -r file; do
   icon=$(yq -p=ini -o=y '.["Desktop Entry"].Icon' "$file")
+  icon="${icon#file://}"
 
-  if [[ -z "$icon" || "$icon" == /* ]]; then
+  if [[ -z "$icon" ]]; then
     path=null
+
+  elif [[ "$icon" == /* ]]; then
+    if [[ -f "$icon" ]]; then
+      echo $path
+      path="$icon"
+    else
+      path=null
+    fi
+
   else
     path=$(resolve_icon "$icon" 2>/dev/null || echo null)
   fi

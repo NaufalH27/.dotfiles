@@ -27,6 +27,7 @@ Singleton {
           "google-chrome",
           "com.obsproject.Studio",
           "spotify",
+          "discord",
           "org.kde.dolphin",
         ])
 
