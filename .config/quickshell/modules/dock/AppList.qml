@@ -84,6 +84,10 @@ Rectangle {
           }
           Process {
             id: launcher
+            command : ["sh", "-c", `gtk-launch ${appIcon.model.desktopId}`]
+              stdout: StdioCollector {
+                onStreamFinished: console.info(`line read: ${this.text}`)
+              }
           }
 
 
@@ -95,9 +99,8 @@ Rectangle {
             onClicked: {
               if (!appIcon.model.execc || appIcon.model.execc.length === 0)
               return
+              launcher.startDetached()
 
-              launcher.command = ["sh", "-c", `gtk-launch ${appIcon.model.desktopId}`]
-              launcher.running = true
             }
           }
         }
