@@ -55,8 +55,8 @@ version = 3
   [[blocks.segments]]
     type = 'git'
     style = "diamond"
-    foreground = "p:iris"
-    background = "p:highlight_low"
+    foreground = "p:text"
+    background = "p:highlight_med"
     trailing_diamond = ""
     template = ' {{ .HEAD }}'
 
@@ -69,7 +69,7 @@ version = 3
   [[blocks.segments]]
     type = 'git'
     style = "diamond"
-    background = "p:overlay"
+    background = "p:highlight_high"
     trailing_diamond = ""
     foreground_templates = ["{{if gt .Behind 0}}p:love{{end}}",
                             "{{if gt .Ahead 0}}p:rose{{end}}",
