@@ -7,12 +7,19 @@ import QtQuick
 
 Singleton {
   id: root
+  property bool ready: false
 
   ListModel { id: appModel }
   ListModel { id: dockModel }
 
   property alias model: appModel
   property alias dock: dockModel
+
+  property var appById: ({})
+
+  function getAppByDesktopId(id) {
+    return appById[id] || null
+  }
 
   Process {
     running: true
@@ -21,17 +28,20 @@ Singleton {
     stdout: StdioCollector {
       onStreamFinished: {
 
-        const dockSet = new Set([
+        const dockOrder = [
           "kitty",
           "code",
-          "google-chrome",
+          "chromium-browser",
           "com.obsproject.Studio",
           "spotify",
           "discord",
-          "org.kde.dolphin",
-        ])
+          "org.gnome.Nautilus"
+        ]
 
-        const dockItemsById = new Map()
+        const dockIndex = {}
+        dockOrder.forEach((id, i) => dockIndex[id] = i)
+
+        const dockItems = []
 
         function parseCSVLine(line) {
           const result = []
@@ -60,15 +70,6 @@ Singleton {
           return result
         }
 
-        function getImageExtension(path) {
-          if (!path || path === "null") return null
-          const dot = path.lastIndexOf(".")
-          if (dot === -1) return null
-          const ext = path.substring(dot + 1).toLowerCase()
-          const supported = ["png","jpg","jpeg","bmp","gif","svg","webp"]
-          return supported.includes(ext) ? ext : null
-        }
-
         function getDesktopId(path) {
           if (!path) return null
           let name = path.substring(path.lastIndexOf("/") + 1)
@@ -77,39 +78,42 @@ Singleton {
           return name
         }
 
+        appModel.clear()
+        dockModel.clear()
+        root.appById = ({})
+
         const lines = this.text.trim().split("\n")
 
         lines.forEach(line => {
           const fields = parseCSVLine(line)
           if (fields.length < 5) return
 
-          const iconPath = fields[4]
           const desktopPath = fields[0]
           const desktopId = getDesktopId(desktopPath)
+          if (!desktopId) return
 
           const item = {
-            desktopFile: desktopPath,
+            deskAppByDesktopIdtopFile: desktopPath,
             desktopId: desktopId,
             name: fields[1],
             terminal: fields[2] === "true",
             execc: fields[3],
-            icon: iconPath === "null" ? null : iconPath,
-            iconExt: getImageExtension(iconPath)
+            icon: fields[4] === "null" ? null : fields[4],
           }
 
           appModel.append(item)
+          root.appById[desktopId] = item
 
-          if (dockSet.has(desktopId)) {
-            dockItemsById.set(desktopId, item)
+          if (dockIndex[desktopId] !== undefined) {
+            dockItems.push(item)
           }
         })
 
-        dockSet.forEach(id => {
-          const item = dockItemsById.get(id)
-          if (item) {
-            dockModel.append(item)
-          }
-        })
+        dockItems
+          .sort((a, b) => dockIndex[a.desktopId] - dockIndex[b.desktopId])
+          .forEach(item => dockModel.append(item))
+
+        root.ready = true
       }
     }
   }

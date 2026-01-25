@@ -1,9 +1,7 @@
+import qs.components
 import qs.services
 import QtQuick
-import QtQuick.VectorImage
 import Quickshell.Io
-
-
 
 Rectangle {
   color: "transparent"
@@ -52,42 +50,19 @@ Rectangle {
         implicitWidth: contentWidth
 
         delegate: Rectangle {
-          id: appIcon
+          id: app
           required property var model
           width: 48
           height: 48
           radius: 10
           color: "transparent"
-
-          Item {
-            anchors.fill: parent
-
-            VectorImage {
-              anchors.centerIn: parent
-              width: 48
-              height: 48
-              source: appIcon.model.iconExt !== "svg" ? "" : appIcon.model.icon
-              visible: appIcon.model.iconExt === "svg" && appIcon.model
-              preferredRendererType: VectorImage.CurveRenderer
-            }
-
-            Image {
-              anchors.centerIn: parent
-              width: 48
-              height: 48
-              source: appIcon.model.icon
-              fillMode: Image.PreserveAspectFit
-              smooth: true
-              mipmap: true
-              visible: appIcon.model.iconExt !== null && appIcon.model.iconExt !== "svg"
-            }
+          AppIcon {
+            iconPath: app.model.icon
           }
+
           Process {
             id: launcher
-            command : ["sh", "-c", `gtk-launch ${appIcon.model.desktopId}`]
-              stdout: StdioCollector {
-                onStreamFinished: console.info(`line read: ${this.text}`)
-              }
+            command : ["sh", "-c", `gtk-launch ${app.model.desktopId}`]
           }
 
 
@@ -97,10 +72,7 @@ Rectangle {
             cursorShape: Qt.PointingHandCursor
 
             onClicked: {
-              if (!appIcon.model.execc || appIcon.model.execc.length === 0)
-              return
               launcher.startDetached()
-
             }
           }
         }

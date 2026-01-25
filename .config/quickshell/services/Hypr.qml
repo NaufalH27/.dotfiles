@@ -2,73 +2,190 @@ pragma Singleton
 import qs.configs
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Io
 import QtQml
 
 Singleton {
   id: root
 
-  readonly property var toplevels: Hyprland.toplevels
+
+  readonly property int minimizedWorkspaceOffset: 10
+
+  function isMinimizedWorkspace(rawId) {
+    return rawId > minimizedWorkspaceOffset
+  }
+
+  function normalizeWorkspaceId(rawId) {
+    return isMinimizedWorkspace(rawId)
+      ? rawId - minimizedWorkspaceOffset
+      : rawId
+  }
+
+  function minimizedWorkspaceId(baseId) {
+    return baseId + minimizedWorkspaceOffset
+  }
+
+
   readonly property var workspaces: Hyprland.workspaces
   readonly property var monitors: Hyprland.monitors
-  readonly property var toplevelsValues: toplevels.values
   readonly property var workspacesValues: workspaces.values
   readonly property var monitorsValues: monitors.values
-  readonly property HyprlandToplevel activeToplevel: Hyprland.activeToplevel 
-  readonly property var activeToplevelTitle : activeToplevel?.title
-  readonly property var activeToplevelInitialClass : activeToplevel?.lastIpcObject.initialClass
 
   readonly property HyprlandWorkspace focusedWorkspace: Hyprland.focusedWorkspace
   readonly property HyprlandMonitor focusedMonitor: Hyprland.focusedMonitor
+  readonly property HyprlandToplevel activeToplevel: Hyprland.activeToplevel
   readonly property int activeWsId: focusedWorkspace?.id ?? 1
+
   property int maxWsId: Config.system.ui.minNumberOfPillShown
   property bool isActiveWsEmpty: false
 
-  ListModel {
-    id: workspaceModel
-  }
-  readonly property alias workspaceModel: workspaceModel
 
-  signal configReloaded
+  property string clientIpc: ""
+  property var toplevelByAddress: ({})
+
+  onClientIpcChanged: updateWorkspaceModelTopLevel()
+
+
+  ListModel { id: workspaceModel }
+  property alias workspaceModel: workspaceModel
 
   function dispatch(request: string): void {
     Hyprland.dispatch(request)
   }
-
-  function monitorFor(screen: ShellScreen): HyprlandMonitor {
-    return Hyprland.monitorFor(screen)
-  }
-
 
 
   Connections {
     target: Hyprland
 
     function onRawEvent(event: HyprlandEvent): void {
-      const n = event.name
-      const data = event.data
-
-      if (n === "configreloaded") {
-        root.configReloaded()
-      } else if (["workspace", "moveworkspace", "focusedmon"].includes(n)) {
-        Hyprland.refreshWorkspaces()
-        Hyprland.refreshMonitors()
-      }else if (["openwindow", "closewindow", "movewindow"].includes(n)) {
-        Hyprland.refreshToplevels()
-        Hyprland.refreshWorkspaces()
-      } else if (n.includes("mon")) {
-        Hyprland.refreshMonitors()
-      } else if (n.includes("workspace")) {
-        Hyprland.refreshWorkspaces()
-      } else if (
-        n.includes("window") ||
-        n.includes("group") ||
-        ["pin", "fullscreen", "changefloatingmode", "minimize"].includes(n)
-      ) {
-        Hyprland.refreshToplevels()
-      }
+      Hyprland.refreshWorkspaces()
+      Hyprland.refreshMonitors()
+      Hyprland.refreshToplevels()
       root.updateWorkspaceModel()
+
+      if (event.name === "urgent" && event.data) {
+        root.moveUrgent(event.data)
+      }
     }
   }
+
+
+  function moveUrgent(urgentAddr: string) {
+    const address = urgentAddr.startsWith("0x")
+      ? urgentAddr
+      : "0x" + urgentAddr
+
+    const tl = toplevelByAddress[address]
+    if (!tl) return
+
+    if (tl.minimized) {
+      root.dispatch(`movetoworkspacesilent ${tl.workspaceId}, address:${address}`)
+    }
+
+    if(tl.workspaceId !== activeWsId) {
+      root.dispatch(`workspace ${tl.workspaceId}`)
+    }
+    if(tl.fullscreen > 0) {
+      root.dispatch(`fullscreen ${tl.fullscreen}`)
+      root.dispatch(`fullscreen ${tl.fullscreen}`)
+    }
+    root.dispatch(`focuswindow address:${address}`)
+    root.dispatch(`bringactivetotop`)
+  }
+
+
+  function updateWorkspaceModelTopLevel() {
+    const start = clientIpc.indexOf('[')
+    const end = clientIpc.lastIndexOf(']')
+
+    if (start === -1 || end === -1)
+      return
+
+    for (let i = 0; i < workspaceModel.count; i++)
+      workspaceModel.get(i).toplevels.clear()
+
+    toplevelByAddress = {}
+
+    const json = clientIpc.slice(start, end + 1)
+    const toplevels = JSON.parse(json).sort(
+      (a, b) => (b.focusHistoryID ?? 0) - (a.focusHistoryID ?? 0)
+    )
+
+    let activeEmpty = true
+
+    for (let i = toplevels.length - 1; i >= 0; --i) {
+      const o = toplevels[i]
+      const rawWsId = o.workspace?.id ?? -1
+      const wsId = normalizeWorkspaceId(rawWsId)
+
+      if (rawWsId === activeWsId)
+        activeEmpty = false
+
+      const toplevel = {
+        address: o.address,
+        pid: o.pid,
+
+        mapped: o.mapped ?? false,
+        hidden: o.hidden ?? false,
+        floating: o.floating ?? false,
+        pinned: o.pinned ?? false,
+        fullscreen: o.fullscreen ?? 0,
+        fullscreenClient: o.fullscreenClient ?? 0,
+        overFullscreen: o.overFullscreen ?? false,
+        pseudo: o.pseudo ?? false,
+        xwayland: o.xwayland ?? false,
+        inhibitingIdle: o.inhibitingIdle ?? false,
+
+        class: o.class,
+        title: o.title,
+        initialClass: o.initialClass === "floatingTerminal" ? "kitty" : o.initialClass,
+        initialTitle: o.initialTitle,
+
+        x: o.at?.[0] ?? 0,
+        y: o.at?.[1] ?? 0,
+        width: o.size?.[0] ?? 0,
+        height: o.size?.[1] ?? 0,
+
+        workspaceId: wsId,
+        workspaceName: o.workspace?.name ?? "",
+
+        monitor: o.monitor ?? -1,
+        contentType: o.contentType ?? "none",
+
+        grouped: o.grouped ?? [],
+        tags: o.tags ?? [],
+
+        swallowing: o.swallowing ?? "0x0",
+        focusHistoryID: o.focusHistoryID ?? 0,
+
+        xdgTag: o.xdgTag ?? "",
+        xdgDescription: o.xdgDescription ?? "",
+
+        minimized: isMinimizedWorkspace(rawWsId)
+      }
+
+      toplevelByAddress[toplevel.address] = toplevel
+
+      if (wsId < 1 || wsId > workspaceModel.count)
+        continue
+
+      workspaceModel.get(wsId - 1).toplevels.append(toplevel)
+    }
+
+    root.isActiveWsEmpty = activeEmpty
+  }
+
+
+  Process {
+    id: getToplevels
+    running: true
+    command: [ "hyprctl", "clients", "-j" ]
+
+    stdout: StdioCollector {
+      onStreamFinished: root.clientIpc = this.text
+    }
+  }
+
 
   function updateWorkspaceModel() {
     for (let i = 0; i < workspaceModel.count; i++) {
@@ -76,97 +193,44 @@ Singleton {
       workspaceModel.setProperty(i, "active", false)
       workspaceModel.setProperty(i, "urgent", false)
       workspaceModel.setProperty(i, "special", false)
-      let model = workspaceModel.get(i).toplevels
-      model.clear()
     }
 
     let maxId = Config.system.ui.minNumberOfPillShown
-    for (let ws of root.workspaces.values) {
-      let wsId = ws.id
-      if (wsId > 10) {
-        wsId = wsId - 10
-      }
 
+    for (let ws of workspaces.values) {
+      const wsId = normalizeWorkspaceId(ws.id)
       if (wsId < 1 || wsId > workspaceModel.count)
-      continue
+        continue
 
-      let i = wsId - 1
+      const i = wsId - 1
       workspaceModel.setProperty(i, "exists", true)
       workspaceModel.setProperty(i, "active", ws.active)
       workspaceModel.setProperty(i, "urgent", ws.urgent)
-      if (wsId > root.maxWsId) {
-        maxId = wsId > maxId ? wsId : maxId
-      } else if (maxId == Config.system.ui.minNumberOfPillShownChanged && wsId <= Config.system.ui.minNumberOfPillShown) {
-        maxId = Config.system.ui.minNumberOfPillShown
-      }
-      if (root.maxWsId != maxId) {
-        root.maxWsId = maxId
-      }
+
+      if (wsId > maxId)
+        maxId = wsId
     }
 
+    root.maxWsId = maxId
 
-    let isActiveEmpty = true
-    for (let toplevel of root.toplevels.values) {
-      if(!toplevel.workspace?.id) {
-        continue
-      }
-      if (toplevel.workspace.id === root.activeWsId) {
-        isActiveEmpty = false
-      }
-      let wsId = toplevel.workspace?.id
-      if (wsId > 10) {
-        wsId = wsId - 10
-      }
-      if (wsId < 1 || wsId > workspaceModel.count) continue
-
-      let ws = workspaceModel.get(wsId - 1)
-      let wsToplevel = ws.toplevels
-      var o = toplevel.lastIpcObject
-
-      wsToplevel.append({
-        address: toplevel.address,
-        pid: o.pid ?? 0 ,
-        class: o.class ?? "",
-        title: toplevel.title,
-        initialTitle: o.initialTitle ?? "",
-        activated: toplevel.activated,
-        mapped: o.mapped ?? false,
-        hidden: o.hidden ?? false,
-        floating: o.floating ?? false,
-        pinned: o.pinned ?? false,
-        fullscreen: o.fullscreen ?? 0,
-        x: o.at ? o.at[0] : 0,
-        y: o.at ? o.at[1] : 0,
-        width: o.size ? o.size[0] : 0,
-        height: o.size ? o.size[1] : 0,
-        workspaceId: wsId,
-        workspaceName: toplevel.workspace.name,
-      })
-    }
-    if (isActiveEmpty) {
-      root.isActiveWsEmpty = true
-    } else {
-      root.isActiveWsEmpty = false
-    }
+    getToplevels.running = false
+    getToplevels.running = true
   }
-
 
   Component.onCompleted: {
     workspaceModel.clear()
 
     for (let i = 1; i <= Config.system.ui.maxNumberOfPillShown; i++) {
-      root.workspaceModel.append({
+      workspaceModel.append({
         wsId: i,
         exists: false,
         active: false,
         urgent: false,
-        toplevels: [],
+        toplevels: []
       })
     }
 
-
     updateWorkspaceModel()
   }
-
-
 }
+

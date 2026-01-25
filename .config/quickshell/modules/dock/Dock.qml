@@ -5,6 +5,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Effects
 import Quickshell.Hyprland
+import Quickshell.Wayland
 
 Scope {
   id: root
@@ -17,6 +18,7 @@ Scope {
         id: window
         required property var modelData
         screen: modelData
+        WlrLayershell.layer: WlrLayer.Overlay
         anchors {
           bottom: true
         }

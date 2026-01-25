@@ -37,7 +37,7 @@ return {
 
     on_highlights = function(hl, c)
       hl.Visual     = { bg = c.bg_float }
-      hl.Search     = { bg = c.yellow, fg = c.bg }
+      hl.Search     = { bg = c.yellow }
       hl.CursorLine = { bg = c.bg_dark }
 
       hl.FloatBorder = { fg = c.magenta }

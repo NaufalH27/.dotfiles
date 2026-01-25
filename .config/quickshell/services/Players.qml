@@ -78,46 +78,6 @@ Singleton {
 
   } 
 
-  GlobalShortcut {
-    appid: "quickshell"
-    name: "mediaToggle"
-    description: "Toggle media playback"
-    onPressed: {
-      const active = root.active;
-      if (active && active.canTogglePlaying)
-        active.togglePlaying();
-    }
-  }
-
-  GlobalShortcut {
-    appid: "quickshell"
-    name: "mediaPrev"
-    description: "Previous track"
-    onPressed: {
-      const active = root.active;
-      if (active && active.canGoPrevious)
-        active.previous();
-    }
-  }
-
-  GlobalShortcut {
-    appid: "quickshell"
-    name: "mediaNext"
-    description: "Next track"
-    onPressed: {
-      const active = root.active;
-      if (active && active.canGoNext)
-        active.next();
-    }
-  }
-
-  GlobalShortcut {
-    appid: "quickshell"
-    name: "mediaStop"
-    description: "Stop media playback"
-    onPressed: root.active?.stop()
-  }
-
   IpcHandler {
     target: "mpris"
 

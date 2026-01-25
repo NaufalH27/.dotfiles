@@ -28,7 +28,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         font.family: Fonts.sans
         color: Config.color.primary.text
-        font.pointSize: root.fontSize-1
+        font.pointSize: root.fontSize
         MouseArea {
           height: mic.height
           width: mic.width
@@ -50,7 +50,7 @@ Rectangle {
         text:Audio.activeSpeaker?.audio.muted ? "" : Icon.volumeIcon(Audio.activeSpeaker?.audio.volume * 100)
         font.family: Fonts.sans
         color: Config.color.primary.text
-        font.pointSize: root.fontSize -1
+        font.pointSize: root.fontSize 
         MouseArea {
           height: volume.height
           width: volume.width

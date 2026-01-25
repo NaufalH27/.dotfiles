@@ -102,7 +102,7 @@ Rectangle {
 
       Text {
         Layout.fillWidth: true
-        text: isActive ? Players.active?.trackTitle : "Nothing To See Here~"
+        text: media.isActive ? Players.active?.trackTitle : "Nothing To See Here~"
         font.pointSize:7
         font.weight: Font.DemiBold
         font.family: Fonts.sans
@@ -111,7 +111,7 @@ Rectangle {
       }
 
       Text {
-        visible: isActive && Players.active?.trackArtist !== ""
+        visible: media.isActive && Players.active?.trackArtist !== ""
         Layout.fillWidth: true
         text: Players.active?.trackArtist ?? ""
         font.pointSize: 5
