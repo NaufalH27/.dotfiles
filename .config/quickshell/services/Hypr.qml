@@ -40,6 +40,7 @@ Singleton {
   property bool isActiveWsEmpty: false
 
 
+
   property string clientIpc: ""
   property var toplevelByAddress: ({})
 
@@ -51,6 +52,10 @@ Singleton {
 
   function dispatch(request: string): void {
     Hyprland.dispatch(request)
+  }
+
+  function getWorkspaceById(id) {
+      return workspaceModel.get(id) || null
   }
 
 

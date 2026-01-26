@@ -344,8 +344,8 @@ Scope {
               delegate: Rectangle {
                 id: app
                 required property var model
-
-                color:  model.globalIndex === WindowSwitcherService.selectorIndex ? length.fillColor : "transparent"
+                required property int index
+                color:  model.realIndex === WindowSwitcherService.selectorIndex ? length.fillColor : "transparent"
                 radius: 8
                 width: 52
                 height: 52
@@ -354,6 +354,7 @@ Scope {
                   width: 48
                   height: 48
                   iconPath: getAppIcon()
+
                   function getAppIcon() {
                     const w = app.model.window
 
@@ -365,7 +366,7 @@ Scope {
 
                     return (
                       DesktopApp.getAppByDesktopId(desktopId)?.icon ??
-                      DesktopApp.getAppByDesktopId(w.initialClass)?.icon
+                      DesktopApp.getAppByDesktopId(w.initialClass)?.icon ?? ""
                     );
                   }
                 }
@@ -566,7 +567,7 @@ Scope {
                 anchors.fill:parent
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignVCenter
-                text: WindowSwitcherService.getTitle()
+                text: WindowSwitcherService.selectedTitle
                 font.family: Fonts.sans
                 color: Config.color.primary.base
                 font.weight: 600
