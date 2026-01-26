@@ -395,7 +395,7 @@ Scope {
             anchors.bottom: selector.bottom
             topRightX: height
             topRightY: height
-            opacity:0.7
+            opacity:0.9
           }
 
           Rectangle {
@@ -499,7 +499,7 @@ Scope {
             anchors.bottom: parent.bottom
             width: parent.width - 16
             height: parent.height - 16
-            fillColor: Config.color.primary.base
+            fillColor: "transparent"
             strokeColor: Config.color.primary.highlightMedium
             strokeWidth: 1
             anchors.centerIn: parent
@@ -521,17 +521,28 @@ Scope {
 
               bottomLeftX: parent.bottomLeftX
               bottomLeftY: parent.bottomLeftY
-            }
+            CornerRectangle {
+              id: preview2Maskbg
+              fillColor: Config.color.primary.base
+              anchors.left: parent.left
+              anchors.right: parent.right
+              anchors.top: parent.top
+              anchors.bottom: parent.bottom
+              layer.enabled: true
 
+              bottomLeftX: parent.bottomLeftX
+              bottomLeftY: parent.bottomLeftY
+            }
             Image {
-              id: imagePreview
+              id: decor4
               source: Qt.resolvedUrl(
                 StandardPaths.writableLocation(StandardPaths.HomeLocation)
-                + "/.config/quickshell/assets/preview_demo.png"
+                + "/.config/quickshell/assets/decor2.jpg"
               )
-              anchors.centerIn: parent
-              height: preview2Mask.height
-              width: preview2Mask.width
+              height: preview2Maskbg.height
+              width: preview2Maskbg.width
+              anchors.top: preview2Maskbg.top
+              anchors.left: preview2Maskbg.left
               fillMode: Image.PreserveAspectCrop
               visible: false
               smooth: true
@@ -539,6 +550,26 @@ Scope {
               asynchronous: true
               sourceSize.width: width * Screen.devicePixelRatio
               sourceSize.height: height * Screen.devicePixelRatio
+              mirror: true
+            }
+
+            MultiEffect { 
+              source: decor4
+              anchors.fill: decor4
+              maskEnabled: true 
+              maskSource: preview2Maskbg
+              maskThresholdMin: 0.5 
+              maskSpreadAtMin: 1.0 
+              opacity: 0.1
+            }
+            }
+            ScreencopyView {
+              anchors.fill:parent
+              id: imagePreview
+              constraintSize : Qt.size(parent.width, parent.height)
+              captureSource: WindowSwitcherService.allWindows.get(WindowSwitcherService.selectorIndex)?.qsToplevel.wayland ?? null
+              visible: false
+              antialiasing: true
             }
 
             MultiEffect { 
@@ -550,6 +581,7 @@ Scope {
               maskSpreadAtMin: 1.0 
               opacity: 0.8
             }
+
 
             CornerRectangle {
               id: windowTitle
@@ -574,6 +606,7 @@ Scope {
                 font.pointSize: 12
                 leftPadding: 28
               }
+
 
 
             }

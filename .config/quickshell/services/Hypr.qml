@@ -34,12 +34,11 @@ Singleton {
   readonly property HyprlandWorkspace focusedWorkspace: Hyprland.focusedWorkspace
   readonly property HyprlandMonitor focusedMonitor: Hyprland.focusedMonitor
   readonly property HyprlandToplevel activeToplevel: Hyprland.activeToplevel
+  readonly property var toplevels: Hyprland.toplevels
   readonly property int activeWsId: focusedWorkspace?.id ?? 1
 
   property int maxWsId: Config.system.ui.minNumberOfPillShown
   property bool isActiveWsEmpty: false
-
-
 
   property string clientIpc: ""
   property var toplevelByAddress: ({})
@@ -96,6 +95,14 @@ Singleton {
     }
     root.dispatch(`focuswindow address:${address}`)
     root.dispatch(`bringactivetotop`)
+  }
+
+  function findQsToplevelByAddress(address) {
+      for (let i = 0; i < root.toplevels.values.length; ++i) {
+          if ("0x" + root.toplevels.values[i].address === address)
+          return root.toplevels.values[i]
+      }
+      return null
   }
 
 
@@ -166,7 +173,8 @@ Singleton {
         xdgTag: o.xdgTag ?? "",
         xdgDescription: o.xdgDescription ?? "",
 
-        minimized: isMinimizedWorkspace(rawWsId)
+        minimized: isMinimizedWorkspace(rawWsId),
+        qsToplevel: findQsToplevelByAddress(o.address)
       }
 
       toplevelByAddress[toplevel.address] = toplevel

@@ -46,11 +46,6 @@ Singleton {
     }
   }
 
-
-  function getTitle() {
-    if (root.selectorIndex < 0) return ""
-  }
-
   Process {
     id: launcher
   }
@@ -69,6 +64,7 @@ Singleton {
     } else {
       launcher.exec(["hyprctl", "--batch", `dispatch focuswindow address:${w.address} ; dispatch bringactivetotop`])
     }
+    root.selectorIndex = -1
   }
 
   function cycleNext() {
