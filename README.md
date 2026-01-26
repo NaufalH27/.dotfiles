@@ -25,6 +25,6 @@ kinda gothic and futuristic idk, also kinda monochrome
 | create app dock shortcut                |         ✔       |
 | create poweroff menu                    |         ❌       |
 | lockscreen                                |         ❌       |
-| alt tab window switcher                  |            🚧🛠️        |
+| alt tab window switcher                  |          ✔        |
 | greetd/Display Manager                  |            ❌        |
 | Window FuzzyFinder                  |            🚧🛠️       |
