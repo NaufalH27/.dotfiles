@@ -65,9 +65,9 @@ Singleton {
     }
 
     if (w.fullscreen > 0) {
-      launcher.exec(["hyprctl", "--batch", `dispatch focuswindow address:${w.address}; dispatch fullscreen ${w.fullscreen} ; dispatch fullscreen ${w.fullscreen}`])
+      launcher.exec(["hyprctl", "--batch", `dispatch focuswindow address:${w.address}; dispatch fullscreen ${w.fullscreen} ; dispatch fullscreen ${w.fullscreen} ; dispatch bringactivetotop`])
     } else {
-      launcher.exec(["hyprctl", "dispatch", "focuswindow", `address:${w.address}`])
+      launcher.exec(["hyprctl", "--batch", `dispatch focuswindow address:${w.address} ; dispatch bringactivetotop`])
     }
   }
 

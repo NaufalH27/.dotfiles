@@ -128,7 +128,6 @@ while IFS= read -r file; do
 
   elif [[ "$icon" == /* ]]; then
     if [[ -f "$icon" ]]; then
-      echo $path
       path="$icon"
     else
       path=null

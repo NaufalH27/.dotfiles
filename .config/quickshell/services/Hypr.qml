@@ -123,7 +123,7 @@ Singleton {
       const rawWsId = o.workspace?.id ?? -1
       const wsId = normalizeWorkspaceId(rawWsId)
 
-      if (rawWsId === activeWsId)
+      if (rawWsId === activeWsId && !(o.floating && o.fullscreen === 0))
         activeEmpty = false
 
       const toplevel = {
