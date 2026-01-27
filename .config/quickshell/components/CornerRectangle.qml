@@ -77,9 +77,9 @@ Shape {
     PathLine { x: path.width - path.trX; y: 0 }
     PathArc {
       x: path.width
-      y: path.trX
-      radiusY: path.trRX
-      radiusX: path.trRY
+      y: path.trY
+      radiusY: path.trRY
+      radiusX: path.trRX
       direction: PathArc.Clockwise
     }
     PathLine { x: path.width; y: path.trY }

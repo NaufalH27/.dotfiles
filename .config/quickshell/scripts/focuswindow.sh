@@ -15,6 +15,8 @@ if [ "$minimized" == "true" ] && [ -n "$active_ws" ]; then
 fi
 
 hyprctl dispatch focuswindow "address:$address"
+hyprctl dispatch focuswindow "address:$address"
+hyprctl dispatch focuswindow "address:$address"
 
 if [ "$fullscreen" -gt 0 ]; then
   hyprctl --batch "dispatch fullscreen $fullscreen; dispatch fullscreen $fullscreen"

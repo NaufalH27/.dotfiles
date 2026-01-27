@@ -564,12 +564,11 @@ Scope {
             }
             }
             ScreencopyView {
-              anchors.fill:parent
               id: imagePreview
-              constraintSize : Qt.size(parent.width, parent.height)
+              height: parent.height
+              width: parent.width
               captureSource: WindowSwitcherService.allWindows()?.get(WindowSwitcherService.selectorIndex)?.qsToplevel.wayland ?? null
               visible: false
-              antialiasing: true
             }
 
             MultiEffect { 

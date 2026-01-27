@@ -58,11 +58,6 @@ Singleton {
     let w = root.allWindows().get(root.selectorIndex)
     root.isActive = false
     if (!w) return
-
-
-    let fullscreen = w.fullscreen
-    console.info(w.address, Hypr.activeWsId, w.minimized)
-
     launcher.exec(["sh", "-c", `${Paths.script}/scripts/focuswindow.sh ${w.address} ${w.fullscreen} ${w.minimized} ${Hypr.activeWsId}`])
 
 
