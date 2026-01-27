@@ -1,11 +1,6 @@
 vim.opt.runtimepath:prepend(vim.fn.expand("$HOME/.config/kitty/nvim"))
 require("config.lazy")
 require("keybinds")
-vim.opt.number = false 
-vim.o.scrolloff = 5   
-vim.o.sidescrolloff = 8  
-vim.o.smoothscroll = true 
-vim.opt.swapfile = false
 
 vim.o.termguicolors = true
 
@@ -37,3 +32,8 @@ if last_line == 0 then last_line = 1 end
 
 api.nvim_win_set_cursor(0, { last_line, 0 })
 vim.bo.modified = false
+vim.o.number = true
+vim.o.scrolloff = 5
+vim.o.sidescrolloff = 8  
+vim.o.smoothscroll = true 
+vim.opt.swapfile = false
