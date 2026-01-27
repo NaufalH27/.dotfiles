@@ -567,7 +567,7 @@ Scope {
               anchors.fill:parent
               id: imagePreview
               constraintSize : Qt.size(parent.width, parent.height)
-              captureSource: WindowSwitcherService.allWindows.get(WindowSwitcherService.selectorIndex)?.qsToplevel.wayland ?? null
+              captureSource: WindowSwitcherService.allWindows()?.get(WindowSwitcherService.selectorIndex)?.qsToplevel.wayland ?? null
               visible: false
               antialiasing: true
             }
@@ -579,7 +579,6 @@ Scope {
               maskSource: preview2Mask
               maskThresholdMin: 0.5 
               maskSpreadAtMin: 1.0 
-              opacity: 0.8
             }
 
 

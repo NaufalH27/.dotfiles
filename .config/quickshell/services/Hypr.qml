@@ -62,9 +62,9 @@ Singleton {
     target: Hyprland
 
     function onRawEvent(event: HyprlandEvent): void {
+      Hyprland.refreshToplevels()
       Hyprland.refreshWorkspaces()
       Hyprland.refreshMonitors()
-      Hyprland.refreshToplevels()
       root.updateWorkspaceModel()
 
       if (event.name === "urgent" && event.data) {

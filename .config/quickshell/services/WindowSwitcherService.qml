@@ -1,4 +1,5 @@
 pragma Singleton
+import qs.utils
 import QtQml
 import Quickshell
 import Quickshell.Io
@@ -11,19 +12,22 @@ Singleton {
   property int maxVisible: 11
   property string selectedTitle: ""
 
-  property var allWindows: Hypr.workspaceModel.get(Hypr.activeWsId - 1).toplevels
+  function allWindows() {
+    const ws = Hypr.workspaceModel.get(Hypr.activeWsId - 1)
+    return ws ? ws.toplevels : null
+  }
+
   property ListModel visibleWindows: ListModel {}
   onSelectorIndexChanged: updateVisibleWindows()
-  onAllWindowsChanged: updateVisibleWindows()
 
   function updateVisibleWindows() {
     visibleWindows.clear()
 
-    const total = allWindows.count
+    const total = allWindows().count
     if (total === 0 || selectorIndex < 0)
       return
 
-    root.selectedTitle = allWindows.get(selectorIndex)?.title ?? ""
+    root.selectedTitle = allWindows().get(selectorIndex)?.title ?? ""
     let start = root.selectorIndex - Math.floor(root.maxVisible / 2)
     let end = start + root.maxVisible
 
@@ -37,7 +41,7 @@ Singleton {
     }
 
     for (let i = start; i <= end -1; i++) {
-      let c = allWindows.get(i)
+      let c = allWindows().get(i)
       if (!c) continue
       visibleWindows.append({
         window: c,
@@ -51,31 +55,29 @@ Singleton {
   }
 
   function selectFocus() {
-    let w = root.allWindows.get(root.selectorIndex)
+    let w = root.allWindows().get(root.selectorIndex)
     root.isActive = false
     if (!w) return
 
-    if (w.minimized) {
-      Hypr.dispatch(`movetoworkspacesilent ${Hypr.activeWsId}, address:${w.address}`)
-    }
 
-    if (w.fullscreen > 0) {
-      launcher.exec(["hyprctl", "--batch", `dispatch focuswindow address:${w.address}; dispatch fullscreen ${w.fullscreen} ; dispatch fullscreen ${w.fullscreen} ; dispatch bringactivetotop`])
-    } else {
-      launcher.exec(["hyprctl", "--batch", `dispatch focuswindow address:${w.address} ; dispatch bringactivetotop`])
-    }
+    let fullscreen = w.fullscreen
+    console.info(w.address, Hypr.activeWsId, w.minimized)
+
+    launcher.exec(["sh", "-c", `${Paths.script}/scripts/focuswindow.sh ${w.address} ${w.fullscreen} ${w.minimized} ${Hypr.activeWsId}`])
+
+
     root.selectorIndex = -1
   }
 
   function cycleNext() {
-    if (root.allWindows.count <= 1) return
-    root.selectorIndex = (root.selectorIndex + 1) % root.allWindows.count
+    if (root.allWindows().count <= 1) return
+    root.selectorIndex = (root.selectorIndex + 1) % root.allWindows().count
     updateVisibleWindows()
   }
 
   function cyclePrev() {
-    if (root.allWindows.count <= 1) return
-    root.selectorIndex = (root.selectorIndex - 1 + root.allWindows.count) % root.allWindows.count
+    if (root.allWindows().count <= 1) return
+    root.selectorIndex = (root.selectorIndex - 1 + root.allWindows().count) % root.allWindows.count
     updateVisibleWindows()
   }
 
@@ -93,7 +95,9 @@ Singleton {
       if (root.isActive)
       return
 
-      let count = root.allWindows.count
+      if(!root.allWindows()) return
+
+      let count = root.allWindows().count
       if (count === 0) {
         root.selectorIndex = -1   
       } else if (count === 1) {
