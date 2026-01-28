@@ -19,67 +19,52 @@ Rectangle {
 
   Column {
     id:col
-    height: row.height + topPadding + bottomPadding
-    width: row.width
-    property int topPadding: 8
-    property int bottomPadding: 8
+    height: lists.height + topPadding + bottomPadding
+    width: lists.width
+    property int topPadding: 4
+    property int bottomPadding: 4
     Item {
       width: col.width
       height: col.topPadding
     }
-    Row {
-      id: row
-      height: lists.implicitHeight
-      width: lists.implicitWidth + rightPadding + leftPadding
-      property int rightPadding: 2
-      property int leftPadding: 2
-      Item {
-        width: row.leftPadding
-        height: row.height
-      }
 
-      ListView {
-        id: lists
-        orientation: ListView.Horizontal
-        flickableDirection: Flickable.HorizontalAndVerticalFlick
-        model: DesktopApp.dock
-        spacing: 8
-        interactive: false
+    ListView {
+      id: lists
+      orientation: ListView.Horizontal
+      flickableDirection: Flickable.HorizontalAndVerticalFlick
+      model: DesktopApp.dock
+      spacing: 8
+      interactive: false
 
-        implicitHeight: contentItem.childrenRect.height
-        implicitWidth: contentWidth
+      implicitHeight: contentItem.childrenRect.height
+      implicitWidth: contentWidth
 
-        delegate: Rectangle {
-          id: app
-          required property var model
-          width: 48
-          height: 48
-          radius: 10
-          color: "transparent"
-          AppIcon {
-            iconPath: app.model.icon
-          }
+      delegate: Rectangle {
+        id: app
+        required property var model
+        width: 48
+        height: 48
+        radius: 10
+        color: "transparent"
+        AppIcon {
+          iconPath: app.model.icon
+        }
 
-          Process {
-            id: launcher
-            command : ["sh", "-c", `gtk-launch ${app.model.desktopId}`]
-          }
+        Process {
+          id: launcher
+          command : ["sh", "-c", `gtk-launch ${app.model.desktopId}`]
+        }
 
 
-          MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
+        MouseArea {
+          anchors.fill: parent
+          hoverEnabled: true
+          cursorShape: Qt.PointingHandCursor
 
-            onClicked: {
-              launcher.startDetached()
-            }
+          onClicked: {
+            launcher.startDetached()
           }
         }
-      }
-      Item {
-        width: row.rightPadding
-        height: row.height
       }
     }
     Item {

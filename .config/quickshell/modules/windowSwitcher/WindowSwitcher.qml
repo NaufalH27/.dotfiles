@@ -282,7 +282,7 @@ Scope {
               CornerRectangle {
                 id:woo
                 width: parent.width/2 + parent.width/8
-                fillColor: Config.color.primary.highlightMedium
+                fillColor: Config.color.primary.highlightHigh
                 height: parent.height
                 topLeftX: height
                 topLeftY: height
@@ -447,7 +447,7 @@ Scope {
           width: 1024
           height: 576
           fillColor: Config.color.primary.base
-          strokeColor: Config.color.primary.highlightMedium
+          strokeColor: Config.color.primary.highlightHigh
           strokeWidth: 0
           bottomLeftX: selector.height/2
           bottomLeftY: selector.height/2
@@ -500,7 +500,7 @@ Scope {
             width: parent.width - 16
             height: parent.height - 16
             fillColor: "transparent"
-            strokeColor: Config.color.primary.highlightMedium
+            strokeColor: Config.color.primary.highlightHigh
             strokeWidth: 1
             anchors.centerIn: parent
             clip: true
