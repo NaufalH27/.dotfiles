@@ -22,6 +22,7 @@ Shape {
   property bool bottomLeftRounded: false
   property int bottomLeftX: 0
   property int bottomLeftY: 0
+  property var fillGradient: null
 
   function clamp(v, min, max) {
     return Math.max(min, Math.min(max, v))
@@ -39,104 +40,67 @@ Shape {
   readonly property real brX: clamp(bottomRightX, 0, width)
   readonly property real brY: clamp(bottomRightY, 0, height)
 
+  readonly property real tlRX: topLeftRounded ? tlX : 0
+  readonly property real tlRY: topLeftRounded ? tlY : 0
 
-  component Path: ShapePath {
-    id: path
+  readonly property real trRX: topRightRounded ? trX : 0
+  readonly property real trRY: topRightRounded ? trY : 0
 
-    property real height: 20
-    property real width: 20
+  readonly property real brRX: bottomRightRounded ? brX : 0
+  readonly property real brRY: bottomRightRounded ? brY : 0
 
-    property bool tlRounded: false
-    property real tlX: 0
-    property real tlY: 0
+  readonly property real blRX: bottomLeftRounded ? blX : 0
+  readonly property real blRY: bottomLeftRounded ? blY : 0
 
-    property bool trRounded: false
-    property real trX: 0
-    property real trY: 0
 
-    property bool brRounded: false
-    property real brX: 0
-    property real brY: 0
-
-    property bool blRounded: false
-    property real blX: 0
-    property real blY: 0
-    readonly property real tlRX: path.tlRounded ? path.tlX : 0
-    readonly property real tlRY: path.tlRounded ? path.tlY : 0
-
-    readonly property real trRX: path.trRounded ? path.trX : 0
-    readonly property real trRY: path.trRounded ? path.trY : 0
-
-    readonly property real brRX: path.brRounded ? path.brX : 0
-    readonly property real brRY: path.brRounded ? path.brY : 0
-
-    readonly property real blRX: path.blRounded ? path.blX : 0
-    readonly property real blRY: path.blRounded ? path.blY : 0
-
-    PathMove { x: path.tlX; y: 0 }
-    PathLine { x: path.width - path.trX; y: 0 }
-    PathArc {
-      x: path.width
-      y: path.trY
-      radiusY: path.trRY
-      radiusX: path.trRX
-      direction: PathArc.Clockwise
-    }
-    PathLine { x: path.width; y: path.trY }
-
-    PathLine { x: path.width; y: path.height - path.brY }
-    PathArc {
-      x: path.width - path.brX
-      y: path.height
-      radiusY: path.brRY
-      radiusX: path.brRX
-      direction: PathArc.Clockwise
-    }
-    PathLine { x: path.width - path.brX; y: path.height }
-
-    PathLine { x: path.blX; y: path.height }
-    PathArc {
-      x: 0
-      y: path.height- path.blY
-      radiusY: path.blRY
-      radiusX: path.blRX
-      direction: PathArc.Clockwise
-    }
-    PathLine { x: 0; y: path.height - path.blY }
-
-    PathLine { x: 0; y: path.tlY }
-    PathArc {
-      x: path.tlX
-      y: 0
-      radiusY: path.tlRY
-      radiusX: path.tlRX
-      direction: PathArc.Clockwise
-    }
-    PathLine { x: path.tlX; y: 0 }
-  }
-
-  Path {
-    height: root.height
-    width: root.width
+  ShapePath {
     fillColor: root.fillColor
     strokeColor: root.strokeColor
     strokeWidth: root.strokeWidth
-    tlRounded: root.topLeftRounded
-    tlX: root.tlX
-    tlY: root.tlY
+    fillGradient: root.fillGradient
 
-    trRounded: root.topRightRounded
-    trX: root.trX
-    trY: root.trY
+    PathMove { x: root.tlX; y: 0 }
+    PathLine { x: root.width - root.trX; y: 0 }
+    PathArc {
+      x: root.width
+      y: root.trY
+      radiusY: root.trRY
+      radiusX: root.trRX
+      direction: PathArc.Clockwise
+    }
+    PathLine { x: root.width; y: root.trY }
 
-    brRounded: root.bottomRightRounded
-    brX: root.brX
-    brY: root.brY
+    PathLine { x: root.width; y: root.height - root.brY }
+    PathArc {
+      x: root.width - root.brX
+      y: root.height
+      radiusY: root.brRY
+      radiusX: root.brRX
+      direction: PathArc.Clockwise
+    }
+    PathLine { x: root.width - root.brX; y: root.height }
 
-    blRounded: root.bottomLeftRounded
-    blX: root.blX
-    blY: root.blY
+    PathLine { x: root.blX; y: root.height }
+    PathArc {
+      x: 0
+      y: root.height- root.blY
+      radiusY: root.blRY
+      radiusX: root.blRX
+      direction: PathArc.Clockwise
+    }
+    PathLine { x: 0; y: root.height - root.blY }
+
+    PathLine { x: 0; y: root.tlY }
+    PathArc {
+      x: root.tlX
+      y: 0
+      radiusY: root.tlRY
+      radiusX: root.tlRX
+      direction: PathArc.Clockwise
+    }
+    PathLine { x: root.tlX; y: 0 }
   }
+
 
 }
 

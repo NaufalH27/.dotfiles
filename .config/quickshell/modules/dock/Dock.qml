@@ -68,7 +68,32 @@ Scope {
               id: dock2
               strokeColor: Config.color.primary.highlightHigh
               strokeWidth: 0.7
-              fillColor: searchMouseArea.containsMouse ? Config.color.primary.highlightMedium : Config.color.primary.highlightLow
+              fillGradient: LinearGradient {
+                x1: 0; y1: 0
+                x2: 0; y2: 24
+                GradientStop { 
+                  position: 0.0;  
+                  color: searchMouseArea.containsMouse ? Config.color.primary.highlightLow : Config.color.primary.base
+                  Behavior on color {
+                    ColorAnimation {
+                      duration: Anim.durations.normal
+                      easing.type: Easing.BezierSpline
+                      easing.bezierCurve: Anim.curves.standard
+                    }
+                  }
+                }
+                GradientStop { 
+                  position: 1.0; 
+                  color: searchMouseArea.containsMouse ? Config.color.primary.highlightMedium : Config.color.primary.highlightLow
+                  Behavior on color {
+                    ColorAnimation {
+                      duration: Anim.durations.normal
+                      easing.type: Easing.BezierSpline
+                      easing.bezierCurve: Anim.curves.standard
+                    }
+                  }
+                }
+              }
               width: appList.width + 64
               height: appList.implicitHeight
               anchors.centerIn: parent
@@ -81,13 +106,6 @@ Scope {
               bottomLeftY: height - topLeftY
               bottomLeftX: bottomLeftY/2
 
-              Behavior on fillColor {
-                ColorAnimation {
-                  duration: Anim.durations.small
-                  easing.type: Easing.BezierSpline
-                  easing.bezierCurve: Anim.curves.standard
-                }
-              }
 
               CornerRectangle {
                 id:shadow
@@ -113,7 +131,12 @@ Scope {
                 height: appLists.height
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                fillColor: Config.color.primary.highlightLow
+                fillGradient: LinearGradient {
+                  x1: 0; y1: 0
+                  x2: 0; y2: 24
+                  GradientStop { position: 0.0; color: Config.color.primary.base }
+                  GradientStop { position: 1.0; color: Config.color.primary.highlightLow }
+                }
                 topRightX: height/3
                 topRightY: height/1.5
                 bottomRightY: height - topRightY
@@ -194,11 +217,11 @@ Scope {
           id: hover
         }
 
-        // HyprlandFocusGrab {
-        //   id: dockGrab
-        //   windows: [ window ]
-        //   active: hover.hovered
-        // }
+        HyprlandFocusGrab {
+          id: dockGrab
+          windows: [ window ]
+          active: hover.hovered
+        }
 
       }
 
