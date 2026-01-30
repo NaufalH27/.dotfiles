@@ -35,5 +35,7 @@ vim.keymap.set("n", ">>", "v>gv", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
 
+vim.keymap.set("n", "<C-f>", "<cmd>Oil<CR>", { silent = true })
+
 
 

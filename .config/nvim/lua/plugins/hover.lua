@@ -10,9 +10,6 @@ return {
             require("hover.providers.man")
             require("hover.providers.dictionary")
           end,
-          preview_opts = {
-            border = "rounded"
-          },
           title = true,
         }
 

@@ -31,17 +31,20 @@ return {
       c.blue     = "#353d61"
       c.magenta  = "#58376c"
 
+
       c.orange   = c.yellow
       c.purple   = c.magenta
     end,
 
     on_highlights = function(hl, c)
-      hl.Visual     = { bg = c.bg_float }
-      hl.Search     = { bg = c.yellow }
+      hl.Search    = { bg = c.yellow, fg = c.bg_dark }
+      hl.IncSearch = { bg = c.yellow, fg = c.bg_dark }
+      hl.CurSearch = { bg = c.yellow, fg = c.bg_dark }
       hl.CursorLine = { bg = c.bg_dark }
+      hl.Visual     = { bg = c.bg_float, fg = c.fg }
 
-      hl.FloatBorder = { fg = c.magenta }
-      hl.WinSeparator = { fg = c.bg_popup }
+
+      hl.WinSeparator = { fg = c.fg }
 
       hl.Constant  = { fg = c.yellow }
       hl.String    = { fg = c.green }
@@ -55,7 +58,7 @@ return {
       hl.DiagnosticInfo  = { fg = c.blue }
       hl.DiagnosticHint  = { fg = c.green }
 
-      hl.IblIndent = { fg = c.bg_popup }
+      hl.IblIndent = { fg = c.bg }
       hl.IblScope  = { fg = c.muted }
 
       hl.RainbowDelimiterRed    = { fg = c.subtle }
@@ -65,6 +68,28 @@ return {
       hl.RainbowDelimiterGreen  = { fg = c.subtle }
       hl.RainbowDelimiterViolet = { fg = c.comment }
       hl.RainbowDelimiterCyan   = { fg = c.subtle }
+      hl.NormalFloat = { bg = c.bg }
+      hl.FloatBorder = { fg = c.magenta, bg = c.bg }
+
+      hl.WinSeparator = { fg = c.magenta }
+
+      hl.LspInfoBorder = { fg = c.magenta, bg = c.bg }
+      hl.CmpBorder     = { fg = c.magenta, bg = c.bg }
+
+      hl.TelescopeNormal        = { fg = c.fg, bg = c.bg }
+      hl.TelescopeBorder        = { fg = c.magenta, bg = c.bg }
+      hl.TelescopePromptNormal = { fg = c.fg, bg = c.bg }
+      hl.TelescopePromptBorder = { fg = c.magenta, bg = c.bg }
+      hl.TelescopeResultsNormal= { fg = c.fg, bg = c.bg }
+      hl.TelescopePreviewNormal= { fg = c.fg, bg = c.bg }
+
+      hl.TelescopeSelection = { bg = c.bg_dark, fg = c.fg }
+
+      hl.NormalFloat = { fg = c.magenta , bg = c.bg }
+      hl.FloatBorder = { fg = c.magenta, bg = c.bg }
+
+      hl.IblIndent = { fg = c.bg_popup }
+      hl.IblScope  = { fg = c.muted }
 
       hl["@property"]            = { italic = true }
       hl["@variable.member"]     = { italic = true }

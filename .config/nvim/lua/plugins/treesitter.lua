@@ -1,10 +1,12 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ':TSUpdate',
+    highlight = { enabled = true },
+    rainbow = { enabled = false },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        highlight = { enable = true },
-        rainbow = { enable = false, },
+      require'nvim-treesitter'.setup {
         ensure_installed = {
           "php",
           "phpdoc",
@@ -28,7 +30,7 @@ return {
           "vim",
           "yaml",
         },
-      })
+      }
     end
   },
 }
