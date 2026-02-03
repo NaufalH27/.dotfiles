@@ -1,5 +1,6 @@
 import qs.services
 import qs.configs
+import qs.components
 import qs.utils
 import Quickshell
 import Quickshell.Services.Mpris
@@ -9,170 +10,149 @@ import Qt.labs.platform
 import QtQuick.Controls
 import QtQuick.Effects
 
-Rectangle {
+CornerRectangle {
   id: media
-  width: 260
-  radius: width/2
-  color: "transparent"
+  width: 140
+  fillColor: "transparent"
+  topRightX: height/2
+  topRightY: height/2
+  bottomRightX: height/2
+  bottomRightY: height/2
+  bottomLeftX: height/2
+  bottomLeftY: height/2
+  topLeftX: height/2
+  topLeftY: height/2
 
   readonly property bool isActive:
   !!(Players.active?.trackTitle || Players.active?.trackArtist)
 
-  RowLayout {
-    anchors.fill: parent
-    anchors.leftMargin:5
-    anchors.rightMargin:12
-    spacing: 6
-
-    Rectangle {
+  Rectangle {
+    id:coverWrapper
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.leftMargin: 8
+    anchors.topMargin: 2
+    anchors.bottomMargin: anchors.topMargin
+    width: height
+    color: "transparent"
+    Image {
       layer.enabled: true
       layer.smooth: true
-      Layout.fillHeight: true
-      color: "transparent"
-      implicitWidth: height
-      Rectangle {
-        id: coverWrapper
-        anchors.fill: parent
-        anchors.topMargin:1
-        anchors.bottomMargin:1
-        anchors.centerIn: parent
-        radius: width / 2
-        color: "transparent"
-        Rectangle {
-          height: parent.height
-          implicitWidth: height
-          anchors.centerIn: parent
-          radius: width / 2
-          color: "transparent"
-          Image {
-            layer.enabled: true
-            layer.smooth: true
-            id: cover
-            source: media.isActive ? Players.active?.trackArtUrl
-            : Qt.resolvedUrl(StandardPaths.writableLocation(StandardPaths.HomeLocation)
-            + "/.config/quickshell/assets/vinyl.png")
-            anchors.centerIn: parent
-            anchors.fill: parent
-            visible: false
-            asynchronous: true
-            fillMode: Image.PreserveAspectCrop
-            smooth: true
-            mipmap: true
-            sourceSize.width: width * Screen.devicePixelRatio
-            sourceSize.height: height * Screen.devicePixelRatio
-          }
-          Item {
-            id: coverMask
-            width: height
-            height: cover.height
-            layer.enabled: true
-            layer.smooth: true
-
-            Rectangle {
-              anchors.fill: parent
-              radius: width / 2
-            }
-          }
-          rotation: 0
-          transformOrigin: Item.Center
-
-          NumberAnimation on rotation {
-            from: 0
-            to: 360
-            duration: 40000
-            loops: Animation.Infinite
-            running: Players.active?.isPlaying ?? false
-          }
-
-          MultiEffect {
-            antialiasing: true
-            source: cover
-            anchors.fill: cover
-            maskEnabled: true
-            maskSource: coverMask
-            maskThresholdMin: 0.5
-            maskSpreadAtMin: 1
-          }
-        }
-      }
+      id: cover
+      source: media.isActive ? Players.active?.trackArtUrl
+      : Qt.resolvedUrl(StandardPaths.writableLocation(StandardPaths.HomeLocation)
+      + "/.config/quickshell/assets/vinyl.png")
+      anchors.centerIn: parent
+      anchors.fill: parent
+      visible: false
+      asynchronous: true
+      fillMode: Image.PreserveAspectCrop
+      smooth: true
+      mipmap: true
+      sourceSize.width: width * Screen.devicePixelRatio
+      sourceSize.height: height * Screen.devicePixelRatio
+    }
+    Rectangle {
+      id: coverMask
+      width: height
+      height: cover.height
+      layer.enabled: true
+      layer.smooth: true
+      radius: 4
     }
 
-    ColumnLayout {
-      spacing: 0
-
-      Text {
-        Layout.fillWidth: true
-        text: media.isActive ? Players.active?.trackTitle : "Nothing To See Here~"
-        font.pointSize:7
-        font.weight: Font.DemiBold
-        font.family: Fonts.sans
-        color: Config.color.primary.text
-        elide: Text.ElideRight
-      }
-
-      Text {
-        visible: media.isActive && Players.active?.trackArtist !== ""
-        Layout.fillWidth: true
-        text: Players.active?.trackArtist ?? ""
-        font.pointSize: 5
-        font.family: Fonts.sans
-        color: Config.color.primary.text
-        elide: Text.ElideRight
-        font.weight: Font.Medium
-      }
+    Rectangle {
+      id: coverMaskShadow
+      width: height
+      height: cover.height
+      layer.enabled: true
+      layer.smooth: true
+      radius: 4
     }
 
-    RowLayout {
-      Layout.fillWidth: true
-      spacing: 6
+    MultiEffect {
+      anchors.fill: coverMaskShadow
+      source: coverMaskShadow
+      shadowEnabled: true
 
-      Text {
-        text: "󰒮"
-        font.pointSize: 12
-        color: Players.active?.canGoPrevious ?
-        Config.color.primary.subtle : Config.color.primary.muted
+      shadowVerticalOffset: 2
+      shadowHorizontalOffset: 2
+      shadowBlur: 0.4
+      shadowOpacity: 1
+      shadowColor: Config.color.primary.subtle
+      z: coverMask.z-1
+    }
 
-        MouseArea {
-          anchors.fill: parent
-          cursorShape: Players.active?.canGoPrevious
-          ? Qt.PointingHandCursor
-          : Qt.ArrowCursor
-          enabled: Players.active?.canGoPrevious ?? false
-          onClicked: Players.active?.previous()
-        }
-      }
+    MultiEffect {
+      antialiasing: true
+      source: cover
+      anchors.fill: cover
+      maskEnabled: true
+      maskSource: coverMask
+      maskThresholdMin: 0.5
+      maskSpreadAtMin: 1
+    }
+  }
 
-      Text {
-        text: Players.active?.isPlaying ? "󰏤" : "󰐊"   
-        font.pointSize: 12
-        color: Players.active?.canTogglePlaying ?
-        Config.color.primary.subtle : Config.color.primary.muted
 
-        MouseArea {
-          anchors.fill: parent
-          cursorShape: Players.active?.canTogglePlaying
-          ? Qt.PointingHandCursor
-          : Qt.ArrowCursor
-          enabled:Players.active?.canTogglePlaying ?? false
-          onClicked: Players.active?.togglePlaying()
-        }
-      }
+  Text {
+    id: play
+    anchors.left: coverWrapper.right
+    anchors.verticalCenter: parent.verticalCenter
+    anchors.leftMargin: 16
+    text: Players.active?.isPlaying ? "󰏤" : "󰐊"   
+    font.pointSize: 14
+    color: Players.active?.canTogglePlaying ?
+    Config.color.primary.subtle : Config.color.primary.muted
 
-      Text {
-        text: "󰒭"
-        font.pointSize: 12
-        color: Players.active?.canGoNext ?
-        Config.color.primary.subtle : Config.color.primary.muted
+    MouseArea {
+      anchors.fill: parent
+      cursorShape: Players.active?.canTogglePlaying
+      ? Qt.PointingHandCursor
+      : Qt.ArrowCursor
+      enabled:Players.active?.canTogglePlaying ?? false
+      onClicked: Players.active?.togglePlaying()
+    }
+  }
 
-        MouseArea {
-          anchors.fill: parent
-          cursorShape: Players.active?.canGoNext
-          ? Qt.PointingHandCursor
-          : Qt.ArrowCursor
-          enabled:Players.active?.canGoNext ?? false
-          onClicked: Players.active?.next()
-        }
-      }
+  Text {
+    id: prev
+    text: ""
+    font.pointSize: 14
+    anchors.left: play.right
+    anchors.leftMargin: 16
+    anchors.verticalCenter: parent.verticalCenter
+    color: Players.active?.canGoPrevious ?
+    Config.color.primary.subtle : Config.color.primary.muted
+
+    MouseArea {
+      anchors.fill: parent
+      cursorShape: Players.active?.canGoPrevious
+      ? Qt.PointingHandCursor
+      : Qt.ArrowCursor
+      enabled: Players.active?.canGoPrevious ?? false
+      onClicked: Players.active?.previous()
+    }
+  }
+
+
+  Text {
+    anchors.left: prev.right
+    anchors.leftMargin: 8
+    anchors.verticalCenter: parent.verticalCenter
+    text: ""
+    font.pointSize: 14
+    color: Players.active?.canGoNext ?
+    Config.color.primary.subtle : Config.color.primary.muted
+
+    MouseArea {
+      anchors.fill: parent
+      cursorShape: Players.active?.canGoNext
+      ? Qt.PointingHandCursor
+      : Qt.ArrowCursor
+      enabled:Players.active?.canGoNext ?? false
+      onClicked: Players.active?.next()
     }
   }
 }

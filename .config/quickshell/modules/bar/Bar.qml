@@ -39,10 +39,10 @@ Scope {
         implicitHeight: bar.height + bar.height/2
 
         Rectangle {
-          clip:true
           width: bar.width
           height: bar.height
           color: "transparent"
+          clip: true
           Image {
             id: decor
             anchors.top : parent.top
@@ -96,34 +96,30 @@ Scope {
             Layout.preferredHeight: bar.height
             width: parent.width/3
             color: "transparent"
-            Row {
-              spacing: 12
+
+            Username {
+              id: usn
               height: parent.height
-              anchors.centerIn: parent
-              anchors.horizontalCenter: parent.horizontalCenter
-              Item {
-              }
-              Username {
-                height: parent.height
-              }
-              ProfilePicture {
-                anchors.top: parent.top
-                anchors.topMargin: -12
-                height: window.height + 8
-              }
+              anchors.left: parent.left
+              anchors.leftMargin: 90
+            }
+            ProfilePicture {
+              id: pp
+              anchors.top: parent.top
+              anchors.left: usn.right
+              anchors.leftMargin: 18
+              anchors.topMargin: -12
+              height: window.height + 8
+            }
 
-              Item {
-                width: 24
-                height: parent.height
-              }
 
-              Player {
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.topMargin: 4
-                anchors.bottomMargin: 4
-                height: parent.height
-              }
+            Player {
+              anchors.left: pp.right
+              anchors.leftMargin: 30
+              anchors.top: parent.top
+              anchors.bottom: parent.bottom
+              anchors.bottomMargin: 2
+              anchors.topMargin: anchors.bottomMargin
             }
 
           }
