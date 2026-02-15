@@ -232,7 +232,8 @@ Singleton {
   Component.onCompleted: {
     workspaceModel.clear()
 
-    for (let i = 1; i <= Config.system.workspace.maxNumberOfPillShown; i++) {
+    // for (let i = 1; i <= Config.system.workspace.maxNumberOfPillShown; i++) {
+    for (let i = 1; i <= 10; i++) {
       workspaceModel.append({
         wsId: i,
         exists: false,

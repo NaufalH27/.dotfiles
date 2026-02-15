@@ -16,7 +16,7 @@ JsonObject {
 
   component Workspace: JsonObject {
     property int minNumberOfPillShown: 5
-    property int maxNumberOfPillShown: 10
+    // property int maxNumberOfPillShown: 10
     property int minimizedWorkspaceOffset: 100
   }
 

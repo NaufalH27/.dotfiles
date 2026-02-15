@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-MINIMIZED_WS_OFFSET=100
+MINIMIZED_WS_OFFSET=$(jq -r '.system.workspace.minimizedWorkspaceOffset' "$HOME/.config/quickshell/shell.json")
 
 active_ws=$(hyprctl activeworkspace -j | jq '.id')
 hidden_ws=$((active_ws + MINIMIZED_WS_OFFSET))

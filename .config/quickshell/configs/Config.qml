@@ -35,6 +35,7 @@ Singleton {
         );
         DesktopApp.refetchIcon.running = true
         Hypr.updateWorkspaceModel()
+
       } catch (e) {
         console.error(
           "[Config] Failed to load config:",

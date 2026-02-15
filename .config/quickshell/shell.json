@@ -20,7 +20,7 @@
     },
     "system": {
         "clock": {
-            "clockFormat": 2
+            "clockFormat": 0
         },
         "dock": {
             "apps": [
@@ -35,7 +35,6 @@
             "showAllApps": false
         },
         "workspace": {
-            "maxNumberOfPillShown": 10,
             "minNumberOfPillShown": 5,
             "minimizedWorkspaceOffset": 100
         }
