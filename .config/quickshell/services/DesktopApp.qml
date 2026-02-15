@@ -1,5 +1,6 @@
 pragma Singleton
 import qs.utils
+import qs.configs
 import Quickshell
 import Quickshell.Io
 import QtQml
@@ -14,6 +15,7 @@ Singleton {
 
   property alias model: appModel
   property alias dock: dockModel
+  property alias refetchIcon: getIcon
 
   property var appById: ({})
 
@@ -23,23 +25,24 @@ Singleton {
 
   Process {
     running: true
+    command: ["sh", "-c", `inotifywait -mrq -e create -e delete -e move -e modify "$HOME/.local/share/icons" /usr/share/icons /usr/share/pixmaps /usr/share/applications`]
+    stdout: SplitParser {
+      onRead: (line) => {
+        getIcon.running = true
+      }
+    }
+  }
+
+  Process {
+    id: getIcon 
+    running: true
     command: ["sh", "-c", `${Paths.script}/scripts/desktopapp.sh -n WhiteSur`]
 
     stdout: StdioCollector {
       onStreamFinished: {
 
-        const dockOrder = [
-          "kitty",
-          "code",
-          "chromium-browser",
-          "com.obsproject.Studio",
-          "spotify",
-          "discord",
-          "org.gnome.Nautilus"
-        ]
-
         const dockIndex = {}
-        dockOrder.forEach((id, i) => dockIndex[id] = i)
+        Config.system.dock.apps.forEach((id, i) => dockIndex[id] = i)
 
         const dockItems = []
 
@@ -74,7 +77,7 @@ Singleton {
           if (!path) return null
           let name = path.substring(path.lastIndexOf("/") + 1)
           if (name.endsWith(".desktop"))
-            name = name.slice(0, -8)
+          name = name.slice(0, -8)
           return name
         }
 
@@ -104,14 +107,19 @@ Singleton {
           appModel.append(item)
           root.appById[desktopId] = item
 
-          if (dockIndex[desktopId] !== undefined) {
+          if (Config.system.dock.showAllApps) {
             dockItems.push(item)
+          } else {
+            if (dockIndex[desktopId] !== undefined) {
+              dockItems.push(item)
+            }
+
           }
         })
 
         dockItems
-          .sort((a, b) => dockIndex[a.desktopId] - dockIndex[b.desktopId])
-          .forEach(item => dockModel.append(item))
+        .sort((a, b) => dockIndex[a.desktopId] - dockIndex[b.desktopId])
+        .forEach(item => dockModel.append(item))
 
         root.ready = true
       }

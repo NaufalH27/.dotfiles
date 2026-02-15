@@ -8,8 +8,7 @@ import QtQml
 Singleton {
   id: root
 
-
-  readonly property int minimizedWorkspaceOffset: 10
+  readonly property int minimizedWorkspaceOffset: Config.system.workspace.minimizedWorkspaceOffset
 
   function isMinimizedWorkspace(rawId) {
     return rawId > minimizedWorkspaceOffset
@@ -37,7 +36,7 @@ Singleton {
   readonly property var toplevels: Hyprland.toplevels
   readonly property int activeWsId: focusedWorkspace?.id ?? 1
 
-  property int maxWsId: Config.system.ui.minNumberOfPillShown
+  property int maxWsId: Config.system.workspace.minNumberOfPillShown
   property bool isActiveWsEmpty: false
 
   property string clientIpc: ""
@@ -208,7 +207,7 @@ Singleton {
       workspaceModel.setProperty(i, "special", false)
     }
 
-    let maxId = Config.system.ui.minNumberOfPillShown
+    let maxId = Config.system.workspace.minNumberOfPillShown
 
     for (let ws of workspaces.values) {
       const wsId = normalizeWorkspaceId(ws.id)
@@ -233,7 +232,7 @@ Singleton {
   Component.onCompleted: {
     workspaceModel.clear()
 
-    for (let i = 1; i <= Config.system.ui.maxNumberOfPillShown; i++) {
+    for (let i = 1; i <= Config.system.workspace.maxNumberOfPillShown; i++) {
       workspaceModel.append({
         wsId: i,
         exists: false,

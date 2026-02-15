@@ -110,7 +110,7 @@ Rectangle {
           function textDisplay() {
           }
 
-          text: Icon.romanDigit[pill.wsId]
+          text: pill.wsId
           anchors.centerIn: parent
           color: textColor()
           font.pointSize: 10

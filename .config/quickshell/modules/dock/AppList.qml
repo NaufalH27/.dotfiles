@@ -19,7 +19,7 @@ Rectangle {
 
   Column {
     id:col
-    height: lists.height + topPadding + bottomPadding
+    height: 48 + topPadding + bottomPadding
     width: lists.width
     property int topPadding: 4
     property int bottomPadding: 4

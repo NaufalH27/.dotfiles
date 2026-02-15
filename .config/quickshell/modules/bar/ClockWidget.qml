@@ -6,7 +6,7 @@ import QtQuick.Layouts
 
 Rectangle {
   id:root
-  property int clockFormat: Config.system.service.clockFormat
+  property int clockFormat: Config.system.clock.clockFormat
   implicitWidth: column.implicitWidth
   color: "transparent"
 
@@ -29,7 +29,7 @@ Rectangle {
       easing.bezierCurve: Anim.curves.standardDecel 
     } 
     ScriptAction { 
-      script: Config.system.service.clockFormat = (Config.system.service.clockFormat + 1) % Config.system.service.numberOfClockFormat
+      script: Config.system.clock.clockFormat = (Config.system.clock.clockFormat + 1) % 4
     } 
     NumberAnimation { 
       target: column 

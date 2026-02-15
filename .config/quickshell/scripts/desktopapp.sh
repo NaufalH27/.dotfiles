@@ -4,7 +4,6 @@ set -euo pipefail
 CACHE_DIR="$HOME/.cache/quickshell"
 DESKTOP_DIR="/usr/share/applications"
 INDEX_DB="$CACHE_DIR/icon-index.db"
-META_FILE="$CACHE_DIR/icon-index.meta"
 DEFAULT_ICON_DIRS="$HOME/.local/share/icons:/usr/share/icons:/usr/share/pixmaps" 
 
 PREFERRED_ICON_THEME="${PREFERRED_ICON_THEME:-}"
@@ -35,24 +34,8 @@ IFS=':' read -r -a ICON_DIRS <<< "$ICON_DIRS_ENV"
 
 mkdir -p "$CACHE_DIR"
 
-get_mtimes() {
-  for d in "${ICON_DIRS[@]}"; do
-    [[ -d "$d" ]] || continue
-    printf 'ICON:%s=%s\n' "$d" "$(stat -c %Y "$d")"
-  done
-
-  if [[ -d "$DESKTOP_DIR" ]]; then
-    printf 'DESKTOP:%s=%s\n' "$DESKTOP_DIR" "$(stat -c %Y "$DESKTOP_DIR")"
-  fi
-}
-
 build_cache() {
-  echo ">> rebuilding icon cache"
-
-  tmp_meta=$(mktemp)
   tmp_tsv=$(mktemp)
-
-  get_mtimes > "$tmp_meta"
 
   for d in "${ICON_DIRS[@]}"; do
     [[ -d "$d" ]] || continue
@@ -81,22 +64,12 @@ CREATE INDEX idx_icons_name ON icons(name);
 .import '$tmp_tsv' icons
 SQL
 
-  mv "$tmp_meta" "$META_FILE"
   rm -f "$tmp_tsv"
 }
 
-cache_is_valid() {
-  [[ -f "$INDEX_DB" && -f "$META_FILE" ]] || return 1
-  diff -q "$META_FILE" <(get_mtimes) >/dev/null
-}
-
-
-if (( MANUAL_REBUILD )); then
-  build_cache
-elif ! cache_is_valid; then
+if (( MANUAL_REBUILD )) || [[ ! -f "$INDEX_DB" ]]; then
   build_cache
 fi
-
 
 resolve_icon() {
   local icon="$1"

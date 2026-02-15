@@ -5,59 +5,39 @@
             "blue": "#353d61",
             "contrast": "#544b5d",
             "green": "#8bb57b",
+            "highlightHigh": "#d9d7dc",
+            "highlightLow": "#f7f7f7",
+            "highlightMedium": "#f0f0f0",
             "muted": "#9790A0",
             "overlay": "#ffffff",
             "purple": "#58376c",
             "red": "#c91c60",
             "subtle": "#696969",
             "surface": "#ffffff",
-            "text": "#5b4f56"
-        }
-    },
-    "font": {
-        "family": {
-            "mono": "CaskaydiaMono Nerd Font",
-            "sans": "MesloLGL Nerd Font"
-        },
-        "size": {
-            "extraLarge": 28,
-            "large": 18,
-            "larger": 15,
-            "normal": 13,
-            "scale": 1,
-            "small": 11,
-            "smaller": 12
+            "text": "#5b4f56",
+            "yellow": "#d6b36a"
         }
     },
     "system": {
-        "service": {
-            "clockFormat": 1,
-            "numberOfClockFormat": 4
+        "clock": {
+            "clockFormat": 2
         },
-        "ui": {
+        "dock": {
+            "apps": [
+                "kitty",
+                "code",
+                "chromium-browser",
+                "com.obsproject.Studio",
+                "spotify",
+                "discord",
+                "org.gnome.Nautilus"
+            ],
+            "showAllApps": false
+        },
+        "workspace": {
             "maxNumberOfPillShown": 10,
-            "minNumberOfPillShown": 5
-        }
-    },
-    "utility": {
-        "enabled": true,
-        "maxToast": 4,
-        "sizes": {
-            "toastWidth": 430,
-            "width": 430
-        },
-        "toast": {
-            "audioInputChanged": true,
-            "audioOutputChanged": true,
-            "capsLockChanged": true,
-            "chargingChanged": true,
-            "configLoaded": true,
-            "dndChanged": true,
-            "gameModeChanged": true,
-            "kbLayoutChanged": true,
-            "nowPlaying": false,
-            "numLockChanged": true,
-            "vpnChanged": true
+            "minNumberOfPillShown": 5,
+            "minimizedWorkspaceOffset": 100
         }
     }
 }
