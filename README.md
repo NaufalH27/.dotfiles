@@ -32,3 +32,4 @@ kinda gothic and futuristic idk, also kinda monochrome
 | alt tab window switcher                  |          ✔        |
 | greetd/Display Manager                  |            ❌        |
 | Window FuzzyFinder                  |            🚧🛠️       |
+| Snack   notification               |            ❌       |
