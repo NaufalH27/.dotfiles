@@ -1,7 +1,7 @@
 import qs.components
 import qs.configs
+import qs.utils
 import QtQuick
-import Qt.labs.platform
 import QtQuick.Effects
 
 Rectangle {
@@ -16,8 +16,7 @@ Rectangle {
     color:"transparent"
     Image {
       id: cover
-      source: StandardPaths.writableLocation(StandardPaths.HomeLocation)
-        + "/.config/quickshell/assets/mutsu.jpg"
+      source: Paths.resolvePath(Config.system.image.profilePicture)
       anchors.centerIn: parent
       height: parent.height
       width: parent.height
@@ -78,5 +77,6 @@ Rectangle {
     onClicked : {
     }
   }
+
 }
 

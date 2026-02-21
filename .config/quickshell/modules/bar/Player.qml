@@ -2,13 +2,9 @@ import qs.services
 import qs.configs
 import qs.components
 import qs.utils
-import Quickshell
-import Quickshell.Services.Mpris
 import QtQuick
-import QtQuick.Layouts
-import Qt.labs.platform
-import QtQuick.Controls
 import QtQuick.Effects
+
 
 CornerRectangle {
   id: media
@@ -40,9 +36,7 @@ CornerRectangle {
       layer.enabled: true
       layer.smooth: true
       id: cover
-      source: media.isActive ? Players.active?.trackArtUrl
-      : Qt.resolvedUrl(StandardPaths.writableLocation(StandardPaths.HomeLocation)
-      + "/.config/quickshell/assets/vinyl.png")
+      source: media.isActive ? Players.active?.trackArtUrl : Paths.resolvePath(Config.system.image.defaultPlayerCover)
       anchors.centerIn: parent
       anchors.fill: parent
       visible: false

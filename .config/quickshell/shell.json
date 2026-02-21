@@ -32,11 +32,15 @@
                 "discord",
                 "org.gnome.Nautilus"
             ],
-            "showAllApps": false
+            "showAllApps": true
         },
         "workspace": {
             "minNumberOfPillShown": 5,
             "minimizedWorkspaceOffset": 100
+        },
+        "image": {
+          "profilePicture": "~/.config/quickshell/assets/mutsu.jpg",
+          "defaultPlayerCover": "~/.config/quickshell/assets/vinyl.png"
         }
     }
 }

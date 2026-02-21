@@ -4,6 +4,7 @@ JsonObject {
   property Clock clock: Clock {}
   property Workspace workspace: Workspace {}
   property Dock dock: Dock {}
+  property Image image: Image {}
 
 
   component Clock: JsonObject {
@@ -32,6 +33,11 @@ JsonObject {
       "org.gnome.Nautilus"
     ]
 
+  }
+
+  component Image: JsonObject {
+      property string profilePicture: ""
+      property string defaultPlayerCover: ""
   }
 
 }
