@@ -5,6 +5,7 @@ JsonObject {
   property Workspace workspace: Workspace {}
   property Dock dock: Dock {}
   property Image image: Image {}
+  property Icon icon: Icon {}
 
 
   component Clock: JsonObject {
@@ -38,6 +39,9 @@ JsonObject {
   component Image: JsonObject {
       property string profilePicture: ""
       property string defaultPlayerCover: ""
+  }
+  component Icon: JsonObject {
+      property string theme: ""
   }
 
 }

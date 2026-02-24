@@ -36,7 +36,7 @@ Singleton {
   Process {
     id: getIcon 
     running: true
-    command: ["sh", "-c", `${Paths.script}/scripts/desktopapp.sh -n WhiteSur`]
+    command: ["sh", "-c", `${Paths.script}/scripts/desktopapp.sh -n ${Config.system.icon.theme}`]
 
     stdout: StdioCollector {
       onStreamFinished: {
