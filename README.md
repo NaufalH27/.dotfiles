@@ -37,45 +37,45 @@ kinda gothic and futuristic idk, also kinda monochrome
 
 ## DEPENDENCIES
 Quickshell:
- qt5 Graphical Effect
- WhiteSur
- SF Pro Text Regular - /usr/share/fonts/SFPro/SF-Pro-Text-Regular.otf
- Kazesawa Regular - /usr/share/fonts/kazesawa/Kazesawa-Regular.ttf
- GeosansLight - /usr/share/fonts/geoSansLight/GeosansLight.ttf
- Material Symbols Rounded - /usr/share/fonts/material-symbol-fonts/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
- Maple Mono NL CN Regular - /usr/share/fonts/MapleMono/MapleMonoNL-CN-Regular.ttf
- Shippori Mincho Regular - /usr/share/fonts/shippori-mincho/ShipporiMincho-Regular.ttf
- sqlite3
- yq
- UPower
+- qt5 Graphical Effect
+- WhiteSur
+- SF Pro Text Regular - /usr/share/fonts/SFPro/SF-Pro-Text-Regular.otf
+- Kazesawa Regular - /usr/share/fonts/kazesawa/Kazesawa-Regular.ttf
+- GeosansLight - /usr/share/fonts/geoSansLight/GeosansLight.ttf
+- Material Symbols Rounded - /usr/share/fonts/material-symbol-fonts/MaterialSymbolsRounded[FILL,GRAD,opsz,wght].ttf
+- Maple Mono NL CN Regular - /usr/share/fonts/MapleMono/MapleMonoNL-CN-Regular.ttf
+- Shippori Mincho Regular - /usr/share/fonts/shippori-mincho/ShipporiMincho-Regular.ttf
+- sqlite3
+- yq
+- UPower
 
 mimeapp.list:
- Sioyek
- imv
- Haruna
- Neovim
- Chromium
- File Roller
+- Sioyek
+- imv
+- Haruna
+- Neovim
+- Chromium
+- File Roller
 
 kitty:
- nvim
- Maple Mono NL CN Regular
+- nvim
+- Maple Mono NL CN Regular
 
 zsh:
- oh-my-posh
- Syntax highlighting: /home/nopal/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
- History substring search: /home/nopal/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
- FZF tab completion: /home/nopal/.zsh/fzf-tab/fzf-tab.zsh
- fzf
+- oh-my-posh
+- Syntax highlighting: /home/nopal/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+- History substring search: /home/nopal/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+- FZF tab completion: /home/nopal/.zsh/fzf-tab/fzf-tab.zsh
+- fzf
 
 hyprland:
- Bibata-Original-Ice
- hyprpaper
- quickshell
- jq
+- Bibata-Original-Ice
+- hyprpaper
+- quickshell
+- jq
 
 nvim:
- yazi
- fzf
+- yazi
+- fzf
 
 
