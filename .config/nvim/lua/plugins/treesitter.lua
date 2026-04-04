@@ -3,6 +3,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ':TSUpdate',
+      branch = "master",
     highlight = { enabled = true },
     rainbow = { enabled = false },
     config = function()

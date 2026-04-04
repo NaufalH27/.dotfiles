@@ -20,7 +20,11 @@ Singleton {
   property var appById: ({})
 
   function getAppByDesktopId(id) {
-    return appById[id] || null
+    if (!id) return null
+
+    const normalizedId = id.toLowerCase()
+
+    return appById[id] || appById[normalizedId] || null
   }
 
   Process {
@@ -29,6 +33,11 @@ Singleton {
     stdout: SplitParser {
       onRead: (line) => {
         getIcon.running = true
+      }
+    }
+    stderr: SplitParser {
+      onRead: (line) => {
+        console.info("error for icon and app logo listener:", line)
       }
     }
   }

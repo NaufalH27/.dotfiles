@@ -1,7 +1,9 @@
 export PREFERRED_ICON_THEME=WhiteSur
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERM="xterm-256color"
+export TERM=kitty
+export TERMINAL=kitty
+export TERM_PROGRAM=kitty
 
 export MANPAGER="nvim +Man!"
 
@@ -22,6 +24,7 @@ export NPM_CONFIG_CACHE="$XDG_CACHE_HOME"/npm
 export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
 export WAKATIME_HOME="$XDG_CONFIG_HOME"/wakatime
 export PATH="$HOME/development/flutter/bin:$PATH"
+export PATH=$PATH:/usr/sbin
 
 export PATH="/home/nopal/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/nopal/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
@@ -70,6 +73,10 @@ bindkey '^J' down-line
 bindkey '^H' backward-word
 bindkey '^L' forward-word
 
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+export PATH=$JAVA_HOME/bin:$PATH
 
 
 echo

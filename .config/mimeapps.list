@@ -20,6 +20,7 @@ audio/wav=org.kde.haruna.desktop;
 text/plain=nvim.desktop;
 text/html=chromium.desktop;
 application/x-zerosize=nvim.desktop;
+x-scheme-handler/terminal=kitty.desktop
 
 [Default Applications]
 application/pdf=sioyek.desktop;
@@ -47,3 +48,8 @@ x-scheme-handler/http=chromium.desktop;
 x-scheme-handler/https=chromium.desktop;
 x-scheme-handler/unknown=chromium.desktop;
 x-scheme-handler/discord-1216669957799018608=discord-1216669957799018608.desktop
+application/x-pka=PacketTracer.desktop
+application/x-pkt=PacketTracer.desktop
+application/x-pkz=PacketTracer.desktop
+application/x-pksz=PacketTracer.desktop
+x-scheme-handler/terminal=kitty.desktop

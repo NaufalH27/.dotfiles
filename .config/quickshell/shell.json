@@ -20,7 +20,7 @@
     },
     "system": {
         "clock": {
-            "clockFormat": 0
+            "clockFormat": 1
         },
         "dock": {
             "apps": [
@@ -32,18 +32,18 @@
                 "discord",
                 "org.gnome.Nautilus"
             ],
-            "showAllApps": false
+            "showAllApps": true
+        },
+        "icon": {
+            "theme": "WhiteSur"
+        },
+        "image": {
+            "defaultPlayerCover": "~/.config/quickshell/assets/vinyl.png",
+            "profilePicture": "~/.config/quickshell/assets/mutsu.jpg"
         },
         "workspace": {
             "minNumberOfPillShown": 5,
             "minimizedWorkspaceOffset": 100
-        },
-        "image": {
-          "profilePicture": "~/.config/quickshell/assets/mutsu.jpg",
-          "defaultPlayerCover": "~/.config/quickshell/assets/vinyl.png"
-        },
-        "icon": {
-            "theme": "WhiteSur"
         }
     }
 }

@@ -39,7 +39,7 @@ build_cache() {
 
   for d in "${ICON_DIRS[@]}"; do
     [[ -d "$d" ]] || continue
-    find "$d" \( -name '*.png' -o -name '*.svg' \) \( -path '*/pixmaps/*' -o -path '*/apps/*' \) | 
+    find "$d" \( -name '*.png' -o -name '*.svg' \) | 
     while IFS= read -r path; do
       name=${path##*/}
       name=${name%.*}

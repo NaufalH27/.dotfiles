@@ -8,13 +8,11 @@ return {
       "pylsp",
       "rust_analyzer",
       "gopls",
-      "clangd",
+      "bashls",
       "yamlls",
       "jsonls",
       "efm",
       "taplo",
-      "bashls",
-      "lua_ls",
       "ts_ls",
       "tailwindcss",
       "cssls",
@@ -36,7 +34,6 @@ end },
   config = function()
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     vim.lsp.config("html", {})
-    vim.lsp.config("cssls", {})
     vim.lsp.config("cssls", {})
     vim.lsp.config("tailwindcss", {})
     vim.lsp.config("bashls", {})
@@ -85,10 +82,6 @@ end },
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
       root_marker = { "go.work", "go.mod", ".git" },
-    })
-    vim.lsp.config("clangd", {
-      cmd = { "clangd", "--fallback-style=Google" },
-      root_marker = { "Makefile", "CMakeLists.txt", ".git" },
     })
     vim.lsp.config("ts_ls", {
       root_marker = { "node_modules", ".git", "packge.json", "package-lock.json" },
