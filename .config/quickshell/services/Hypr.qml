@@ -43,21 +43,6 @@ Singleton {
   property var toplevelByAddress: ({})
 
   onClientIpcChanged: updateWorkspaceModelTopLevel()
-  onActiveToplevelChanged: {
-    if (!root.activeToplevel.wayland || root.activeToplevel.wayland === null) {
-      return
-    }
-    if (root.activeToplevel.wayland.maximized) {
-      root.dispatch(`fullscreen 1`)
-      root.dispatch(`fullscreen 1`)
-    }
-
-    if (root.activeToplevel.wayland.fullscreen) {
-      root.dispatch(`fullscreen 2`)
-      root.dispatch(`fullscreen 2`)
-    }
-  }
-
 
   ListModel { id: workspaceModel }
   property alias workspaceModel: workspaceModel
