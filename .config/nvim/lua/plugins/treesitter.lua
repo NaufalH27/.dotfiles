@@ -1,37 +1,21 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    build = ":TSUpdate",
     lazy = false,
-    build = ':TSUpdate',
-      branch = "master",
-    highlight = { enabled = true },
-    rainbow = { enabled = false },
     config = function()
-      require'nvim-treesitter'.setup {
+      require("nvim-treesitter.configs").setup {
         ensure_installed = {
-          "php",
-          "phpdoc",
-          "bash",
-          "c",
-          "go",
-          "html",
-          "java",
-          "javascript",
-          "json",
-          "kotlin",
-          "lua",
-          "markdown",
-          "markdown_inline",
-          "python",
-          "query",
-          "regex",
-          "rust",
-          "tsx",
-          "typescript",
-          "vim",
-          "yaml",
+          "php", "phpdoc", "bash", "c", "go", "html", "java",
+          "javascript", "json", "kotlin", "lua", "markdown",
+          "markdown_inline", "python", "query", "regex",
+          "rust", "tsx", "typescript", "vim", "yaml",
         },
+        auto_install = true,
+        highlight = { enabled = true },
+        rainbow = { enabled = false },
       }
-    end
+    end,
   },
 }

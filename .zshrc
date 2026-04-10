@@ -35,6 +35,7 @@ export ICON_DIRS="$HOME/.local/share/icons:/usr/share/icons:/usr/share/pixmaps"
 alias eww='~/.config/eww/eww/target/release/eww'
 alias ls='ls --color=auto'
 alias sudo='sudo'
+alias clear='printf "\033[2J\033[3J\033[1;1H"'
 alias buildApk='./gradlew --no-daemon assembleDebug && adb install app/build/outputs/apk/debug/app-debug.apk || waydroid app install app/build/outputs/apk/debug/app-debug.apk'
 
 

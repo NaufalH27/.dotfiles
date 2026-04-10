@@ -24,15 +24,23 @@
         },
         "dock": {
             "apps": [
+                "systemsettings",
+                "org.kde.dolphin",
                 "kitty",
-                "code",
                 "chromium-browser",
-                "com.obsproject.Studio",
-                "spotify",
                 "discord",
-                "org.gnome.Nautilus"
+                "spotify",
+                "com.obsproject.Studio",
+                "nvim",
+                "code",
+                "tlauncher",
+                "steam",
+                "org.kde.haruna",
+                "PacketTracer",
+                "Zoom",
+                "sioyek"
             ],
-            "showAllApps": true
+            "showAllApps": false
         },
         "icon": {
             "theme": "WhiteSur"

@@ -37,9 +37,8 @@ Scope {
       Keys.onPressed: function(event) {
         if (event.key === Qt.Key_Q) {
           Hypr.dispatch("submap reset")
-          WindowSwitcherService.selectFocus()
-
           WindowSwitcherService.cycleNext()
+          WindowSwitcherService.selectFocus()
           event.accepted = true
         }
 
@@ -568,7 +567,6 @@ Scope {
               height: parent.height
               width: parent.width
               captureSource: WindowSwitcherService.allWindows()?.get(WindowSwitcherService.selectorIndex)?.qsToplevel.wayland ?? null
-              visible: false
             }
 
             MultiEffect { 

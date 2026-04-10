@@ -19,7 +19,7 @@ return {
       "html",
       "intelephense",
       "jdtls",
-      "ts_ls",
+      "clangd",
     },
     automatic_installation = true,
   })
@@ -38,8 +38,10 @@ end },
     vim.lsp.config("tailwindcss", {})
     vim.lsp.config("bashls", {})
     vim.lsp.config("yamlls", {})
+    vim.lsp.config("luals", {})
     vim.lsp.config("jsonls", {})
     vim.lsp.config("taplo", {})
+    vim.lsp.config("clangd", {})
     vim.lsp.config("efm", {
       filetypes = { "conf", "ini" },
     })

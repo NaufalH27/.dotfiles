@@ -23,7 +23,6 @@ Scope {
         id: window
         required property var modelData
         screen: modelData
-        WlrLayershell.layer: WlrLayer.Overlay
         anchors {
           bottom: true
         }
@@ -41,7 +40,7 @@ Scope {
         }
 
 
-        property bool isOpen: hover.hovered || Hypr.isActiveWsEmpty
+        property bool isOpen: (hover.hovered || Hypr.isActiveWsEmpty)
 
         Item {
           id: hoverArea
